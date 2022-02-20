@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Destructible.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Destructible.gd" type="Script" id=1]
 
 [node name="Destructible" type="StaticBody2D" groups=["Destructible"]]
 script = ExtResource( 1 )
