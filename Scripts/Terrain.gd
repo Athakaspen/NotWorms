@@ -1,6 +1,6 @@
 extends Node2D
 
-var destructible = preload("res://Destructible.tscn")
+var destructible = preload("res://SubScenes/Terrain/Destructible.tscn")
 
 func _ready() -> void:
 	chunkify_terrain()

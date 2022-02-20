@@ -1,12 +1,13 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Bomb.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Bomb.gd" type="Script" id=1]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 9.5
 
 [node name="Bomb" type="RigidBody2D"]
 gravity_scale = 6.0
+can_sleep = false
 script = ExtResource( 1 )
 
 [node name="BombGraphic" type="Polygon2D" parent="."]

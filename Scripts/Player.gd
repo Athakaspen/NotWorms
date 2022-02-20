@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-var bomb = preload("res://Bomb.tscn")
+var bomb = preload("res://SubScenes/Weapons/Bomb.tscn")
 
 #var gravity := 400.0
 var speed := 1500.0
