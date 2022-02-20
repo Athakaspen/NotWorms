@@ -32,6 +32,7 @@ func clip(source_body: StaticBody2D, neg_poly: CollisionPolygon2D) -> void:
 			print(Geometry.is_polygon_clockwise(res_poly))
 			var newTerrain = destructible.instance()
 			newTerrain.get_node("RenderPoly").polygon = res_poly
+			newTerrain.get_node("RenderPoly").color = source_poly.color
 			add_child(newTerrain)
 	
 	# Free the polygon to avoid memory leak
