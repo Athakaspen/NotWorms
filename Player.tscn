@@ -24,17 +24,17 @@ polygon = PoolVector2Array( 2, -17, 4, -17, 4, -15, 2, -15 )
 
 [node name="Beak" type="Polygon2D" parent="Body"]
 color = Color( 0.976471, 0.603922, 0.0745098, 1 )
-polygon = PoolVector2Array( 8, -16, 11, -18, 14, -18, 12, -16, 9, -15 )
+polygon = PoolVector2Array( 8, -16, 11, -18, 14, -18, 12.2121, -15.7576, 9.45455, -14.5758 )
 
 [node name="Gobble" type="Polygon2D" parent="Body"]
-position = Vector2( 1, 2 )
+position = Vector2( 1.18182, 2.36364 )
 color = Color( 0.976471, 0.0745098, 0.0745098, 1 )
-polygon = PoolVector2Array( 8, -17, 11, -18, 12, -17, 12, -15, 9, -16 )
+polygon = PoolVector2Array( 8, -17, 11.4242, -18.5152, 12.6061, -16.9394, 12.2121, -14.5758, 9.45455, -14.9697 )
 
 [node name="Mohawk" type="Polygon2D" parent="Body"]
 position = Vector2( -10, -3 )
 color = Color( 0.976471, 0.0745098, 0.0745098, 1 )
-polygon = PoolVector2Array( 8, -17, 11, -19, 13, -17, 13, -15, 9, -16, 7, -15 )
+polygon = PoolVector2Array( 7.24242, -17.8788, 11.9697, -19.8485, 14.3333, -17.4849, 13, -15, 9.21212, -15.5152, 6.0606, -15.1212 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 visible = false
@@ -48,6 +48,7 @@ color = Color( 0.0705882, 0.105882, 0.384314, 1 )
 polygon = PoolVector2Array( -4, 10, -8, 7, -10, 2, -9, -3, -7, -6, -3, -9, -3, -13, 2, -14, 2, -9, 7, -7, 9, -3, 10, 3, 8, 6, 5, 9, 1, 10 )
 
 [node name="Fuse" type="Polygon2D" parent="RotPoint/BombGraphic"]
+color = Color( 0.776471, 0.776471, 0.776471, 1 )
 polygon = PoolVector2Array( -1, -13, -1, -16, -4, -20, -2, -22, 1, -17, 1, -13 )
 
 [node name="ShootPoint" type="Position2D" parent="RotPoint"]
