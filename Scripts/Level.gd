@@ -24,7 +24,7 @@ func _process(_delta):
 	update_camera(turn_queue.get_current_player().get_body(), 
 		turn_queue.get_camera_mode())
 	update_UI()
-	
+
 
 func update_UI():
 	UI.set_timer_progress(turn_queue.get_timer_progress())
