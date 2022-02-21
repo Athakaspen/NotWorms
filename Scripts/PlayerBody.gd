@@ -4,14 +4,14 @@ class_name PlayerBody
 
 var bomb = preload("res://SubScenes/Weapons/Bomb.tscn")
 
-#var gravity := 400.0
 export var move_force := 1100.0
 export var MAX_SPEED = 400
 export var H_damping := 3.0
-#var velocity := Vector2.ZERO
 export var bomb_velocity := 600.0
 export var jump_force := 350.0
 export var air_jump_scalar := 0.65
+
+onready var parent = $".."
 
 var is_active := false
 
@@ -38,7 +38,7 @@ func _process(_delta: float) -> void:
 	# Bail if it's not ur turn
 	if not is_active: return
 	
-	$RotPoint.look_at(get_global_mouse_position())
+	$RotPoint.look_at(parent.aim_point.global_position)
 	
 #	if Input.is_action_just_pressed("shoot"):
 #		var b = bomb.instance()
@@ -54,7 +54,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot"):
 		var b = bomb.instance()
 		b.transform = $RotPoint/ShootPoint.global_transform
-		get_parent().add_child(b)
+		parent.turn_queue.level.projectile_holder.add_child(b)
 		b.apply_central_impulse(b.transform.x * bomb_velocity * b.mass)
 
 func _physics_process(delta: float) -> void:

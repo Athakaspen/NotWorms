@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node",
+"base": "Node2D",
 "class": "Player",
 "language": "GDScript",
 "path": "res://Scripts/Player.gd"
@@ -35,6 +35,10 @@ _global_script_class_icons={
 config/name="NotWorms"
 run/main_scene="res://MainScenes/Level.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+MatchInfo="*res://Scripts/Singletons/MatchInfo.gd"
 
 [display]
 
