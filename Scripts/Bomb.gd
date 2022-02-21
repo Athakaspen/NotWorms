@@ -19,14 +19,12 @@ func explode() -> void:
 #	get_parent().call_deferred("add_child", inst)
 	
 	for body in $ExplosionArea.get_overlapping_bodies():
-		print (body)
+		#print (body)
 		if body.is_in_group("Destructible"):
 			body.get_parent().clip(body, $ExplosionArea/DestructionPolygon)
-			
+	
 	
 	call_deferred("queue_free")
-
-
 
 func _on_Timer_timeout():
 	explode()
