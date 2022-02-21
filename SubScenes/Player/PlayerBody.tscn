@@ -3,6 +3,7 @@
 [ext_resource path="res://Scripts/PlayerBody.gd" type="Script" id=1]
 
 [node name="PlayerBody" type="RigidBody2D" groups=["Knockback", "Player"]]
+mass = 1.5
 gravity_scale = 12.0
 contacts_reported = 4
 contact_monitor = true
