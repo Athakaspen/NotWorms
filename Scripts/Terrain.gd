@@ -22,14 +22,14 @@ func clip(source_body: StaticBody2D, neg_poly: CollisionPolygon2D) -> void:
 	if (len(result)) == 0:
 		source_body.queue_free()
 	else:
-		print(Geometry.is_polygon_clockwise(result[0]))
+		#print(Geometry.is_polygon_clockwise(result[0]))
 		# Assign the first result to this object
 		source_poly.polygon = result[0]
 		source_body.get_node("CollisionPoly").set_deferred("polygon", result[0])
 		
 		# If there are more results, create new objects for them
 		for res_poly in result.slice(1,len(result)):
-			print(Geometry.is_polygon_clockwise(res_poly))
+			#print(Geometry.is_polygon_clockwise(res_poly))
 			var newTerrain = destructible.instance()
 			newTerrain.get_node("RenderPoly").polygon = res_poly
 			newTerrain.get_node("RenderPoly").color = source_poly.color
@@ -49,6 +49,9 @@ func chunkify_terrain() -> void:
 	var chunk_array = []
 	
 	for terrain_obj in get_children():
+		# Skip items that have been hidden in the editor
+		if not terrain_obj.visible: continue
+		
 		var terr_poly = terrain_obj.polygon
 		
 		# Get extents (manually D,:)

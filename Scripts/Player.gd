@@ -1,41 +1,47 @@
-extends RigidBody2D
+extends Node
 
-var bomb = preload("res://SubScenes/Weapons/Bomb.tscn")
+class_name Player
 
-#var gravity := 400.0
-var speed := 1500.0
-var velocity := Vector2.ZERO
-var bomb_velocity := 600.0
-var jump_force := 300.0
+signal turn_done
+
+onready var player_body = $PlayerBody
+onready var turn_timer = $TurnTimer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$NametagPosition/PlayerNametag.text = name
 
-func _process(delta: float) -> void:
-	$RotPoint.look_at(get_global_mouse_position())
-	
-	if Input.is_action_just_pressed("shoot"):
-		var b = bomb.instance()
-		b.transform = $RotPoint/ShootPoint.global_transform
-		get_parent().add_child(b)
-		b.apply_central_impulse(b.transform.x * bomb_velocity * b.mass)
-		
+func _process(_delta):
+	$NametagPosition.position = $PlayerBody.position + Vector2.UP * 50
 
-func _physics_process(delta: float) -> void:
-	if Input.is_action_pressed("left"):
-		#apply_central_impulse(-global_transform.x * speed * delta)
-		apply_central_impulse(Vector2.LEFT * speed * delta)
-	elif Input.is_action_pressed("right"):
-		#apply_central_impulse(global_transform.x * speed * delta)
-		apply_central_impulse(Vector2.RIGHT * speed * delta)
+func play_turn(turn_dur:float) -> void:
+	# print("It's %s's turn!" % name)
 	
-	if Input.is_action_just_pressed("jump"):
-		apply_central_impulse(Vector2.UP * jump_force)
+	turn_timer.wait_time = turn_dur
 	
-	if Input.is_action_just_pressed("power_up"):
-			bomb_velocity += 20
-			bomb_velocity = clamp(bomb_velocity, 100, 1500)
-	elif Input.is_action_just_pressed("power_down"):
-			bomb_velocity -= 20
-			bomb_velocity = clamp(bomb_velocity, 100, 1500)
+	# Set active player's body to active after a short delay
+	yield(get_tree().create_timer(1.0), "timeout")
+	player_body.set_turn_active(true);
+	turn_timer.start()
+	
+	# Don't return until we emit a signal
+	yield(self, "turn_done")
+
+#func wait_end_turn(dur : float):
+#	yield(get_tree().create_timer(dur), "timeout")
+#	end_turn()
+
+func end_turn():
+	player_body.set_turn_active(false)
+	# Stop the timer if it's still going
+	turn_timer.stop()
+	emit_signal("turn_done")
+
+func get_body() -> Node:
+	return player_body
+
+func get_timer_progress() -> float:
+	return turn_timer.time_left/turn_timer.wait_time
+
+func _on_TurnTimer_timeout():
+	end_turn()

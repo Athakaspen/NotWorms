@@ -1,55 +1,32 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://Fonts/TestFont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://SubScenes/Player/PlayerBody.tscn" type="PackedScene" id=3]
 
-[node name="Player" type="RigidBody2D" groups=["Player"]]
-gravity_scale = 8.0
-linear_damp = 3.0
-angular_damp = 1.0
+[node name="Player1" type="Node"]
 script = ExtResource( 1 )
 
-[node name="Body" type="Polygon2D" parent="."]
-position = Vector2( -6, 11 )
-scale = Vector2( 2.53846, 2.53846 )
-polygon = PoolVector2Array( -5, 8, 10, 8, 17, 1, 17, -10, 9, -18, -4, -18, -12, -10, -12, 1 )
+[node name="PlayerBody" parent="." instance=ExtResource( 3 )]
+position = Vector2( 863, 194 )
 
-[node name="Wing" type="Polygon2D" parent="Body"]
-color = Color( 0.411765, 0.411765, 0.411765, 1 )
-polygon = PoolVector2Array( -4, -9, -7, -7, -11, -6, -6, -6, -4, -8 )
+[node name="TurnTimer" type="Timer" parent="."]
+one_shot = true
 
-[node name="Eye" type="Polygon2D" parent="Body"]
-position = Vector2( 2, 0 )
-color = Color( 0.411765, 0.411765, 0.411765, 1 )
-polygon = PoolVector2Array( 2, -17, 4, -17, 4, -15, 2, -15 )
+[node name="NametagPosition" type="Position2D" parent="."]
 
-[node name="Beak" type="Polygon2D" parent="Body"]
-color = Color( 0.976471, 0.603922, 0.0745098, 1 )
-polygon = PoolVector2Array( 8, -16, 11, -18, 14, -18, 12.2121, -15.7576, 9.45455, -14.5758 )
+[node name="PlayerNametag" type="Label" parent="NametagPosition"]
+margin_left = -140.0
+margin_top = -45.0
+margin_right = 141.0
+custom_fonts/font = ExtResource( 2 )
+text = "Player 1"
+align = 1
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Gobble" type="Polygon2D" parent="Body"]
-position = Vector2( 1.18182, 2.36364 )
-color = Color( 0.976471, 0.0745098, 0.0745098, 1 )
-polygon = PoolVector2Array( 8, -17, 11.4242, -18.5152, 12.6061, -16.9394, 12.2121, -14.5758, 9.45455, -14.9697 )
+[connection signal="timeout" from="TurnTimer" to="." method="_on_TurnTimer_timeout"]
 
-[node name="Mohawk" type="Polygon2D" parent="Body"]
-position = Vector2( -10, -3 )
-color = Color( 0.976471, 0.0745098, 0.0745098, 1 )
-polygon = PoolVector2Array( 7.24242, -17.8788, 11.9697, -19.8485, 14.3333, -17.4849, 13, -15, 9.21212, -15.5152, 6.0606, -15.1212 )
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-visible = false
-scale = Vector2( 2.98611, 3.125 )
-polygon = PoolVector2Array( 12.3907, -4.8, 12.3907, 4.16, 6.36279, 9.92, -6.02791, 9.92, -12.0558, 4.16, -12.0558, -4.48, -5.35814, -10.88, 5.35814, -10.88 )
-
-[node name="RotPoint" type="Position2D" parent="."]
-
-[node name="BombGraphic" type="Polygon2D" parent="RotPoint"]
-color = Color( 0.0705882, 0.105882, 0.384314, 1 )
-polygon = PoolVector2Array( -4, 10, -8, 7, -10, 2, -9, -3, -7, -6, -3, -9, -3, -13, 2, -14, 2, -9, 7, -7, 9, -3, 10, 3, 8, 6, 5, 9, 1, 10 )
-
-[node name="Fuse" type="Polygon2D" parent="RotPoint/BombGraphic"]
-color = Color( 0.776471, 0.776471, 0.776471, 1 )
-polygon = PoolVector2Array( -1, -13, -1, -16, -4, -20, -2, -22, 1, -17, 1, -13 )
-
-[node name="ShootPoint" type="Position2D" parent="RotPoint"]
-position = Vector2( 42, 0 )
+[editable path="PlayerBody"]

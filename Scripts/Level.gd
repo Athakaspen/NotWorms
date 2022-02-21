@@ -1,8 +1,8 @@
 extends Node2D
-
+ 
 onready var camera = $GameCamera
-#onready var camera_target = $CameraTrackPoint
-
+onready var turn_queue = $TurnQueue
+onready var UI = $CanvasLayer/UIHolder
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,14 +14,21 @@ func _ready():
 	camera.limit_bottom = camera_limit.position.y
 	camera.limit_right = camera_limit.position.x
 	
-	update_camera($Player)
+	turn_queue.initialize()
+	
+	update_camera(turn_queue.get_current_player().get_body())
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	update_camera($Player)
-	# set the camera tracking point's position
+func _process(_delta):
+	update_camera(turn_queue.get_current_player().get_body())
 	
+	update_UI()
+	
+
+func update_UI():
+	UI.set_timer_progress(turn_queue.get_timer_progress())
+	UI.set_current_player_name(turn_queue.get_current_player().name)
 
 func update_camera(player):
 	
