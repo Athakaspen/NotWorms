@@ -46,7 +46,7 @@ current = true
 limit_left = 0
 limit_top = 0
 smoothing_enabled = true
-smoothing_speed = 2.0
+smoothing_speed = 3.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -58,18 +58,48 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="CanvasLayer/UIHolder"]
-margin_left = 27.0
-margin_top = 19.0
-margin_right = 462.0
-margin_bottom = 73.0
+[node name="Preturn" type="Control" parent="CanvasLayer/UIHolder"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="TurnLabelCenter" type="Label" parent="CanvasLayer/UIHolder/Preturn"]
+margin_left = 428.0
+margin_top = 564.0
+margin_right = 875.0
+margin_bottom = 603.0
+custom_fonts/font = ExtResource( 5 )
+text = "Player1's Turn!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ReadyButton" type="Button" parent="CanvasLayer/UIHolder/Preturn"]
+margin_left = 514.0
+margin_top = 448.0
+margin_right = 792.0
+margin_bottom = 541.0
+custom_fonts/font = ExtResource( 5 )
+text = "Ready!"
+
+[node name="Turn" type="Control" parent="CanvasLayer/UIHolder"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TurnLabelCorner" type="Label" parent="CanvasLayer/UIHolder/Turn"]
+margin_left = 26.0
+margin_top = 22.0
+margin_right = 392.0
+margin_bottom = 67.0
 custom_fonts/font = ExtResource( 5 )
 text = "XXXX's Turn!"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TurnTimer" type="TextureProgress" parent="CanvasLayer/UIHolder"]
+[node name="TurnTimer" type="TextureProgress" parent="CanvasLayer/UIHolder/Turn"]
 margin_left = 1131.0
 margin_top = 19.0
 margin_right = 1259.0
@@ -85,7 +115,7 @@ __meta__ = {
 }
 TimeGradient = SubResource( 2 )
 
-[node name="EndTurnButton" type="Button" parent="CanvasLayer/UIHolder"]
+[node name="EndTurnButton" type="Button" parent="CanvasLayer/UIHolder/Turn"]
 margin_left = 982.0
 margin_top = 636.0
 margin_right = 1263.0
@@ -96,7 +126,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="pressed" from="CanvasLayer/UIHolder/EndTurnButton" to="CanvasLayer/UIHolder" method="_on_EndTurnButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/UIHolder/Preturn/ReadyButton" to="CanvasLayer/UIHolder" method="_on_ReadyButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/UIHolder/Turn/EndTurnButton" to="CanvasLayer/UIHolder" method="_on_EndTurnButton_pressed"]
 
 [editable path="TurnQueue/Player1"]
 [editable path="TurnQueue/Player1/PlayerBody"]

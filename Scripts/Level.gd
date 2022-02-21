@@ -21,8 +21,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	update_camera(turn_queue.get_current_player().get_body())
-	
+	update_camera(turn_queue.get_current_player().get_body(), 
+		turn_queue.get_camera_mode())
 	update_UI()
 	
 
@@ -30,11 +30,11 @@ func update_UI():
 	UI.set_timer_progress(turn_queue.get_timer_progress())
 	UI.set_current_player_name(turn_queue.get_current_player().name)
 
-func update_camera(player):
-	
-	# Camera follows player
-	#camera_target.global_position = player.global_position
-	
-	# Camera sits between player and aim point
-	camera.global_position = \
-		(2*player.global_position + get_global_mouse_position()) / 3
+func update_camera(player, includeMouse := true):
+	if not includeMouse:
+		# Camera follows player
+		camera.global_position = player.global_position
+	else:
+		# Camera sits between player and aim point
+		camera.global_position = \
+			(2*player.global_position + get_global_mouse_position()) / 3

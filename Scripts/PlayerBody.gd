@@ -19,6 +19,9 @@ var is_active := false
 func _ready():
 	set_turn_active(false)
 
+func init_preturn():
+	$RotPoint.visible = true
+
 func set_turn_active(value:bool) -> void:
 	# Set to inactive
 	if value == false:
