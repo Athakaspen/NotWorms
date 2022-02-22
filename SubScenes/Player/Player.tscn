@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Fonts/GOUDYSTO.TTF" type="DynamicFontData" id=2]
 [ext_resource path="res://SubScenes/Player/PlayerBody.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Sprites/smallbarfill.png" type="Texture" id=4]
 [ext_resource path="res://Sprites/smallbarback.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/crosshair.png" type="Texture" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 2 )
@@ -48,6 +49,10 @@ __meta__ = {
 }
 
 [node name="AimPoint" type="Position2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="AimPoint"]
+visible = false
+texture = ExtResource( 6 )
 
 [connection signal="timeout" from="TurnTimer" to="." method="_on_TurnTimer_timeout"]
 

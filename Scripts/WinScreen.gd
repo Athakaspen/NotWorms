@@ -9,6 +9,8 @@ var menu_path = "res://MainScenes/Menu.tscn"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Input.set_custom_mouse_cursor(null)
+	
 	$PlayerHolder/_placeholder.visible = false
 	$UI/Title.text = MatchInfo.winner + " Wins!"
 	var winner_node = MatchInfo.player_info[MatchInfo.winner]
