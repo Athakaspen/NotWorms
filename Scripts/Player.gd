@@ -8,9 +8,9 @@ onready var player_body = $PlayerBody
 onready var turn_timer = $TurnTimer
 onready var turn_queue = $".."
 onready var aim_point = $AimPoint
-#onready var traj_line = $TrajectoryLine
 
 var controller_aim_speed = 1000
+var max_aim_dist = 800
 
 export var MAX_HEALTH = 100
 var health
@@ -23,6 +23,7 @@ var is_invincible := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	aim_point.position = player_body.position
 	$Tag/PlayerNametag.text = name
 	health = MAX_HEALTH
 	update_healthbar()
@@ -31,24 +32,35 @@ func _process(delta):
 	# ah cahnt dyu aneethin if ahm ded
 	#if is_dead: return
 	
-	# Controller Movement
-	var aim_input = Vector2(
-		Input.get_action_strength("aim_right") - Input.get_action_strength("aim_left"),
-		Input.get_action_strength("aim_down") - Input.get_action_strength("aim_up")
-	)
-	if aim_input.length() > 0:
-		var cur_mouse_pos = get_viewport().get_mouse_position()
-		Input.warp_mouse_position(cur_mouse_pos + aim_input * controller_aim_speed * delta)
+	if is_my_turn:
+		# Controller Movement
+		var aim_input = Vector2(
+			Input.get_action_strength("aim_right") - Input.get_action_strength("aim_left"),
+			Input.get_action_strength("aim_down") - Input.get_action_strength("aim_up")
+		)
+		if aim_input.length() > 0:
+#			var cur_mouse_pos = get_viewport().get_mouse_position()
+#			Input.warp_mouse_position(cur_mouse_pos + aim_input * controller_aim_speed * delta)
+			aim_point.position += aim_input * controller_aim_speed * delta
 	
-	# Mouse Movement
-	aim_point.global_position = get_global_mouse_position()
+		# Lock cursor within a radius of the player
+		if player_body.position.distance_to(aim_point.position) > max_aim_dist:
+			var difference:Vector2 = aim_point.position - player_body.position
+			aim_point.position = player_body.position + difference.normalized()*max_aim_dist
 	
 	# Stick tag to player's head
 	$Tag.position = $PlayerBody.position + Vector2.UP * 50
 
+func _input(event):
+	if not is_my_turn: return
+	if event is InputEventMouseMotion:
+		aim_point.position += event.relative
+
 # This function is called when the "Ready Up" screen shows,
 # before the actual turn begins. It's here to set up visuals mostly.
 func init_preturn():
+	aim_point.visible = true
+#	aim_point.position = player_body.position
 	player_body.init_preturn()
 
 func play_turn(turn_dur:float) -> void:
@@ -70,6 +82,7 @@ func play_turn(turn_dur:float) -> void:
 func end_turn():
 	player_body.set_turn_active(false)
 	is_my_turn = false
+	aim_point.visible = false
 	# Stop the timer if it's still going
 	turn_timer.stop()
 	emit_signal("turn_done")

@@ -53,3 +53,8 @@ polygon = PoolVector2Array( -4, 10, -8, 7, -10, 2, -9, -3, -7, -6, -3, -9, -3, -
 [node name="Fuse" type="Polygon2D" parent="RotPoint/BombGraphic"]
 color = Color( 0.776471, 0.776471, 0.776471, 1 )
 polygon = PoolVector2Array( -1, -13, -1, -16, -4, -20, -2, -22, 1, -17, 1, -13 )
+
+[node name="JumpTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="JumpTimer" to="." method="_on_JumpTimer_timeout"]

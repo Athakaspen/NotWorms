@@ -12,9 +12,10 @@ func _ready():
 	$DeathToast.visible = false
 
 func _unhandled_input(event):
-	if event.is_action_pressed("ready") and $Preturn/ReadyButton.visible:
+	# This is really bad, should be updated
+	if event.is_action_pressed("ready") and $Preturn.visible and $Preturn/ReadyButton.visible:
 		_on_ReadyButton_pressed()
-	if event.is_action_pressed("ready") and $Turn/EndTurnButton.visible:
+	if event.is_action_pressed("ready") and $Turn.visible and $Turn/EndTurnButton.visible:
 		_on_EndTurnButton_pressed()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -47,10 +48,16 @@ func init_turn():
 	$Turn.visible = true
 	$Preturn.visible = false
 	
+	$Turn/TurnTimer.visible = true
+	
 	# wait a sec before showing the end turn button
 	$Turn/EndTurnButton.visible = false
 	yield(get_tree().create_timer(1.0), "timeout")
 	$Turn/EndTurnButton.visible = true
+
+func init_postturn():
+	$Turn/TurnTimer.visible = false
+	$Turn/EndTurnButton.visible = false
 
 func _on_EndTurnButton_pressed():
 	level.turn_queue.end_turn()

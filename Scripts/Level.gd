@@ -19,8 +19,9 @@ func _ready():
 	
 	update_camera(turn_queue.get_camera_point())
 	
-	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
-	Input.set_custom_mouse_cursor(preload("res://Sprites/crosshair.png"), 0, Vector2(32,32))
+#	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+#	Input.set_custom_mouse_cursor(preload("res://Sprites/crosshair.png"), 0, Vector2(32,32))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

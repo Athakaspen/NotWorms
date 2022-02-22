@@ -51,6 +51,14 @@ func main_loop():
 		
 		# Stop if we've detected that the game is over
 		if STATE == State.GAMEOVER: break
+		
+		# This state is to wait until all explosives explode
+		STATE = State.POSTTURN
+#		if MatchInfo.projectile_holder.get_child_count() > 0:
+		yield(init_postturn(), "completed")
+		
+		# Stop if we've detected that the game is over
+		if STATE == State.GAMEOVER: break
 
 func get_next_player():
 	var new_player = null
@@ -72,6 +80,12 @@ func play_turn():
 	level.UI.init_turn()
 	CAM_MODE = CamMode.MIDPOINT
 	yield(active_player.play_turn(turnDuration), "completed")
+
+func init_postturn():
+	CAM_MODE = CamMode.PROJECTILE
+	level.UI.init_postturn()
+	yield(MatchInfo.projectile_holder, "no_children")
+	yield(get_tree().create_timer(1.0), "timeout")
 
 func get_current_player() -> Player:
 	return active_player
@@ -133,7 +147,10 @@ func get_camera_point() -> Vector2:
 			cam_point = (player_weight*player_pos + active_player.aim_point.global_position) / (1+player_weight)
 		CamMode.PROJECTILE:
 			#TODO
-			cam_point = Vector2.ZERO
+			cam_point = MatchInfo.projectile_holder.get_cam_point()
+			if cam_point == null:
+				cam_point = prev_cam_point
+				cam_point = prev_cam_point
 	
 	prev_cam_point = cam_point
 	return cam_point
