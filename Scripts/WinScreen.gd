@@ -13,15 +13,14 @@ func _ready():
 	
 	$PlayerHolder/_placeholder.visible = false
 	$UI/Title.text = MatchInfo.winner + " Wins!"
-	var winner_node = MatchInfo.player_info[MatchInfo.winner]
-	var winner_sprite = winner_node.player_body.get_node("SpritePoly")
-	print(winner_node.name)
-	print(winner_sprite)
+	if MatchInfo.winner != "UNDEFINED":
+		var winner_node = MatchInfo.player_info[MatchInfo.winner]
+		var winner_sprite = winner_node.player_body.get_node("SpritePoly")
 	
-	winner_sprite.get_parent().remove_child(winner_sprite)
-	winner_sprite.position = Vector2.ZERO
-	
-	$PlayerHolder.add_child(winner_sprite)
+		winner_sprite.get_parent().remove_child(winner_sprite)
+		winner_sprite.position = Vector2.ZERO
+		
+		$PlayerHolder.add_child(winner_sprite)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
