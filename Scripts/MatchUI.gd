@@ -12,9 +12,10 @@ func _ready():
 	$DeathToast.visible = false
 
 func _unhandled_input(event):
-	if event.is_action_pressed("ready") and $Preturn/ReadyButton.visible:
+	# This is really bad, should be updated
+	if event.is_action_pressed("ready") and $Preturn.visible and $Preturn/ReadyButton.visible:
 		_on_ReadyButton_pressed()
-	if event.is_action_pressed("ready") and $Turn/EndTurnButton.visible:
+	if event.is_action_pressed("ready") and $Turn.visible and $Turn/EndTurnButton.visible:
 		_on_EndTurnButton_pressed()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

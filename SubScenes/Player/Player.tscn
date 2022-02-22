@@ -49,9 +49,9 @@ __meta__ = {
 }
 
 [node name="AimPoint" type="Position2D" parent="."]
+visible = false
 
 [node name="Sprite" type="Sprite" parent="AimPoint"]
-visible = false
 texture = ExtResource( 6 )
 
 [connection signal="timeout" from="TurnTimer" to="." method="_on_TurnTimer_timeout"]
