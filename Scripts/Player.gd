@@ -9,6 +9,8 @@ onready var turn_timer = $TurnTimer
 onready var turn_queue = $".."
 onready var aim_point = $AimPoint
 
+var controller_aim_speed = 1000
+
 export var MAX_HEALTH = 100
 var health
 
@@ -24,10 +26,20 @@ func _ready():
 	health = MAX_HEALTH
 	update_healthbar()
 
-func _process(_delta):
+func _process(delta):
 	# ah cahnt dyu aneethin if ahm ded
 	#if is_dead: return
 	
+	# Controller Movement
+	var aim_input = Vector2(
+		Input.get_action_strength("aim_right") - Input.get_action_strength("aim_left"),
+		Input.get_action_strength("aim_down") - Input.get_action_strength("aim_up")
+	)
+	if aim_input.length() > 0:
+		var cur_mouse_pos = get_viewport().get_mouse_position()
+		Input.warp_mouse_position(cur_mouse_pos + aim_input * controller_aim_speed * delta)
+	
+	# Mouse Movement
 	aim_point.global_position = get_global_mouse_position()
 	
 	# Stick tag to player's head

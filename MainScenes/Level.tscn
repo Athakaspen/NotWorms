@@ -72,6 +72,9 @@ __meta__ = {
 [node name="Preturn" type="Control" parent="UICanvas/UIHolder"]
 margin_right = 40.0
 margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="TurnLabelCenter" type="Label" parent="UICanvas/UIHolder/Preturn"]
 margin_left = 428.0
@@ -90,7 +93,7 @@ margin_top = 448.0
 margin_right = 792.0
 margin_bottom = 541.0
 custom_fonts/font = ExtResource( 5 )
-text = "Ready!"
+text = "Ready! (Y)"
 
 [node name="Turn" type="Control" parent="UICanvas/UIHolder"]
 margin_right = 40.0

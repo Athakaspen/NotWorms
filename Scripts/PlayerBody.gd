@@ -66,12 +66,15 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	# Standard Movement
-	if Input.is_action_pressed("left") and linear_velocity.x > -MAX_SPEED:
-		#apply_central_impulse(-global_transform.x * move_force * delta)
-		apply_central_impulse(Vector2.LEFT * move_force * delta * mass)
-	elif Input.is_action_pressed("right") and linear_velocity.x < MAX_SPEED:
-		#apply_central_impulse(global_transform.x * move_force * delta)
-		apply_central_impulse(Vector2.RIGHT * move_force * delta * mass)
+#	if Input.is_action_pressed("left") and linear_velocity.x > -MAX_SPEED:
+#		#apply_central_impulse(-global_transform.x * move_force * delta)
+#		apply_central_impulse(Vector2.LEFT * move_force * delta * mass)
+#	elif Input.is_action_pressed("right") and linear_velocity.x < MAX_SPEED:
+#		#apply_central_impulse(global_transform.x * move_force * delta)
+#		apply_central_impulse(Vector2.RIGHT * move_force * delta * mass)
+	var move_strength = Input.get_action_strength("right") - Input.get_action_strength("left")
+	if abs(move_strength) > 0:
+		apply_central_impulse(Vector2.RIGHT * move_strength * move_force * delta * mass)
 	else:
 		# Horizontal-only damping (so gravity feels heavier
 		apply_central_impulse(Vector2(-linear_velocity.x * H_damping * delta * mass, 0))

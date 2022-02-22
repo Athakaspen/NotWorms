@@ -11,6 +11,9 @@ var cur_player : String
 func _ready():
 	$DeathToast.visible = false
 
+func _unhandled_input(event):
+	if event.is_action_pressed("ready") and $Preturn/ReadyButton.visible:
+		_on_ReadyButton_pressed()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -47,7 +50,6 @@ func _on_EndTurnButton_pressed():
 
 func _on_ReadyButton_pressed():
 	emit_signal("start_turn")
-
 
 func _on_DeathToastTimer_timeout():
 	$DeathToast.visible = false
