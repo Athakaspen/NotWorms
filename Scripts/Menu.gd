@@ -11,6 +11,10 @@ func _ready():
 #func _process(delta):
 #	pass
 
+func _unhandled_input(event):
+	if event.is_action_pressed("ready"):
+		_on_StartButton_pressed()
+
 
 func _on_StartButton_pressed():
 	get_tree().change_scene(level_path)

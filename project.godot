@@ -39,6 +39,7 @@ config/icon="res://icon.png"
 [autoload]
 
 MatchInfo="*res://Scripts/Singletons/MatchInfo.gd"
+Utilities="*res://Scripts/Singletons/Utilities.gd"
 
 [display]
 

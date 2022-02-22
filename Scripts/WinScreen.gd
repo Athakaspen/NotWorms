@@ -28,6 +28,9 @@ func _ready():
 #func _process(delta):
 #	pass
 
+func _unhandled_input(event):
+	if event.is_action_pressed("ready"):
+		_on_MainMenuButton_pressed()
 
 func _on_MainMenuButton_pressed():
 	get_tree().change_scene(menu_path)

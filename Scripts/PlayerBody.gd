@@ -2,36 +2,58 @@ extends RigidBody2D
 
 class_name PlayerBody
 
-var bomb = preload("res://SubScenes/Weapons/Bomb.tscn")
-
 export var move_force := 1100.0
 export var MAX_SPEED = 400
 export var H_damping := 3.0
-export var bomb_velocity := 600.0
 export var jump_force := 350.0
-export var air_jump_scalar := 0.65
+export var air_jump_scalar := 0.69
 
 onready var parent = $".."
 
 var is_active := false
 
+var weapon_path_list = [
+	 "res://SubScenes/Weapons/Launcher.tscn"
+]
+var weapons = {}
+var cur_weapon
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	# Instance all weapons and add them to the dictionary for storage
+	for w_path in weapon_path_list:
+		var w = load(w_path).instance()
+		weapons[w.id_string] = w
+	
+	switch_weapon("launcher")
+	
 	set_turn_active(false)
 
+func switch_weapon(weapon_name):
+	if cur_weapon != null:
+		cur_weapon.set_inactive()
+		$RotPoint.remove_child(cur_weapon)
+	cur_weapon = weapons[weapon_name]
+	$RotPoint.add_child(cur_weapon)
+	cur_weapon.set_active()
+
 func init_preturn():
-	$RotPoint.visible = true
+	pass
+#	$RotPoint.visible = true
 
 func set_turn_active(value:bool) -> void:
 	# Set to inactive
 	if value == false:
 		is_active = false
 		$RotPoint.visible = false
+		cur_weapon.set_inactive()
 	
 	# Set to active
 	elif value == true:
 		is_active = true
 		$RotPoint.visible = true
+		cur_weapon.set_active()
 
 func _process(_delta: float) -> void:
 	
@@ -39,6 +61,7 @@ func _process(_delta: float) -> void:
 	if not is_active: return
 	
 	$RotPoint.look_at(parent.aim_point.global_position)
+	cur_weapon.update_trajectory(position.distance_to(parent.aim_point.position))
 	
 #	if Input.is_action_just_pressed("shoot"):
 #		var b = bomb.instance()
@@ -52,10 +75,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not is_active: return
 	
 	if event.is_action_pressed("shoot"):
-		var b = bomb.instance()
-		b.transform = $RotPoint/ShootPoint.global_transform
-		parent.turn_queue.level.projectile_holder.add_child(b)
-		b.apply_central_impulse(b.transform.x * bomb_velocity * b.mass)
+		cur_weapon.do_shoot(position.distance_to(parent.aim_point.position))
+	elif event.is_action_pressed("power_up"):
+		cur_weapon.do_power_up()
+	elif event.is_action_pressed("power_down"):
+		cur_weapon.do_power_down()
 
 func _physics_process(delta: float) -> void:
 	
@@ -101,12 +125,3 @@ func _physics_process(delta: float) -> void:
 		if linear_velocity.y > 0:
 			var jump_bonus = linear_velocity.y * 0.8
 			apply_central_impulse(Vector2.UP * jump_bonus * mass)
-
-
-
-#	if Input.is_action_just_pressed("power_up"):
-#			bomb_velocity += 20
-#			bomb_velocity = clamp(bomb_velocity, 100, 1500)
-#	elif Input.is_action_just_pressed("power_down"):
-#			bomb_velocity -= 20
-#			bomb_velocity = clamp(bomb_velocity, 100, 1500)
