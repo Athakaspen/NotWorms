@@ -21,11 +21,7 @@ func _ready():
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	Input.set_custom_mouse_cursor(preload("res://Sprites/crosshair.png"), 0, Vector2(32,32))
-	
 
-func _input(event):
-	if event.is_action_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

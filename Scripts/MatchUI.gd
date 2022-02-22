@@ -14,6 +14,8 @@ func _ready():
 func _unhandled_input(event):
 	if event.is_action_pressed("ready") and $Preturn/ReadyButton.visible:
 		_on_ReadyButton_pressed()
+	if event.is_action_pressed("ready") and $Turn/EndTurnButton.visible:
+		_on_EndTurnButton_pressed()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -44,6 +46,11 @@ func init_preturn():
 func init_turn():
 	$Turn.visible = true
 	$Preturn.visible = false
+	
+	# wait a sec before showing the end turn button
+	$Turn/EndTurnButton.visible = false
+	yield(get_tree().create_timer(1.0), "timeout")
+	$Turn/EndTurnButton.visible = true
 
 func _on_EndTurnButton_pressed():
 	level.turn_queue.end_turn()

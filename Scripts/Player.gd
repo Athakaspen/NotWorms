@@ -8,6 +8,7 @@ onready var player_body = $PlayerBody
 onready var turn_timer = $TurnTimer
 onready var turn_queue = $".."
 onready var aim_point = $AimPoint
+#onready var traj_line = $TrajectoryLine
 
 var controller_aim_speed = 1000
 
@@ -52,6 +53,9 @@ func init_preturn():
 
 func play_turn(turn_dur:float) -> void:
 	# print("It's %s's turn!" % name)
+	if is_dead: 
+		end_turn()
+		return
 	
 	is_my_turn = true
 	turn_timer.wait_time = turn_dur
@@ -62,10 +66,6 @@ func play_turn(turn_dur:float) -> void:
 	
 	# Don't return until we emit a signal
 	yield(self, "turn_done")
-
-#func wait_end_turn(dur : float):
-#	yield(get_tree().create_timer(dur), "timeout")
-#	end_turn()
 
 func end_turn():
 	player_body.set_turn_active(false)
@@ -86,6 +86,7 @@ func get_timer_progress() -> float:
 func do_damage(value:int) -> void:
 	
 	if is_invincible: return
+	if is_dead: return
 	
 	# decrease health
 	health = int(clamp(health-value, 0, MAX_HEALTH))
@@ -100,6 +101,8 @@ func update_healthbar():
 
 # TODO: Death... State? Turn? Basically need to delete self more carefully
 func die():
+	if is_dead: return
+	is_dead = true
 	turn_queue.level.UI.do_deathtoast(name)
 	MatchInfo.rec_death(name)
 	if not is_my_turn:
@@ -112,7 +115,9 @@ func die():
 	else:
 		self.visible = false
 		player_body.sleeping = true
-		yield(self, "turn_done")
+		
+		end_turn()
+#		yield(self, "turn_done")
 		
 		# Replace queue_free with remove_child. A reference to the player node
 		# is kept in MatchInfo for later.

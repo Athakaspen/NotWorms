@@ -28,24 +28,36 @@ onready var level = $".."
 
 var active_player : Player
 var winner : Player = null
+var player_list
 
 func initialize():
-	active_player = get_child(0)
+	player_list = get_children()
 	MatchInfo.initialize_match(self)
 	main_loop()
 
 func main_loop():
 	while true:
+		active_player = get_next_player()
 		STATE = State.PRETURN
 		yield(init_preturn(), "completed")
+		
+		# Stop if we've detected that the game is over
+		if STATE == State.GAMEOVER: break
+		if active_player.is_dead:
+			continue
+		
 		STATE = State.TURN
 		yield(play_turn(), "completed")
 		
 		# Stop if we've detected that the game is over
 		if STATE == State.GAMEOVER: break
-		
-		var new_index : int = (active_player.get_index() + 1) % get_child_count()
-		active_player = get_child(new_index)
+
+func get_next_player():
+	var new_player = null
+	while (new_player == null or new_player.is_dead):
+		new_player = player_list.pop_front()
+		player_list.append(new_player)
+	return new_player
 
 func _process(delta : float) -> void:
 	check_win()
@@ -88,7 +100,7 @@ func check_win() -> void:
 		
 		winner.set_invincible()
 		
-		# Remove the winner as a child or it will be forably deleted
+		# Remove the winner as a child or it will be forceably deleted
 		remove_child(winner)
 		# Go straight to win screen
 		get_tree().change_scene(winscreen_path)
@@ -101,7 +113,6 @@ func check_win() -> void:
 		level.UI.do_deathtoast("Everyone")
 
 var prev_cam_point : Vector2
-
 # Return the point the camera should be moving towards this frame.
 func get_camera_point() -> Vector2:
 	
@@ -118,7 +129,8 @@ func get_camera_point() -> Vector2:
 			cam_point = player_pos
 		CamMode.MIDPOINT:
 			# follow weighted midpoint of aiming
-			cam_point = (2*player_pos + active_player.aim_point.global_position) / 3
+			var player_weight = 1.5
+			cam_point = (player_weight*player_pos + active_player.aim_point.global_position) / (1+player_weight)
 		CamMode.PROJECTILE:
 			#TODO
 			cam_point = Vector2.ZERO

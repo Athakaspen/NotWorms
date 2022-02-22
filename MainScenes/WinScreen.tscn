@@ -22,12 +22,12 @@ custom_fonts/font = ExtResource( 1 )
 text = "PlayerX Wins!"
 
 [node name="MainMenuButton" type="Button" parent="UI"]
-margin_left = 464.0
-margin_top = 497.0
-margin_right = 810.0
+margin_left = 398.0
+margin_top = 498.0
+margin_right = 879.0
 margin_bottom = 602.0
 custom_fonts/font = ExtResource( 1 )
-text = "Main Menu"
+text = "Main Menu (Y)"
 __meta__ = {
 "_edit_use_anchors_": false
 }

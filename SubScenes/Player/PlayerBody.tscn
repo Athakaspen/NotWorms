@@ -46,12 +46,10 @@ polygon = PoolVector2Array( 11.0512, -3.84, 11.0512, 3.84, 6.02791, 8.64, -5.358
 [node name="RotPoint" type="Position2D" parent="."]
 
 [node name="BombGraphic" type="Polygon2D" parent="RotPoint"]
+visible = false
 color = Color( 0.0705882, 0.105882, 0.384314, 1 )
 polygon = PoolVector2Array( -4, 10, -8, 7, -10, 2, -9, -3, -7, -6, -3, -9, -3, -13, 2, -14, 2, -9, 7, -7, 9, -3, 10, 3, 8, 6, 5, 9, 1, 10 )
 
 [node name="Fuse" type="Polygon2D" parent="RotPoint/BombGraphic"]
 color = Color( 0.776471, 0.776471, 0.776471, 1 )
 polygon = PoolVector2Array( -1, -13, -1, -16, -4, -20, -2, -22, 1, -17, 1, -13 )
-
-[node name="ShootPoint" type="Position2D" parent="RotPoint"]
-position = Vector2( 50, 0 )
