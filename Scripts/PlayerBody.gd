@@ -19,7 +19,8 @@ onready var jump_timer = $JumpTimer
 var is_active := false
 
 var weapon_path_list = [
-	 "res://SubScenes/Weapons/Launcher.tscn"
+	"res://SubScenes/Weapons/BouncyBomb.tscn",
+	"res://SubScenes/Weapons/RocketLauncher.tscn"
 ]
 var weapons = {}
 var cur_weapon
@@ -32,8 +33,10 @@ func _ready():
 	for w_path in weapon_path_list:
 		var w = load(w_path).instance()
 		weapons[w.id_string] = w
+		w.owning_player = parent.name
 	
-	switch_weapon("launcher")
+	# default weapon
+	switch_weapon("rocket")
 	
 	set_turn_active(false)
 
@@ -83,10 +86,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("shoot"):
 		cur_weapon.do_shoot(position.distance_to(parent.aim_point.position))
-	elif event.is_action_pressed("power_up"):
-		cur_weapon.do_power_up()
-	elif event.is_action_pressed("power_down"):
-		cur_weapon.do_power_down()
+		if MatchInfo.oneshot:
+			parent.end_turn()
 
 func _physics_process(delta: float) -> void:
 	

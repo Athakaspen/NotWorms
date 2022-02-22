@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Scripts/Bomb.gd" type="Script" id=1]
+[ext_resource path="res://SubScenes/Weapons/BouncyBomb_Proj.gd" type="Script" id=1]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 9.5
 
-[node name="Bomb" type="RigidBody2D" groups=["Knockback"]]
+[node name="BouncyBomb_Proj" type="RigidBody2D" groups=["Knockback"]]
 gravity_scale = 6.0
 can_sleep = false
 script = ExtResource( 1 )
@@ -31,8 +31,6 @@ visible = false
 polygon = PoolVector2Array( -30, -43, 17, -51, 42, -34, 53, 6, 34, 41, -2, 49, -35, 41, -49, 18, -51, -11 )
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 2.5
 one_shot = true
-autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

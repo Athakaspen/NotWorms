@@ -10,6 +10,11 @@ var player_info = {}
 var projectile_holder : Node2D
 var terrain_holder : Node2D
 
+# Whether the player is allowed more than one shot per turn
+var oneshot = true
+# Length of each turn, in seconds
+var turn_duration : float = 10.0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.

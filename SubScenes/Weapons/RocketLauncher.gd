@@ -1,20 +1,19 @@
 extends Node2D
 
-var id_string = "launcher"
-var pretty_name = "Launcher"
-var description = "Does what is says on the tin. Launches."
+var id_string = "rocket"
+var pretty_name = "Rocket Launcher"
+var description = "Explodes on impact."
+var owning_player = "UNDEFINED"
 
-var MAX_SHOOT_VEL := 1000.0
-var MIN_SHOOT_VEL := 200.0
-var STEP_SHOOT_VEL:= 50.0
-var shoot_velocity := 600.0
+var MAX_SHOOT_VEL := 1300.0
+var MIN_SHOOT_VEL := 100.0
 var projectile_mass := 1.0
 var projectile_gravity := 6.0
 
 # Length of the Trajectory Line in points
-var traj_length = 100
+var traj_length = 69
 
-var projectile_res = preload("res://SubScenes/Weapons/Bomb.tscn")
+var projectile_res = preload("res://SubScenes/Weapons/RocketLauncher_Proj.tscn")
 
 onready var shoot_point = $ShootPoint
 onready var traj_line = $TrajectoryLine
@@ -33,14 +32,20 @@ func do_shoot(dist : float):
 	p.gravity_scale = projectile_gravity
 	p.transform = shoot_point.global_transform
 	MatchInfo.projectile_holder.add_child(p)
-	p.apply_central_impulse(p.transform.x * dist * p.mass)
+	var shoot_velocity = get_shoot_velocity(dist)
+	p.apply_central_impulse(p.transform.x * shoot_velocity * p.mass)
 #	p.apply_central_impulse(p.transform.x * shoot_velocity * p.mass)
+	p.owning_player = owning_player
 
-func do_power_up():
-	shoot_velocity = clamp(shoot_velocity + STEP_SHOOT_VEL, MIN_SHOOT_VEL, MAX_SHOOT_VEL)
+func get_shoot_velocity(dist):
+	dist = clamp(dist-50, 0, 1000)
+	return dist/1000 * (MAX_SHOOT_VEL - MIN_SHOOT_VEL) + MIN_SHOOT_VEL
 
-func do_power_down():
-	shoot_velocity = clamp(shoot_velocity - STEP_SHOOT_VEL, MIN_SHOOT_VEL, MAX_SHOOT_VEL)
+#func do_power_up():
+#	shoot_velocity = clamp(shoot_velocity + STEP_SHOOT_VEL, MIN_SHOOT_VEL, MAX_SHOOT_VEL)
+#
+#func do_power_down():
+#	shoot_velocity = clamp(shoot_velocity - STEP_SHOOT_VEL, MIN_SHOOT_VEL, MAX_SHOOT_VEL)
 
 func set_active():
 	is_active = true
@@ -59,12 +64,12 @@ var line_detail = 0.02
 func update_trajectory(dist):
 	traj_line.clear_points()
 	var pos = shoot_point.global_position
-	var vel = shoot_point.global_transform.x * dist
+	var vel = shoot_point.global_transform.x * get_shoot_velocity(dist)
 #	var vel = shoot_point.global_transform.x * shoot_velocity
-	for i in range(traj_length):
+	for _i in range(traj_length):
 		traj_line.add_point(pos)
 		# the number is a scalar that makes it line up, found from trial and error
-		vel.y += projectile_gravity * line_detail * 103.6
+		vel.y += projectile_gravity * line_detail * 110
 		pos += vel * line_detail
 		
 		# stop the line when it hits terrain
