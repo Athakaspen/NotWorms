@@ -65,6 +65,20 @@ func init_turn():
 	if in_turn:
 		$Turn/EndTurnButton.visible = true
 
+func show_inventory(inventory_data, cur_weapon):
+	assert(in_turn, "Attempted to open inventory outside of turn phase")
+	update_inventory(inventory_data, cur_weapon)
+	$Inventory.visible = true
+
+func hide_inventory() -> String:
+	$Inventory.visible = false
+	return "candle"
+
+func update_inventory(data, cur_weapon):
+	$Inventory/CenterContainer/VBoxContainer/Name.text = str(data["bomb"]["pretty_name"])
+	$Inventory/CenterContainer/VBoxContainer/Description.text = str(data["candle"]["description"])
+	$Inventory/CenterContainer/VBoxContainer/Count.text = str(data["rocket"]["count"])
+
 func init_postturn():
 	in_turn = false
 	in_postturn = true

@@ -44,6 +44,7 @@ scale = Vector2( 2.98611, 3.125 )
 polygon = PoolVector2Array( 11.0512, -3.84, 11.0512, 3.84, 6.02791, 8.64, -5.35814, 8.64, -10.7163, 3.52, -10.7163, -4.16, -5.02326, -9.6, 5.35814, -9.6 )
 
 [node name="RotPoint" type="Position2D" parent="."]
+visible = false
 
 [node name="BombGraphic" type="Polygon2D" parent="RotPoint"]
 visible = false

@@ -72,9 +72,13 @@ func explode() -> void:
 				# Puch owner back less
 				if body.get_parent().name == owning_player:
 					body.apply_central_impulse( \
-						(body.global_position - global_position).normalized() * explosion_force * -.6)
+						(body.global_position - global_position).normalized() * explosion_force * -.2)
 			if body.is_in_group("Damageable"):
-				body.get_parent().do_damage(explosion_damage)
+				# Do less damage to owner
+				if body.get_parent().name != owning_player:
+					body.get_parent().do_damage(explosion_damage)
+				else:
+					body.get_parent().do_damage(explosion_damage*0.4)
 	
 	call_deferred("queue_free")
 

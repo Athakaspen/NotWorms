@@ -20,6 +20,14 @@ var is_my_turn := false
 var is_dead := false
 # this used to make sure you don't die after winning
 var is_invincible := false
+#Whether the player has the inventory menu pulled up
+var inventory_open := false
+
+var inventory_contents = {
+	"bomb": 69,
+	"rocket": 2,
+	"candle": 7
+}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,7 +40,7 @@ func _process(delta):
 	# ah cahnt dyu aneethin if ahm ded
 	#if is_dead: return
 	
-	if is_my_turn:
+	if is_my_turn and not inventory_open:
 		# Controller Movement
 		var aim_input = Vector2(
 			Input.get_action_strength("aim_right") - Input.get_action_strength("aim_left"),
@@ -53,8 +61,38 @@ func _process(delta):
 
 func _input(event):
 	if not is_my_turn: return
-	if event is InputEventMouseMotion:
+	
+	if event is InputEventMouseMotion and not inventory_open:
 		aim_point.position += event.relative
+	
+	if event.is_action_pressed("menu_open"):
+		if not inventory_open:
+			open_inventory()
+		else:
+			Engine.time_scale = 1.0
+			# This also switches to the selected weapon
+			close_inventory()
+
+func open_inventory():
+	var inventory_data = {}
+	for record in inventory_contents:
+		inventory_data[record] = {
+			"count": inventory_contents[record],
+			"pretty_name": player_body.weapons[record].pretty_name,
+			"description": player_body.weapons[record].description
+		}
+	var cur_weapon = player_body.cur_weapon.id_string
+	turn_queue.level.UI.show_inventory(inventory_data, cur_weapon)
+	inventory_open = true
+	player_body.set_inventory_active(true)
+	Engine.time_scale = MatchInfo.inventory_timescale
+
+func close_inventory():
+	var new_weapon:String = turn_queue.level.UI.hide_inventory()
+	player_body.switch_weapon(new_weapon)
+	inventory_open = false
+	player_body.set_inventory_active(false)
+	Engine.time_scale = MatchInfo.normal_timescale
 
 # This function is called when the "Ready Up" screen shows,
 # before the actual turn begins. It's here to set up visuals mostly.
@@ -80,6 +118,7 @@ func play_turn(turn_dur:float) -> void:
 	yield(self, "turn_done")
 
 func end_turn():
+	if inventory_open: close_inventory()
 	player_body.set_turn_active(false)
 	is_my_turn = false
 	aim_point.visible = false

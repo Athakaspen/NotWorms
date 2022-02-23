@@ -70,13 +70,21 @@ func finish_turn():
 	$RotPoint.visible = false
 	cur_weapon.set_inactive()
 
+func set_inventory_active(open : bool) -> void:
+	if open:
+		is_active = false
+	else:
+		is_active = true
+
 func _process(_delta: float) -> void:
+	
+	cur_weapon.update_trajectory(position.distance_to(parent.aim_point.position))
 	
 	# Bail if it's not ur turn
 	if not is_active: return
 	
 	$RotPoint.look_at(parent.aim_point.global_position)
-	cur_weapon.update_trajectory(position.distance_to(parent.aim_point.position))
+	
 
 
 func _input(event: InputEvent) -> void:
@@ -93,8 +101,11 @@ func _physics_process(delta: float) -> void:
 	
 	# No input-based movement if it's not ur turn
 	if not is_active:
-		# Horizontal-only damping (so gravity feels heavier
-		apply_central_impulse(Vector2(-linear_velocity.x * H_damping * delta * mass, 0))
+		
+		# This delta checks if Engine.time_scale is 0, which happens when we're paused and breaks things
+		if delta != 0:
+			# Horizontal-only damping (so gravity feels heavier
+			apply_central_impulse(Vector2(-linear_velocity.x * H_damping * delta * mass, 0))
 		return
 	
 	# Standard Movement
