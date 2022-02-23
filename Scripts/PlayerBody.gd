@@ -19,10 +19,13 @@ onready var jump_timer = $JumpTimer
 var is_active := false
 
 var weapon_path_list = [
-	 "res://SubScenes/Weapons/Launcher.tscn"
+	"res://SubScenes/Weapons/BouncyBomb.tscn",
+	"res://SubScenes/Weapons/RocketLauncher.tscn",
+	"res://SubScenes/Weapons/RomanCandle.tscn"
 ]
 var weapons = {}
 var cur_weapon
+var default_weapon = "bomb"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,8 +35,10 @@ func _ready():
 	for w_path in weapon_path_list:
 		var w = load(w_path).instance()
 		weapons[w.id_string] = w
+		w.owning_player = parent.name
 	
-	switch_weapon("launcher")
+	# default weapon
+	switch_weapon(default_weapon)
 	
 	set_turn_active(false)
 
@@ -53,14 +58,17 @@ func set_turn_active(value:bool) -> void:
 	# Set to inactive
 	if value == false:
 		is_active = false
-		$RotPoint.visible = false
-		cur_weapon.set_inactive()
+		cur_weapon.hide_trajectory()
 	
 	# Set to active
 	elif value == true:
 		is_active = true
 		$RotPoint.visible = true
 		cur_weapon.set_active()
+
+func finish_turn():
+	$RotPoint.visible = false
+	cur_weapon.set_inactive()
 
 func _process(_delta: float) -> void:
 	
@@ -69,24 +77,17 @@ func _process(_delta: float) -> void:
 	
 	$RotPoint.look_at(parent.aim_point.global_position)
 	cur_weapon.update_trajectory(position.distance_to(parent.aim_point.position))
-	
-#	if Input.is_action_just_pressed("shoot"):
-#		var b = bomb.instance()
-#		b.transform = $RotPoint/ShootPoint.global_transform
-#		get_parent().add_child(b)
-#		b.apply_central_impulse(b.transform.x * bomb_velocity * b.mass)
 
-func _unhandled_input(event: InputEvent) -> void:
+
+func _input(event: InputEvent) -> void:
 	
 	# Bail if it's not ur turn
 	if not is_active: return
 	
 	if event.is_action_pressed("shoot"):
-		cur_weapon.do_shoot(position.distance_to(parent.aim_point.position))
-	elif event.is_action_pressed("power_up"):
-		cur_weapon.do_power_up()
-	elif event.is_action_pressed("power_down"):
-		cur_weapon.do_power_down()
+		var did_shoot = cur_weapon.do_shoot(position.distance_to(parent.aim_point.position))
+		if MatchInfo.oneshot and did_shoot:
+			parent.end_turn()
 
 func _physics_process(delta: float) -> void:
 	

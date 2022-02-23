@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Weapons/RocketLauncher_Proj.gd" type="Script" id=1]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 5.0
+height = 18.0
+
+[node name="RocketLauncher_Proj" type="RigidBody2D" groups=["Projectile"]]
+mode = 2
+gravity_scale = 6.0
+contacts_reported = 2
+contact_monitor = true
+can_sleep = false
+script = ExtResource( 1 )
+
+[node name="SpritePoly" type="Polygon2D" parent="."]
+position = Vector2( -5, 0 )
+color = Color( 0.956863, 0.337255, 0, 1 )
+polygon = PoolVector2Array( -9, 5, -9, -5, 14, -5, 14, 5 )
+
+[node name="Fuse" type="Polygon2D" parent="SpritePoly"]
+polygon = PoolVector2Array( 14, 5, 14, -5, 17, -4, 19, -1, 19, 1, 17, 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="DetectionPolygon" type="CollisionPolygon2D" parent="DetectionArea"]
+visible = false
+polygon = PoolVector2Array( -30, -43, 17, -51, 42, -34, 53, 6, 34, 41, -2, 49, -35, 41, -49, 18, -51, -11 )
+
+[node name="ExplosionPoly" type="CollisionPolygon2D" parent="."]
+disabled = true
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_RocketLauncher_Proj_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

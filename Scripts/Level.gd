@@ -42,3 +42,5 @@ func update_camera(point : Vector2):
 func _on_DeathPlane_body_entered(body):
 	if body.is_in_group("Player"):
 		body.parent.do_damage(10000)
+	if body.is_in_group("Projectile"):
+		body.queue_free()

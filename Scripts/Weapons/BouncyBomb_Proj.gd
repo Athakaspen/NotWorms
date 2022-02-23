@@ -1,12 +1,16 @@
 extends RigidBody2D
 
 
-var explosion_radius = 69
-var explosion_force = 400
-var explosion_damage = 15
+var explosion_radius = 100
+var explosion_force = 700
+var explosion_damage = 25
+var explosion_delay = 3.0
+var owning_player = "UNDEFINED"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
+	$Timer.start(explosion_delay)
 	
 	# This code taken directly from the destructible terrain demo
 	var nb_points = 32

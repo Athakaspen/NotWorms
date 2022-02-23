@@ -10,6 +10,7 @@ func _ready() -> void:
 #func _process(delta):
 #	pass
 
+# The basis of this was taken from the Destructable Terrain demo
 func clip(source_body: StaticBody2D, neg_poly: CollisionPolygon2D) -> void:
 	var offset_poly = Polygon2D.new()
 	# Transform the polygon values to take into account the transform
@@ -30,16 +31,21 @@ func clip(source_body: StaticBody2D, neg_poly: CollisionPolygon2D) -> void:
 		# If there are more results, create new objects for them
 		for res_poly in result.slice(1,len(result)):
 			#print(Geometry.is_polygon_clockwise(res_poly))
-			var newTerrain = destructible.instance()
-			newTerrain.get_node("RenderPoly").polygon = res_poly
-			newTerrain.get_node("RenderPoly").color = source_poly.color
-			add_child(newTerrain)
+			var new_terr = create_new_terrain(res_poly, source_poly.color)
+			add_child(new_terr)
 	
 	# Free the polygon to avoid memory leak
 	offset_poly.queue_free()
 
+func create_new_terrain(polygon : PoolVector2Array, poly_color):
+	var newTerrain = destructible.instance()
+	newTerrain.get_node("RenderPoly").polygon = polygon
+	newTerrain.get_node("CollisionPoly").polygon = polygon
+	newTerrain.get_node("RenderPoly").color = poly_color
+	return newTerrain
+
 # Size of the chunks in pixels
-const CHUNK_SIZE := 100
+const CHUNK_SIZE := 32
 # Partition terrain into chunks
 func chunkify_terrain() -> void:
 	
@@ -77,10 +83,8 @@ func chunkify_terrain() -> void:
 				
 				# Create object for each result
 				for res_poly in result:
-					var newTerrain = destructible.instance()
-					newTerrain.get_node("RenderPoly").polygon = res_poly
-					newTerrain.get_node("RenderPoly").color = terrain_obj.color
-					chunk_array.append(newTerrain)
+					var new_terr = create_new_terrain(res_poly, terrain_obj.color)
+					chunk_array.append(new_terr)
 	
 	# Remove old collision polys
 	for c in get_children():

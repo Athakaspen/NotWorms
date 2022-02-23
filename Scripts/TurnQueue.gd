@@ -4,7 +4,7 @@ class_name TurnQueue
 
 var winscreen_path := "res://MainScenes/WinScreen.tscn"
 
-export(float) var turnDuration = 7.0
+var turnDuration : float
 
 enum State {
 	INIT,
@@ -33,6 +33,7 @@ var player_list
 func initialize():
 	player_list = get_children()
 	MatchInfo.initialize_match(self)
+	turnDuration = MatchInfo.turn_duration
 	main_loop()
 
 func main_loop():
@@ -42,7 +43,9 @@ func main_loop():
 		yield(init_preturn(), "completed")
 		
 		# Stop if we've detected that the game is over
-		if STATE == State.GAMEOVER: break
+		if STATE == State.GAMEOVER: 
+			do_endgame()
+			break
 		if active_player.is_dead:
 			continue
 		
@@ -50,15 +53,20 @@ func main_loop():
 		yield(play_turn(), "completed")
 		
 		# Stop if we've detected that the game is over
-		if STATE == State.GAMEOVER: break
+		if STATE == State.GAMEOVER: 
+			do_endgame()
+			break
 		
 		# This state is to wait until all explosives explode
 		STATE = State.POSTTURN
 #		if MatchInfo.projectile_holder.get_child_count() > 0:
 		yield(init_postturn(), "completed")
+		active_player.finish_turn()
 		
 		# Stop if we've detected that the game is over
-		if STATE == State.GAMEOVER: break
+		if STATE == State.GAMEOVER: 
+			do_endgame()
+			break
 
 func get_next_player():
 	var new_player = null
@@ -84,8 +92,18 @@ func play_turn():
 func init_postturn():
 	CAM_MODE = CamMode.PROJECTILE
 	level.UI.init_postturn()
+	yield(get_tree(), "idle_frame")
+	yield(get_tree(), "idle_frame")
 	yield(MatchInfo.projectile_holder, "no_children")
 	yield(get_tree().create_timer(1.0), "timeout")
+
+func do_endgame():
+	CAM_MODE = CamMode.PROJECTILE
+	yield(get_tree().create_timer(1.0), "timeout")
+	# Remove the winner as a child or it will be forceably deleted
+	remove_child(winner)
+	# Go straight to win screen
+	get_tree().change_scene(winscreen_path)
 
 func get_current_player() -> Player:
 	return active_player
@@ -114,12 +132,7 @@ func check_win() -> void:
 		
 		winner.set_invincible()
 		
-		# Remove the winner as a child or it will be forceably deleted
-		remove_child(winner)
-		# Go straight to win screen
-		get_tree().change_scene(winscreen_path)
-		
-		pass
+		return
 	else:
 		# Num Players is 0, we have a problem
 		print("This is a problem")

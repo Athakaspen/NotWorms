@@ -41,10 +41,15 @@ config/icon="res://icon.png"
 MatchInfo="*res://Scripts/Singletons/MatchInfo.gd"
 Utilities="*res://Scripts/Singletons/Utilities.gd"
 
+[debug]
+
+settings/stdout/print_fps=true
+
 [display]
 
 window/size/width=1280
 window/size/height=720
+window/stretch/mode="2d"
 
 [input]
 
@@ -83,23 +88,13 @@ menu_open={
 menu_next={
 "deadzone": 0.5,
 "events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":5,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":5,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
 menu_prev={
 "deadzone": 0.5,
 "events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":5,"pressure":0.0,"pressed":false,"script":null)
- ]
-}
-power_up={
-"deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":4,"pressed":false,"doubleclick":false,"script":null)
-, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":12,"pressure":0.0,"pressed":false,"script":null)
- ]
-}
-power_down={
-"deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":5,"pressed":false,"doubleclick":false,"script":null)
-, Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":13,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":4,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
 aim_right={

@@ -11,7 +11,7 @@
 [ext_resource path="res://Scripts/ProjectileHolder.gd" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 4137, 110.188 )
+extents = Vector2( 9999, 100 )
 
 [sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0.0731707, 0.334495, 0.519164, 0.832753 )
@@ -50,26 +50,18 @@ color = Color( 0.980392, 0.184314, 0.184314, 1 )
 [node name="Player3" parent="TurnQueue" instance=ExtResource( 3 )]
 
 [node name="PlayerBody" parent="TurnQueue/Player3" index="0"]
-position = Vector2( 1300.1, 748 )
+position = Vector2( 1280, 717 )
 
 [node name="SpritePoly" parent="TurnQueue/Player3/PlayerBody" index="0"]
-color = Color( 0.184314, 0.980392, 0.25098, 1 )
+color = Color( 0.247059, 0.980392, 0.184314, 1 )
 
 [node name="Player4" parent="TurnQueue" instance=ExtResource( 3 )]
 
 [node name="PlayerBody" parent="TurnQueue/Player4" index="0"]
-position = Vector2( 1129, 588 )
+position = Vector2( 1630, 131 )
 
 [node name="SpritePoly" parent="TurnQueue/Player4/PlayerBody" index="0"]
-color = Color( 0.980392, 0.929412, 0.184314, 1 )
-
-[node name="Player5" parent="TurnQueue" instance=ExtResource( 3 )]
-
-[node name="PlayerBody" parent="TurnQueue/Player5" index="0"]
-position = Vector2( 1626, 157 )
-
-[node name="SpritePoly" parent="TurnQueue/Player5/PlayerBody" index="0"]
-color = Color( 0.768627, 0.184314, 0.980392, 1 )
+color = Color( 0.752941, 0.0627451, 0.972549, 1 )
 
 [node name="CameraLimit" type="Position2D" parent="."]
 position = Vector2( 1920, 1080 )
@@ -204,5 +196,3 @@ one_shot = true
 [editable path="TurnQueue/Player3/PlayerBody"]
 [editable path="TurnQueue/Player4"]
 [editable path="TurnQueue/Player4/PlayerBody"]
-[editable path="TurnQueue/Player5"]
-[editable path="TurnQueue/Player5/PlayerBody"]

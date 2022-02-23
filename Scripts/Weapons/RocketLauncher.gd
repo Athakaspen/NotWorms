@@ -1,20 +1,19 @@
 extends Node2D
 
-var id_string = "launcher"
-var pretty_name = "Launcher"
-var description = "Does what is says on the tin. Launches."
+var id_string = "rocket"
+var pretty_name = "Rocket Launcher"
+var description = "Long Range! Explodes on Impact!"
+var owning_player = "UNDEFINED"
 
-var MAX_SHOOT_VEL := 1000.0
-var MIN_SHOOT_VEL := 200.0
-var STEP_SHOOT_VEL:= 50.0
-var shoot_velocity := 600.0
+var MAX_SHOOT_VEL := 1100.0
+var MIN_SHOOT_VEL := 400.0
 var projectile_mass := 1.0
 var projectile_gravity := 6.0
 
-# Length of the Trajectory Line in points
-var traj_length = 100
+# Length of the Trajectory Line in seconds
+var traj_length := 1.0
 
-var projectile_res = preload("res://SubScenes/Weapons/Bomb.tscn")
+var projectile_res = preload("res://SubScenes/Weapons/RocketLauncher_Proj.tscn")
 
 onready var shoot_point = $ShootPoint
 onready var traj_line = $TrajectoryLine
@@ -27,26 +26,31 @@ func _ready():
 	pass # Replace with function body.
 
 # dist is the distance away the player is aiming
-func do_shoot(dist : float):
+func do_shoot(dist : float) -> bool:
 	var p = projectile_res.instance()
 	p.mass = projectile_mass
 	p.gravity_scale = projectile_gravity
 	p.transform = shoot_point.global_transform
 	MatchInfo.projectile_holder.add_child(p)
-	p.apply_central_impulse(p.transform.x * dist * p.mass)
+	var shoot_velocity = get_shoot_velocity(dist)
+	p.apply_central_impulse(p.transform.x * shoot_velocity)
 #	p.apply_central_impulse(p.transform.x * shoot_velocity * p.mass)
+	p.owning_player = owning_player
+	return true
 
-func do_power_up():
-	shoot_velocity = clamp(shoot_velocity + STEP_SHOOT_VEL, MIN_SHOOT_VEL, MAX_SHOOT_VEL)
-
-func do_power_down():
-	shoot_velocity = clamp(shoot_velocity - STEP_SHOOT_VEL, MIN_SHOOT_VEL, MAX_SHOOT_VEL)
+func get_shoot_velocity(dist):
+	dist = clamp(dist-50, 0, 1000)
+	return dist/1000 * (MAX_SHOOT_VEL - MIN_SHOOT_VEL) + MIN_SHOOT_VEL
 
 func set_active():
+	traj_line.visible = true
 	is_active = true
 
 func set_inactive():
 	is_active = false
+
+func hide_trajectory():
+	traj_line.visible = false
 
 func _process(delta):
 	# reset the line object transform so it drawin in the right place
@@ -59,20 +63,20 @@ var line_detail = 0.02
 func update_trajectory(dist):
 	traj_line.clear_points()
 	var pos = shoot_point.global_position
-	var vel = shoot_point.global_transform.x * dist
+	var vel = shoot_point.global_transform.x * get_shoot_velocity(dist)
 #	var vel = shoot_point.global_transform.x * shoot_velocity
-	for i in range(traj_length):
+	for _i in range(traj_length/line_detail):
 		traj_line.add_point(pos)
 		# the number is a scalar that makes it line up, found from trial and error
-		vel.y += projectile_gravity * line_detail * 103.6
+		vel.y += projectile_gravity * line_detail * 104
 		pos += vel * line_detail
 		
-		# stop the line when it hits terrain
-		var did_collide = false
-		for terrain_body in MatchInfo.terrain_holder.get_children():
-			var terr_poly = terrain_body.get_node("RenderPoly")
-			if Geometry.is_point_in_polygon(terr_poly.to_local(pos), terr_poly.polygon):
-				did_collide = true
-				break
-		if did_collide:
-			break
+#		# stop the line when it hits terrain
+#		var did_collide = false
+#		for terrain_body in MatchInfo.terrain_holder.get_children():
+#			var terr_poly = terrain_body.get_node("RenderPoly")
+#			if Geometry.is_point_in_polygon(terr_poly.to_local(pos), terr_poly.polygon):
+#				did_collide = true
+#				break
+#		if did_collide:
+#			break
