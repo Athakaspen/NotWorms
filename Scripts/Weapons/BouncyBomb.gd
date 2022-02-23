@@ -5,13 +5,13 @@ var pretty_name = "Bouncy Bomb"
 var description = "Throw it and see what happens. Blows up after 3 seconds."
 var owning_player = "UNDEFINED"
 
-var MAX_SHOOT_VEL := 1000.0
+var MAX_SHOOT_VEL := 800.0
 var MIN_SHOOT_VEL := 100.0
 var projectile_mass := 1.0
 var projectile_gravity := 6.0
 
-# Length of the Trajectory Line in points
-var traj_length = 50
+# Length of the Trajectory Line in seconds
+var traj_length := 1.0
 
 var projectile_res = preload("res://SubScenes/Weapons/BouncyBomb_Proj.tscn")
 
@@ -26,7 +26,8 @@ func _ready():
 	pass # Replace with function body.
 
 # dist is the distance away the player is aiming
-func do_shoot(dist : float):
+# Return value represents whether the show was successful
+func do_shoot(dist : float) -> void:
 	var p = projectile_res.instance()
 	p.mass = projectile_mass
 	p.gravity_scale = projectile_gravity
@@ -66,18 +67,18 @@ func update_trajectory(dist):
 	var pos = shoot_point.global_position
 	var vel = shoot_point.global_transform.x * get_shoot_velocity(dist)
 #	var vel = shoot_point.global_transform.x * shoot_velocity
-	for _i in range(traj_length):
+	for _i in range(traj_length/line_detail):
 		traj_line.add_point(pos)
 		# the number is a scalar that makes it line up, found from trial and error
 		vel.y += projectile_gravity * line_detail * 110
 		pos += vel * line_detail
 		
-		# stop the line when it hits terrain
-		var did_collide = false
-		for terrain_body in MatchInfo.terrain_holder.get_children():
-			var terr_poly = terrain_body.get_node("RenderPoly")
-			if Geometry.is_point_in_polygon(terr_poly.to_local(pos), terr_poly.polygon):
-				did_collide = true
-				break
-		if did_collide:
-			break
+#		# stop the line when it hits terrain
+#		var did_collide = false
+#		for terrain_body in MatchInfo.terrain_holder.get_children():
+#			var terr_poly = terrain_body.get_node("RenderPoly")
+#			if Geometry.is_point_in_polygon(terr_poly.to_local(pos), terr_poly.polygon):
+#				did_collide = true
+#				break
+#		if did_collide:
+#			break

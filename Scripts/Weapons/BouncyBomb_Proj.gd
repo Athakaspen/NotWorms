@@ -1,20 +1,15 @@
 extends RigidBody2D
 
-var explosion_radius = 50
-var explosion_force = 400
-var explosion_damage = 20
+
+var explosion_radius = 100
+var explosion_force = 600
+var explosion_damage = 25
+var explosion_delay = 3.0
 var owning_player = "UNDEFINED"
-
-# If we hit nothing in this long, explode
-var explosion_delay = 5.0
-
-# used to make sure we don't try to explode more than once
-var exploded := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	
-	# Backup kill fuse
 	$Timer.start(explosion_delay)
 	
 	# This code taken directly from the destructible terrain demo
@@ -24,15 +19,19 @@ func _ready() -> void:
 		var point = deg2rad(i * 360.0 / nb_points - 90)
 		points.push_back(Vector2.ZERO + Vector2(cos(point), sin(point)) * explosion_radius)
 	$ExplosionArea/DestructionPolygon.polygon = points
+	
+	# apply random spin for style points. 
+	# The delay is because of an engine bug that ignores
+	# torque_impulses when an object is first created
+	yield(get_tree().create_timer(0.05), "timeout")
+	apply_torque_impulse(rand_range(-1000, 1000))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
-	self.rotation = linear_velocity.angle()
+#func _process(delta):
+#	pass
 
 func explode() -> void:
-	if exploded: return
-	exploded = true
 #	for x in affected:
 #		x.apply_central_impulse((x.global_position - global_position).normalized() * explosion_force)
 #	var inst = particles.instance()
@@ -51,18 +50,17 @@ func explode() -> void:
 			if body.is_in_group("Knockback"):
 				body.apply_central_impulse( \
 					(body.global_position - global_position).normalized() * explosion_force)
-				# Rocket jumping
-				if body.get_parent().name == owning_player:
-					body.apply_central_impulse( \
-						(body.global_position - global_position).normalized() * explosion_force * 6.9)
 			if body.is_in_group("Damageable"):
 				body.get_parent().do_damage(explosion_damage)
 	
 	call_deferred("queue_free")
 
 func _on_Timer_timeout():
+	
+	# Only enable collision monitoring just before explosion
+	$ExplosionArea.monitoring = true
+	$ExplosionArea.monitorable = true
+	yield(get_tree(), "physics_frame")
+	yield(get_tree(), "physics_frame")
+	
 	explode()
-
-func _on_RocketLauncher_Proj_body_entered(body):
-	if body.is_in_group("Destructible") or body.is_in_group("Damageable"):
-		explode()

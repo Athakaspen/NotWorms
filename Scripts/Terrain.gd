@@ -10,6 +10,7 @@ func _ready() -> void:
 #func _process(delta):
 #	pass
 
+# The basis of this was taken from the Destructable Terrain demo
 func clip(source_body: StaticBody2D, neg_poly: CollisionPolygon2D) -> void:
 	var offset_poly = Polygon2D.new()
 	# Transform the polygon values to take into account the transform

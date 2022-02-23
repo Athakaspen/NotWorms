@@ -36,7 +36,7 @@ func _ready():
 		w.owning_player = parent.name
 	
 	# default weapon
-	switch_weapon("rocket")
+	switch_weapon("bomb")
 	
 	set_turn_active(false)
 
@@ -79,12 +79,13 @@ func _process(_delta: float) -> void:
 #		get_parent().add_child(b)
 #		b.apply_central_impulse(b.transform.x * bomb_velocity * b.mass)
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	
 	# Bail if it's not ur turn
 	if not is_active: return
 	
 	if event.is_action_pressed("shoot"):
+		print("Shoot button pressed")
 		cur_weapon.do_shoot(position.distance_to(parent.aim_point.position))
 		if MatchInfo.oneshot:
 			parent.end_turn()

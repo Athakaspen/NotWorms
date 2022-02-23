@@ -41,10 +41,17 @@ config/icon="res://icon.png"
 MatchInfo="*res://Scripts/Singletons/MatchInfo.gd"
 Utilities="*res://Scripts/Singletons/Utilities.gd"
 
+[debug]
+
+settings/stdout/print_fps=true
+
 [display]
 
 window/size/width=1280
 window/size/height=720
+window/size/borderless=true
+window/size/fullscreen=true
+window/stretch/mode="2d"
 
 [input]
 

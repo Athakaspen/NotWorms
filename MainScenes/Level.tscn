@@ -47,6 +47,22 @@ position = Vector2( 378, 748 )
 [node name="SpritePoly" parent="TurnQueue/Player2/PlayerBody" index="0"]
 color = Color( 0.980392, 0.184314, 0.184314, 1 )
 
+[node name="Player3" parent="TurnQueue" instance=ExtResource( 3 )]
+
+[node name="PlayerBody" parent="TurnQueue/Player3" index="0"]
+position = Vector2( 1280, 717 )
+
+[node name="SpritePoly" parent="TurnQueue/Player3/PlayerBody" index="0"]
+color = Color( 0.247059, 0.980392, 0.184314, 1 )
+
+[node name="Player4" parent="TurnQueue" instance=ExtResource( 3 )]
+
+[node name="PlayerBody" parent="TurnQueue/Player4" index="0"]
+position = Vector2( 1630, 131 )
+
+[node name="SpritePoly" parent="TurnQueue/Player4/PlayerBody" index="0"]
+color = Color( 0.752941, 0.0627451, 0.972549, 1 )
+
 [node name="CameraLimit" type="Position2D" parent="."]
 position = Vector2( 1920, 1080 )
 __meta__ = {
@@ -176,3 +192,7 @@ one_shot = true
 [editable path="TurnQueue/Player1/PlayerBody"]
 [editable path="TurnQueue/Player2"]
 [editable path="TurnQueue/Player2/PlayerBody"]
+[editable path="TurnQueue/Player3"]
+[editable path="TurnQueue/Player3/PlayerBody"]
+[editable path="TurnQueue/Player4"]
+[editable path="TurnQueue/Player4/PlayerBody"]
