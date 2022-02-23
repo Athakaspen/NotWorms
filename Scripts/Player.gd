@@ -87,6 +87,9 @@ func end_turn():
 	turn_timer.stop()
 	emit_signal("turn_done")
 
+func finish_turn():
+	player_body.finish_turn()
+
 func get_body() -> Node:
 	return player_body
 

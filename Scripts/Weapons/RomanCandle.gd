@@ -1,22 +1,33 @@
 extends Node2D
 
-var id_string = "rocket"
-var pretty_name = "Rocket Launcher"
-var description = "Long Range! Explodes on Impact!"
+var id_string = "candle"
+var pretty_name = "Roman Candle"
+var description = "Barrage of rapid-fire, low-damage projectiles."
 var owning_player = "UNDEFINED"
 
-var MAX_SHOOT_VEL := 1100.0
-var MIN_SHOOT_VEL := 400.0
-var projectile_mass := 1.0
-var projectile_gravity := 6.0
+var MAX_SHOOT_VEL := 400.0
+var MIN_SHOOT_VEL := 300.0
+var projectile_mass := 0.4
+var projectile_gravity := 4.0
+var num_projectiles : int = 16
+var projectile_damage := 3
+var fire_delay := 0.02 # seconds
+var projectile_spread := 20.0 # Degrees
+# magnituge of random force applied to projectiles
+var projectile_force := 250
 
 # Length of the Trajectory Line in seconds
 var traj_length := 1.0
 
-var projectile_res = preload("res://SubScenes/Weapons/RocketLauncher_Proj.tscn")
+var projectile_res = preload("res://SubScenes/Weapons/RomanCandle_Proj.tscn")
 
 onready var shoot_point = $ShootPoint
 onready var traj_line = $TrajectoryLine
+
+var shoot_velocity
+var proj_transform
+
+signal shoot_signal
 
 # Whether this weapon is the current weapon of the player
 var is_active = false
@@ -27,16 +38,30 @@ func _ready():
 
 # dist is the distance away the player is aiming
 func do_shoot(dist : float) -> bool:
-	var p = projectile_res.instance()
-	p.mass = projectile_mass
-	p.gravity_scale = projectile_gravity
-	p.transform = shoot_point.global_transform
-	MatchInfo.projectile_holder.add_child(p)
-	var shoot_velocity = get_shoot_velocity(dist)
-	p.apply_central_impulse(p.transform.x * shoot_velocity)
-#	p.apply_central_impulse(p.transform.x * shoot_velocity * p.mass)
-	p.owning_player = owning_player
+	shoot_velocity = get_shoot_velocity(dist)
+	proj_transform = shoot_point.global_transform
+	emit_signal("shoot_signal")
 	return true
+
+func shoot_helper():
+	for _i in range(num_projectiles):
+		var p = projectile_res.instance()
+		p.mass = projectile_mass
+		p.gravity_scale = projectile_gravity
+		p.transform = shoot_point.global_transform
+		
+		# adding spread
+		p.rotate(deg2rad(rand_range(-projectile_spread/2, projectile_spread/2)))
+		p.applied_force = Vector2(rand_range(-projectile_force,projectile_force),rand_range(-projectile_force,projectile_force))
+		
+		MatchInfo.projectile_holder.add_child(p)
+#		var shoot_velocity = get_shoot_velocity(dist)
+		p.apply_central_impulse(p.transform.x * shoot_velocity)
+#		p.apply_central_impulse(p.transform.x * shoot_velocity * p.mass)
+		p.owning_player = owning_player
+		p.explosion_damage = projectile_damage
+		if get_tree() == null: return
+		yield(get_tree().create_timer(fire_delay), "timeout")
 
 func get_shoot_velocity(dist):
 	dist = clamp(dist-50, 0, 1000)
@@ -68,7 +93,7 @@ func update_trajectory(dist):
 	for _i in range(traj_length/line_detail):
 		traj_line.add_point(pos)
 		# the number is a scalar that makes it line up, found from trial and error
-		vel.y += projectile_gravity * line_detail * 104
+		vel.y += projectile_gravity * line_detail * 110
 		pos += vel * line_detail
 		
 #		# stop the line when it hits terrain
@@ -80,3 +105,4 @@ func update_trajectory(dist):
 #				break
 #		if did_collide:
 #			break
+

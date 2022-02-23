@@ -2,7 +2,7 @@ extends RigidBody2D
 
 
 var explosion_radius = 100
-var explosion_force = 600
+var explosion_force = 700
 var explosion_damage = 25
 var explosion_delay = 3.0
 var owning_player = "UNDEFINED"

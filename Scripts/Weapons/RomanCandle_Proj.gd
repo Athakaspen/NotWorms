@@ -1,15 +1,15 @@
 extends RigidBody2D
 
-var explosion_radius = 50
+var explosion_radius = 24
 var detection_margin = 20
 var explosion_poly
 
-var explosion_force = 400
-var explosion_damage = 20
+var explosion_force = 160
+var explosion_damage = 0 # This will be set by the gun
 var owning_player = "UNDEFINED"
 
 # If we hit nothing in this long, explode
-var explosion_delay = 6.0
+var explosion_delay = 0.6
 
 # Used to prevent exploding before physics engine has kicked in
 var live := false
@@ -23,7 +23,8 @@ func _ready() -> void:
 	$Timer.start(explosion_delay)
 	
 	# This code taken directly from the destructible terrain demo
-	var nb_points = 24
+	# Actual explotion poly
+	var nb_points = 16
 	var points = PoolVector2Array()
 	for i in range(nb_points+1):
 		var point = deg2rad(i * 360.0 / nb_points - 90)
@@ -36,6 +37,8 @@ func _ready() -> void:
 		var point = deg2rad(i * 360.0 / nb_points - 90)
 		points.push_back(Vector2.ZERO + Vector2(cos(point), sin(point)) * (explosion_radius + detection_margin))
 	$DetectionArea/DetectionPolygon.polygon = points
+	
+	
 	
 	yield(get_tree(), "physics_frame")
 	yield(get_tree(), "physics_frame")
@@ -59,7 +62,6 @@ func explode() -> void:
 	# and check all of those too
 	
 	for body in $DetectionArea.get_overlapping_bodies():
-		print (body)
 		if body.is_in_group("Destructible"):
 			body.get_parent().clip(body, $ExplosionPoly)
 		
@@ -67,10 +69,10 @@ func explode() -> void:
 			if body.is_in_group("Knockback"):
 				body.apply_central_impulse( \
 					(body.global_position - global_position).normalized() * explosion_force)
-				# Rocket jumping
+				# Puch owner back less
 				if body.get_parent().name == owning_player:
 					body.apply_central_impulse( \
-						(body.global_position - global_position).normalized() * explosion_force * 6.9)
+						(body.global_position - global_position).normalized() * explosion_force * -.6)
 			if body.is_in_group("Damageable"):
 				body.get_parent().do_damage(explosion_damage)
 	

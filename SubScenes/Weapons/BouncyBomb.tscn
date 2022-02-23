@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/Weapons/BouncyBomb.gd" type="Script" id=1]
 
+[sub_resource type="CircleShape2D" id=2]
 
 [sub_resource type="Curve" id=1]
 _data = [ Vector2( 0, 0.727273 ), 0.0, 0.644156, 0, 0, Vector2( 0.290323, 0.990909 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -3.01948, 0.0, 0, 0 ]
@@ -22,6 +23,11 @@ position = Vector2( 50, 0 )
 __meta__ = {
 "_gizmo_extents_": 5.0
 }
+
+[node name="CheckArea" type="Area2D" parent="ShootPoint"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShootPoint/CheckArea"]
+shape = SubResource( 2 )
 
 [node name="TrajectoryLine" type="Line2D" parent="."]
 z_index = -5

@@ -61,6 +61,7 @@ func main_loop():
 		STATE = State.POSTTURN
 #		if MatchInfo.projectile_holder.get_child_count() > 0:
 		yield(init_postturn(), "completed")
+		active_player.finish_turn()
 		
 		# Stop if we've detected that the game is over
 		if STATE == State.GAMEOVER: 
@@ -91,6 +92,8 @@ func play_turn():
 func init_postturn():
 	CAM_MODE = CamMode.PROJECTILE
 	level.UI.init_postturn()
+	yield(get_tree(), "idle_frame")
+	yield(get_tree(), "idle_frame")
 	yield(MatchInfo.projectile_holder, "no_children")
 	yield(get_tree().create_timer(1.0), "timeout")
 

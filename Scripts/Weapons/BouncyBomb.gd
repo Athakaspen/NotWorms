@@ -5,7 +5,7 @@ var pretty_name = "Bouncy Bomb"
 var description = "Throw it and see what happens. Blows up after 3 seconds."
 var owning_player = "UNDEFINED"
 
-var MAX_SHOOT_VEL := 800.0
+var MAX_SHOOT_VEL := 600.0
 var MIN_SHOOT_VEL := 100.0
 var projectile_mass := 1.0
 var projectile_gravity := 6.0
@@ -27,20 +27,30 @@ func _ready():
 
 # dist is the distance away the player is aiming
 # Return value represents whether the show was successful
-func do_shoot(dist : float) -> void:
+func do_shoot(dist : float) -> bool:
+	
+	if check_can_shoot() == false: return false
+	
 	var p = projectile_res.instance()
 	p.mass = projectile_mass
 	p.gravity_scale = projectile_gravity
 	p.transform = shoot_point.global_transform
 	MatchInfo.projectile_holder.add_child(p)
 	var shoot_velocity = get_shoot_velocity(dist)
-	p.apply_central_impulse(p.transform.x * shoot_velocity * p.mass)
+	p.apply_central_impulse(p.transform.x * shoot_velocity)
 #	p.apply_central_impulse(p.transform.x * shoot_velocity * p.mass)
 	p.owning_player = owning_player
+	return true
 
 func get_shoot_velocity(dist):
 	dist = clamp(dist-50, 0, 1000)
 	return dist/1000 * (MAX_SHOOT_VEL - MIN_SHOOT_VEL) + MIN_SHOOT_VEL
+
+func check_can_shoot()-> bool:
+	for body in $ShootPoint/CheckArea.get_overlapping_bodies():
+		if body is StaticBody2D:
+			return false
+	return true
 
 #func do_power_up():
 #	shoot_velocity = clamp(shoot_velocity + STEP_SHOOT_VEL, MIN_SHOOT_VEL, MAX_SHOOT_VEL)
@@ -49,10 +59,14 @@ func get_shoot_velocity(dist):
 #	shoot_velocity = clamp(shoot_velocity - STEP_SHOOT_VEL, MIN_SHOOT_VEL, MAX_SHOOT_VEL)
 
 func set_active():
+	traj_line.visible = true
 	is_active = true
 
 func set_inactive():
 	is_active = false
+
+func hide_trajectory():
+	traj_line.visible = false
 
 func _process(delta):
 	# reset the line object transform so it drawin in the right place

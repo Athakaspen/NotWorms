@@ -7,6 +7,10 @@ onready var level = $"../.."
 signal start_turn
 var cur_player : String
 
+var in_preturn := false
+var in_turn := false
+var in_postturn := false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$DeathToast.visible = false
@@ -36,15 +40,20 @@ func do_deathtoast(playername:String) -> void:
 	$DeathToast/DeathToastTimer.start()
 
 func init_preturn():
+	in_postturn = false
+	in_preturn = true
 	$Turn.visible = false
 	$Preturn.visible = true
 	
 	# wait a sec before showing the ready button
 	$Preturn/ReadyButton.visible = false
 	yield(get_tree().create_timer(1.0), "timeout")
-	$Preturn/ReadyButton.visible = true
+	if in_preturn:
+		$Preturn/ReadyButton.visible = true
 
 func init_turn():
+	in_preturn = false
+	in_turn = true
 	$Turn.visible = true
 	$Preturn.visible = false
 	
@@ -53,9 +62,12 @@ func init_turn():
 	# wait a sec before showing the end turn button
 	$Turn/EndTurnButton.visible = false
 	yield(get_tree().create_timer(1.0), "timeout")
-	$Turn/EndTurnButton.visible = true
+	if in_turn:
+		$Turn/EndTurnButton.visible = true
 
 func init_postturn():
+	in_turn = false
+	in_postturn = true
 	$Turn/TurnTimer.visible = false
 	$Turn/EndTurnButton.visible = false
 
