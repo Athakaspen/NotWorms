@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 var explosion_radius = 100
-var detection_margin = 20
+var detection_margin = 30
 var explosion_poly
 
 var explosion_force = 700

@@ -74,15 +74,15 @@ func _input(event):
 			close_inventory()
 
 func open_inventory():
-	var inventory_data = {}
-	for record in inventory_contents:
-		inventory_data[record] = {
-			"count": inventory_contents[record],
-			"pretty_name": player_body.weapons[record].pretty_name,
-			"description": player_body.weapons[record].description
-		}
+#	var inventory_data = {}
+#	for record in inventory_contents:
+#		inventory_data[record] = {
+#			"count": inventory_contents[record],
+#			"pretty_name": player_body.weapons[record].pretty_name,
+#			"description": player_body.weapons[record].description
+#		}
 	var cur_weapon = player_body.cur_weapon.id_string
-	turn_queue.level.UI.show_inventory(inventory_data, cur_weapon)
+	turn_queue.level.UI.show_inventory(inventory_contents, cur_weapon)
 	inventory_open = true
 	player_body.set_inventory_active(true)
 	Engine.time_scale = MatchInfo.inventory_timescale

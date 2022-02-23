@@ -25,7 +25,7 @@ var weapon_path_list = [
 ]
 var weapons = {}
 var cur_weapon
-var default_weapon = "bomb"
+var default_weapon = "rocket"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -102,7 +102,8 @@ func _physics_process(delta: float) -> void:
 	# No input-based movement if it's not ur turn
 	if not is_active:
 		
-		# This delta checks if Engine.time_scale is 0, which happens when we're paused and breaks things
+		# This delta checks if Engine.time_scale is 0, 
+		# which happens when we're paused and breaks things
 		if delta != 0:
 			# Horizontal-only damping (so gravity feels heavier
 			apply_central_impulse(Vector2(-linear_velocity.x * H_damping * delta * mass, 0))

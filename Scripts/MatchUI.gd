@@ -2,7 +2,13 @@ extends Control
 
 onready var turn_timer = $Turn/TurnTimer
 onready var level = $"../.."
+onready var inv_list = $Inventory/CenterContainer/VBoxContainer/HBoxContainer
+#onready var inv_info = $Inventory/CenterContainer/VBoxContainer
+onready var inv_info_name = $Inventory/CenterContainer/VBoxContainer/Name
+onready var inv_info_desc = $Inventory/CenterContainer/VBoxContainer/Description
+onready var inv_info_count = $Inventory/CenterContainer/VBoxContainer/Count
 
+var inv_entry_res = preload("res://SubScenes/InventoryEntry.tscn")
 
 signal start_turn
 var cur_player : String
@@ -14,6 +20,7 @@ var in_postturn := false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$DeathToast.visible = false
+	$Inventory.visible = false
 
 func _unhandled_input(event):
 	# This is really bad, should be updated
@@ -75,9 +82,21 @@ func hide_inventory() -> String:
 	return "candle"
 
 func update_inventory(data, cur_weapon):
-	$Inventory/CenterContainer/VBoxContainer/Name.text = str(data["bomb"]["pretty_name"])
-	$Inventory/CenterContainer/VBoxContainer/Description.text = str(data["candle"]["description"])
-	$Inventory/CenterContainer/VBoxContainer/Count.text = str(data["rocket"]["count"])
+	Utilities.queue_free_children(inv_list)
+	for weapon in data:
+		if data[weapon] > 0:
+			var new_entry = inv_entry_res.instance()
+			new_entry.name = weapon
+			new_entry.set_icon(GameData.WeaponData[weapon]["icon"])
+			inv_list.add_child(new_entry)
+			if weapon == cur_weapon:
+				new_entry.set_active(true)
+				inv_info_name.text = GameData.WeaponData[weapon]["pretty_name"]
+				inv_info_desc.text = GameData.WeaponData[weapon]["description"]
+				inv_info_count.text = str(data[weapon])
+#	$Inventory/CenterContainer/VBoxContainer/Name.text = str(data["bomb"]["pretty_name"])
+#	$Inventory/CenterContainer/VBoxContainer/Description.text = str(data["candle"]["description"])
+#	$Inventory/CenterContainer/VBoxContainer/Count.text = str(data["rocket"]["count"])
 
 func init_postturn():
 	in_turn = false

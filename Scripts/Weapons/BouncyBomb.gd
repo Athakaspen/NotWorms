@@ -1,8 +1,8 @@
 extends Node2D
 
 var id_string = "bomb"
-var pretty_name = "Bouncy Bomb"
-var description = "Throw it and see what happens. Blows up after 3 seconds."
+#var pretty_name = "Bouncy Bomb"
+#var description = "Throw it and see what happens. Blows up after 3 seconds."
 var owning_player = "UNDEFINED"
 
 var MAX_SHOOT_VEL := 600.0

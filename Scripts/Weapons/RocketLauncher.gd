@@ -1,8 +1,8 @@
 extends Node2D
 
 var id_string = "rocket"
-var pretty_name = "Rocket Launcher"
-var description = "Long Range! Explodes on Impact!"
+#var pretty_name = "Rocket Launcher"
+#var description = "Long Range! Explodes on Impact!"
 var owning_player = "UNDEFINED"
 
 var MAX_SHOOT_VEL := 1100.0
@@ -36,6 +36,10 @@ func do_shoot(dist : float) -> bool:
 	p.apply_central_impulse(p.transform.x * shoot_velocity)
 #	p.apply_central_impulse(p.transform.x * shoot_velocity * p.mass)
 	p.owning_player = owning_player
+	
+	# Push owner backwards
+	$"../..".apply_central_impulse(-p.transform.x * shoot_velocity * 0.4)
+	
 	return true
 
 func get_shoot_velocity(dist):
