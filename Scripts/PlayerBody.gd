@@ -16,13 +16,16 @@ var is_jump_buffered = false
 onready var parent = $".."
 onready var jump_timer = $JumpTimer
 
-var is_active := false
+var PREV_STATE
+var STATE
+enum State {
+	OFFTURN,
+	PRETURN,
+	TURN,
+	POSTTURN,
+	MENU
+}
 
-#var weapon_path_list = [
-#	"res://SubScenes/Weapons/BouncyBomb.tscn",
-#	"res://SubScenes/Weapons/RocketLauncher.tscn",
-#	"res://SubScenes/Weapons/RomanCandle.tscn"
-#]
 var weapons = {}
 var cur_weapon
 var default_weapon = "bomb"
@@ -41,7 +44,7 @@ func _ready():
 	# default weapon
 	switch_weapon(default_weapon)
 	
-	set_turn_active(false)
+	set_state_offturn()
 
 func switch_weapon(weapon_name):
 	if cur_weapon != null:
@@ -51,47 +54,50 @@ func switch_weapon(weapon_name):
 	$RotPoint.add_child(cur_weapon)
 	cur_weapon.set_active()
 
-func init_preturn():
-	pass
-#	$RotPoint.visible = true
+func set_state_preturn():
+	STATE = State.PRETURN
+	if parent.inventory_contents[cur_weapon.id_string] == 0:
+		switch_weapon(default_weapon)
+	$RotPoint.visible = true
 
-func set_turn_active(value:bool) -> void:
-	# Set to inactive
-	if value == false:
-		is_active = false
-		cur_weapon.hide_trajectory()
-	
-	# Set to active
-	elif value == true:
-		is_active = true
-		$RotPoint.visible = true
-		cur_weapon.set_active()
+func set_state_turn() -> void:
+	STATE = State.TURN
+	$RotPoint.visible = true
+	cur_weapon.set_active()
 
-func finish_turn():
+func set_state_postturn():
+	STATE = State.POSTTURN
+	cur_weapon.hide_trajectory()
+
+func set_state_menu():
+	STATE = State.MENU
+
+func set_state_offturn():
+	STATE = State.OFFTURN
 	$RotPoint.visible = false
 	cur_weapon.set_inactive()
 
-func set_inventory_active(open : bool) -> void:
-	if open:
-		is_active = false
-	else:
-		is_active = true
+func set_inventory_active(value : bool) -> void:
+	if value == true and STATE != State.MENU:
+		PREV_STATE = STATE
+		STATE = State.MENU
+	elif value == false and STATE == State.MENU:
+		STATE = PREV_STATE
 
 func _process(_delta: float) -> void:
 	
+	# Bail if it's not ur turn
+	if STATE == State.OFFTURN: return
+	
 	cur_weapon.update_trajectory(position.distance_to(parent.aim_point.position))
 	
-	# Bail if it's not ur turn
-	if not is_active: return
-	
 	$RotPoint.look_at(parent.aim_point.global_position)
-	
 
 
 func _input(event: InputEvent) -> void:
 	
 	# Bail if it's not ur turn
-	if not is_active: return
+	if STATE != State.TURN: return
 	
 	if event.is_action_pressed("shoot"):
 		var did_shoot = cur_weapon.do_shoot(position.distance_to(parent.aim_point.position))
@@ -101,8 +107,10 @@ func _input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	
+	if delta == 0: return
+	
 	# No input-based movement if it's not ur turn
-	if not is_active:
+	if STATE != State.TURN:
 		
 		# This delta checks if Engine.time_scale is 0, 
 		# which happens when we're paused and breaks things

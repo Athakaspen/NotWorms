@@ -8,7 +8,8 @@ extends Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	# This sets the randomness for everything
+	randomize()
 
 static func queue_free_children(node: Node) -> void:
 	for child in node.get_children():
@@ -22,6 +23,9 @@ func _input(event):
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+static func rand_choice(arr : Array):
+	return arr[randi() % arr.size()]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

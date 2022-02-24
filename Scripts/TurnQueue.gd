@@ -11,6 +11,7 @@ enum State {
 	PRETURN,
 	TURN,
 	POSTTURN,
+	CHEST,
 	GAMEOVER
 }
 var STATE = State.INIT
@@ -18,7 +19,8 @@ var STATE = State.INIT
 enum CamMode {
 	PLAYER,
 	MIDPOINT,
-	PROJECTILE
+	PROJECTILE,
+	CHEST
 }
 var CAM_MODE = CamMode.PLAYER
 
@@ -29,6 +31,8 @@ onready var level = $".."
 var active_player : Player
 var winner : Player = null
 var player_list
+
+var turns_til_next_chest = 1
 
 func initialize():
 	player_list = get_children()
@@ -67,6 +71,11 @@ func main_loop():
 		if STATE == State.GAMEOVER: 
 			do_endgame()
 			break
+		
+		turns_til_next_chest -= 1
+		if turns_til_next_chest <= 0:
+			STATE = State.CHEST
+			yield(init_chest_spawn(), "completed")
 
 func get_next_player():
 	var new_player = null
@@ -96,6 +105,12 @@ func init_postturn():
 	yield(get_tree(), "idle_frame")
 	yield(MatchInfo.projectile_holder, "no_children")
 	yield(get_tree().create_timer(1.0), "timeout")
+
+func init_chest_spawn():
+	MatchInfo.chest_spawner.spawn_chest()
+	turns_til_next_chest = MatchInfo.get_turns_til_next_chest()
+	CAM_MODE = CamMode.CHEST
+	yield(get_tree().create_timer(2.5), "timeout")
 
 func do_endgame():
 	CAM_MODE = CamMode.PROJECTILE
@@ -159,10 +174,14 @@ func get_camera_point() -> Vector2:
 			var player_weight = 1.5
 			cam_point = (player_weight*player_pos + active_player.aim_point.global_position) / (1+player_weight)
 		CamMode.PROJECTILE:
-			#TODO
+			# Follow projectiles
 			cam_point = MatchInfo.projectile_holder.get_cam_point()
 			if cam_point == null:
 				cam_point = prev_cam_point
+		CamMode.CHEST:
+			# Jump to most recently spawned chest
+			cam_point = MatchInfo.chest_spawner.get_cam_point()
+			if cam_point == null:
 				cam_point = prev_cam_point
 	
 	prev_cam_point = cam_point

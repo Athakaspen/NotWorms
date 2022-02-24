@@ -10,7 +10,7 @@ onready var turn_queue = $".."
 onready var aim_point = $AimPoint
 
 var controller_aim_speed = 1000
-var max_aim_dist = 800
+var max_aim_dist = 600
 
 export var MAX_HEALTH = 100
 var health
@@ -25,11 +25,7 @@ var inventory_open := false
 
 var in_preturn := false
 
-var inventory_contents = {
-	"bomb": 69,
-	"rocket": 34,
-	"candle": 7
-}
+var inventory_contents := {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -37,6 +33,7 @@ func _ready():
 	$Tag/PlayerNametag.text = name
 	health = MAX_HEALTH
 	update_healthbar()
+	inventory_contents = MatchInfo.get_starting_inventory()
 
 func _process(delta):
 	# ah cahnt dyu aneethin if ahm ded
@@ -59,7 +56,7 @@ func _process(delta):
 			aim_point.position = player_body.position + difference.normalized()*max_aim_dist
 	
 	# Stick tag to player's head
-	$Tag.position = $PlayerBody.position + Vector2.UP * 50
+	$Tag.position = player_body.position + Vector2.UP * 50
 
 func _input(event):
 	
@@ -97,8 +94,18 @@ func close_inventory():
 	player_body.set_inventory_active(false)
 	Engine.time_scale = MatchInfo.normal_timescale
 
+# Decreases ammo for the specified weapon by one.
+# Used after shooting.
 func decrease_ammo(weapon_id : String) -> void:
 	inventory_contents[weapon_id] -= 1
+
+# Add the contents of the item_dict to the player's inventory. 
+# Used to recieve items from chests.
+func give(item_dict : Dictionary):
+	for item in item_dict:
+		assert(item in inventory_contents,\
+			"Attempted to add an invalid weapon key to inventory")
+		inventory_contents[item] += item_dict[item]
 
 # This function is called when the "Ready Up" screen shows,
 # before the actual turn begins. It's here to set up visuals mostly.
@@ -106,7 +113,7 @@ func init_preturn():
 	in_preturn = true
 	aim_point.visible = true
 #	aim_point.position = player_body.position
-	player_body.init_preturn()
+	player_body.set_state_preturn()
 
 func play_turn(turn_dur:float) -> void:
 	in_preturn = false
@@ -119,7 +126,7 @@ func play_turn(turn_dur:float) -> void:
 	turn_timer.wait_time = turn_dur
 	
 	# Set active player's body to active
-	player_body.set_turn_active(true);
+	player_body.set_state_turn();
 	turn_timer.start()
 	
 	# Don't return until we emit a signal
@@ -127,7 +134,7 @@ func play_turn(turn_dur:float) -> void:
 
 func end_turn():
 	if inventory_open: close_inventory()
-	player_body.set_turn_active(false)
+	player_body.set_state_postturn()
 	is_my_turn = false
 	aim_point.visible = false
 	# Stop the timer if it's still going
@@ -135,7 +142,7 @@ func end_turn():
 	emit_signal("turn_done")
 
 func finish_turn():
-	player_body.finish_turn()
+	player_body.set_state_offturn()
 
 func get_body() -> Node:
 	return player_body

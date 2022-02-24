@@ -93,6 +93,7 @@ func hide_inventory() -> String:
 func update_inventory(data, cur_weapon):
 	# Clear the existing list
 	Utilities.queue_free_children(inv_list)
+	
 	for weapon in data:
 		if data[weapon] > 0:
 			# Create an inventory entry for each weapon with more than 1 ammo

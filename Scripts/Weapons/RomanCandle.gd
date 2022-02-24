@@ -69,8 +69,8 @@ func shoot_helper():
 		yield(get_tree().create_timer(fire_delay), "timeout")
 
 func get_shoot_velocity(dist):
-	dist = clamp(dist-50, 0, 1000)
-	return dist/1000 * (MAX_SHOOT_VEL - MIN_SHOOT_VEL) + MIN_SHOOT_VEL
+	dist = clamp(dist-50, 0, 700)
+	return dist/700 * (MAX_SHOOT_VEL - MIN_SHOOT_VEL) + MIN_SHOOT_VEL
 
 func set_active():
 	traj_line.visible = true

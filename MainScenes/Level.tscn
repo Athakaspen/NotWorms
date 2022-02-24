@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://SubScenes/Terrain/Terrain.tscn" type="PackedScene" id=2]
 [ext_resource path="res://SubScenes/Player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/TurnQueue.gd" type="Script" id=4]
 [ext_resource path="res://MainScenes/LevelUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scripts/ChestSpawner.gd" type="Script" id=6]
+[ext_resource path="res://SubScenes/Chest.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scripts/ProjectileHolder.gd" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=3]
@@ -14,6 +16,19 @@ extents = Vector2( 9999, 100 )
 script = ExtResource( 1 )
 
 [node name="Terrain" parent="." instance=ExtResource( 2 )]
+
+[node name="ChestSpawner" type="Node2D" parent="."]
+visible = false
+script = ExtResource( 6 )
+
+[node name="ChestLine" type="Line2D" parent="ChestSpawner"]
+points = PoolVector2Array( 36, 50, 1726, 49 )
+default_color = Color( 1, 1, 1, 1 )
+
+[node name="ChestHolder" type="Node2D" parent="."]
+
+[node name="Chest" parent="ChestHolder" instance=ExtResource( 7 )]
+position = Vector2( 739, 201 )
 
 [node name="ProjectileHolder" type="Node2D" parent="."]
 script = ExtResource( 9 )

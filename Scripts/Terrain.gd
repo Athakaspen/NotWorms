@@ -45,7 +45,7 @@ func create_new_terrain(polygon : PoolVector2Array, poly_color):
 	return newTerrain
 
 # Size of the chunks in pixels
-const CHUNK_SIZE := 32
+const CHUNK_SIZE := 64
 # Partition terrain into chunks
 func chunkify_terrain() -> void:
 	
