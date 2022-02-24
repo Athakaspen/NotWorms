@@ -63,7 +63,7 @@ func shoot_helper():
 		p.explosion_damage = projectile_damage
 		
 		# Push owner back
-		$"../..".apply_central_impulse(-p.transform.x * shoot_velocity * 0.14)
+		$"../..".apply_central_impulse(-p.transform.x * shoot_velocity * 0.12)
 		
 		if get_tree() == null: return
 		yield(get_tree().create_timer(fire_delay), "timeout")

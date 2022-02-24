@@ -20,12 +20,14 @@ var is_my_turn := false
 var is_dead := false
 # this used to make sure you don't die after winning
 var is_invincible := false
-#Whether the player has the inventory menu pulled up
+# Whether the player has the inventory menu pulled up
 var inventory_open := false
+
+var in_preturn := false
 
 var inventory_contents = {
 	"bomb": 69,
-	"rocket": 2,
+	"rocket": 34,
 	"candle": 7
 }
 
@@ -60,27 +62,28 @@ func _process(delta):
 	$Tag.position = $PlayerBody.position + Vector2.UP * 50
 
 func _input(event):
-	if not is_my_turn: return
 	
-	if event is InputEventMouseMotion and not inventory_open:
-		aim_point.position += event.relative
-	
-	if event.is_action_pressed("menu_open"):
-		if not inventory_open:
+	if in_preturn or is_my_turn:
+		if event.is_action_pressed("menu_open"):
 			open_inventory()
-		else:
-			Engine.time_scale = 1.0
+		elif event.is_action_released("menu_open"):
 			# This also switches to the selected weapon
 			close_inventory()
+	
+	if is_my_turn:
+		if event is InputEventMouseMotion and not inventory_open:
+			aim_point.position += event.relative
+
+	
+#	if event.is_action_pressed("menu_open"):
+#		if not inventory_open:
+#			open_inventory()
+#		else:
+#			Engine.time_scale = 1.0
+#			# This also switches to the selected weapon
+#			close_inventory()
 
 func open_inventory():
-#	var inventory_data = {}
-#	for record in inventory_contents:
-#		inventory_data[record] = {
-#			"count": inventory_contents[record],
-#			"pretty_name": player_body.weapons[record].pretty_name,
-#			"description": player_body.weapons[record].description
-#		}
 	var cur_weapon = player_body.cur_weapon.id_string
 	turn_queue.level.UI.show_inventory(inventory_contents, cur_weapon)
 	inventory_open = true
@@ -94,14 +97,19 @@ func close_inventory():
 	player_body.set_inventory_active(false)
 	Engine.time_scale = MatchInfo.normal_timescale
 
+func decrease_ammo(weapon_id : String) -> void:
+	inventory_contents[weapon_id] -= 1
+
 # This function is called when the "Ready Up" screen shows,
 # before the actual turn begins. It's here to set up visuals mostly.
 func init_preturn():
+	in_preturn = true
 	aim_point.visible = true
 #	aim_point.position = player_body.position
 	player_body.init_preturn()
 
 func play_turn(turn_dur:float) -> void:
+	in_preturn = false
 	# print("It's %s's turn!" % name)
 	if is_dead: 
 		end_turn()

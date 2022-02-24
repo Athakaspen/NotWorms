@@ -18,22 +18,23 @@ onready var jump_timer = $JumpTimer
 
 var is_active := false
 
-var weapon_path_list = [
-	"res://SubScenes/Weapons/BouncyBomb.tscn",
-	"res://SubScenes/Weapons/RocketLauncher.tscn",
-	"res://SubScenes/Weapons/RomanCandle.tscn"
-]
+#var weapon_path_list = [
+#	"res://SubScenes/Weapons/BouncyBomb.tscn",
+#	"res://SubScenes/Weapons/RocketLauncher.tscn",
+#	"res://SubScenes/Weapons/RomanCandle.tscn"
+#]
 var weapons = {}
 var cur_weapon
-var default_weapon = "rocket"
+var default_weapon = "bomb"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	jump_timer.wait_time = jump_delay
 	
 	# Instance all weapons and add them to the dictionary for storage
-	for w_path in weapon_path_list:
-		var w = load(w_path).instance()
+	for weapon in GameData.WeaponData:
+		var res_path = GameData.WeaponData[weapon]["resource"]
+		var w = load(res_path).instance()
 		weapons[w.id_string] = w
 		w.owning_player = parent.name
 	
@@ -95,6 +96,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot"):
 		var did_shoot = cur_weapon.do_shoot(position.distance_to(parent.aim_point.position))
 		if MatchInfo.oneshot and did_shoot:
+			parent.decrease_ammo(cur_weapon.id_string)
 			parent.end_turn()
 
 func _physics_process(delta: float) -> void:
