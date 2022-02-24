@@ -1,21 +1,14 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://SubScenes/Terrain/Terrain.tscn" type="PackedScene" id=2]
 [ext_resource path="res://SubScenes/Player/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/TurnQueue.gd" type="Script" id=4]
-[ext_resource path="res://Fonts/TestFont.tres" type="DynamicFont" id=5]
-[ext_resource path="res://Scripts/TurnTimer.gd" type="Script" id=6]
-[ext_resource path="res://Sprites/whitecircle.png" type="Texture" id=7]
-[ext_resource path="res://Scripts/MatchUI.gd" type="Script" id=8]
+[ext_resource path="res://MainScenes/LevelUI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scripts/ProjectileHolder.gd" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 9999, 100 )
-
-[sub_resource type="Gradient" id=2]
-offsets = PoolRealArray( 0.0731707, 0.334495, 0.519164, 0.832753 )
-colors = PoolColorArray( 1, 0.09375, 0.09375, 1, 0.992188, 1, 0, 1, 0.890944, 1, 0.00637755, 1, 0, 1, 0.0625, 1 )
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
@@ -79,114 +72,9 @@ smoothing_speed = 3.0
 
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
-[node name="UIHolder" type="Control" parent="UICanvas"]
-margin_right = 40.0
-margin_bottom = 40.0
-script = ExtResource( 8 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Preturn" type="Control" parent="UICanvas/UIHolder"]
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TurnLabelCenter" type="Label" parent="UICanvas/UIHolder/Preturn"]
-margin_left = 428.0
-margin_top = 564.0
-margin_right = 875.0
-margin_bottom = 603.0
-custom_fonts/font = ExtResource( 5 )
-text = "Player1's Turn!"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ReadyButton" type="Button" parent="UICanvas/UIHolder/Preturn"]
-margin_left = 489.0
-margin_top = 448.0
-margin_right = 822.0
-margin_bottom = 541.0
-custom_fonts/font = ExtResource( 5 )
-text = "Ready (Y)"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Turn" type="Control" parent="UICanvas/UIHolder"]
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TurnLabelCorner" type="Label" parent="UICanvas/UIHolder/Turn"]
-margin_left = 26.0
-margin_top = 22.0
-margin_right = 392.0
-margin_bottom = 67.0
-custom_fonts/font = ExtResource( 5 )
-text = "XXXX's Turn!"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TurnTimer" type="TextureProgress" parent="UICanvas/UIHolder/Turn"]
-margin_left = 1131.0
-margin_top = 19.0
-margin_right = 1259.0
-margin_bottom = 147.0
-max_value = 1.0
-step = 0.0
-value = 1.0
-texture_progress = ExtResource( 7 )
-fill_mode = 5
-script = ExtResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-TimeGradient = SubResource( 2 )
-
-[node name="EndTurnButton" type="Button" parent="UICanvas/UIHolder/Turn"]
-margin_left = 882.0
-margin_top = 632.0
-margin_right = 1265.0
-margin_bottom = 697.0
-custom_fonts/font = ExtResource( 5 )
-text = "End Turn (Y)"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DeathToast" type="Control" parent="UICanvas/UIHolder"]
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Text" type="Label" parent="UICanvas/UIHolder/DeathToast"]
-margin_left = 395.0
-margin_top = 200.0
-margin_right = 914.0
-margin_bottom = 239.0
-custom_fonts/font = ExtResource( 5 )
-text = "PlayerX has Died!"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DeathToastTimer" type="Timer" parent="UICanvas/UIHolder/DeathToast"]
-wait_time = 2.5
-one_shot = true
+[node name="UIHolder" parent="UICanvas" instance=ExtResource( 5 )]
 
 [connection signal="body_entered" from="DeathPlane" to="." method="_on_DeathPlane_body_entered"]
-[connection signal="pressed" from="UICanvas/UIHolder/Preturn/ReadyButton" to="UICanvas/UIHolder" method="_on_ReadyButton_pressed"]
-[connection signal="pressed" from="UICanvas/UIHolder/Turn/EndTurnButton" to="UICanvas/UIHolder" method="_on_EndTurnButton_pressed"]
-[connection signal="timeout" from="UICanvas/UIHolder/DeathToast/DeathToastTimer" to="UICanvas/UIHolder" method="_on_DeathToastTimer_timeout"]
 
 [editable path="TurnQueue/Player1"]
 [editable path="TurnQueue/Player1/PlayerBody"]

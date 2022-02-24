@@ -1,8 +1,8 @@
 extends Node2D
 
 var id_string = "candle"
-var pretty_name = "Roman Candle"
-var description = "Barrage of rapid-fire, low-damage projectiles."
+#var pretty_name = "Roman Candle"
+#var description = "Barrage of rapid-fire, low-damage projectiles."
 var owning_player = "UNDEFINED"
 
 var MAX_SHOOT_VEL := 400.0
@@ -52,7 +52,8 @@ func shoot_helper():
 		
 		# adding spread
 		p.rotate(deg2rad(rand_range(-projectile_spread/2, projectile_spread/2)))
-		p.applied_force = Vector2(rand_range(-projectile_force,projectile_force),rand_range(-projectile_force,projectile_force))
+		p.applied_force = Vector2(rand_range(-projectile_force,projectile_force),\
+			rand_range(-projectile_force,projectile_force))
 		
 		MatchInfo.projectile_holder.add_child(p)
 #		var shoot_velocity = get_shoot_velocity(dist)
@@ -60,6 +61,10 @@ func shoot_helper():
 #		p.apply_central_impulse(p.transform.x * shoot_velocity * p.mass)
 		p.owning_player = owning_player
 		p.explosion_damage = projectile_damage
+		
+		# Push owner back
+		$"../..".apply_central_impulse(-p.transform.x * shoot_velocity * 0.12)
+		
 		if get_tree() == null: return
 		yield(get_tree().create_timer(fire_delay), "timeout")
 

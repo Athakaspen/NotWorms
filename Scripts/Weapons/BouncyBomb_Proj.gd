@@ -1,7 +1,9 @@
 extends RigidBody2D
 
-
 var explosion_radius = 100
+var detection_margin = 30
+var explosion_poly
+
 var explosion_force = 700
 var explosion_damage = 25
 var explosion_delay = 3.0
@@ -18,7 +20,14 @@ func _ready() -> void:
 	for i in range(nb_points+1):
 		var point = deg2rad(i * 360.0 / nb_points - 90)
 		points.push_back(Vector2.ZERO + Vector2(cos(point), sin(point)) * explosion_radius)
-	$ExplosionArea/DestructionPolygon.polygon = points
+	$ExplosionPoly.polygon = points
+	
+	# Detection body, larger to handle high speeds
+	points = PoolVector2Array()
+	for i in range(nb_points+1):
+		var point = deg2rad(i * 360.0 / nb_points - 90)
+		points.push_back(Vector2.ZERO + Vector2(cos(point), sin(point)) * (explosion_radius + detection_margin))
+	$DetectionArea/DetectionPolygon.polygon = points
 	
 	# apply random spin for style points. 
 	# The delay is because of an engine bug that ignores
@@ -41,10 +50,10 @@ func explode() -> void:
 	# TODO: Add a list of bodies that were created this frame,
 	# and check all of those too
 	
-	for body in $ExplosionArea.get_overlapping_bodies():
+	for body in $DetectionArea.get_overlapping_bodies():
 		#print (body)
 		if body.is_in_group("Destructible"):
-			body.get_parent().clip(body, $ExplosionArea/DestructionPolygon)
+			body.get_parent().clip(body, $ExplosionPoly)
 		
 		else:
 			if body.is_in_group("Knockback"):
@@ -56,11 +65,5 @@ func explode() -> void:
 	call_deferred("queue_free")
 
 func _on_Timer_timeout():
-	
-	# Only enable collision monitoring just before explosion
-	$ExplosionArea.monitoring = true
-	$ExplosionArea.monitorable = true
-	yield(get_tree(), "physics_frame")
-	yield(get_tree(), "physics_frame")
 	
 	explode()

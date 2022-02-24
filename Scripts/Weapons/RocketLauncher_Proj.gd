@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 var explosion_radius = 50
-var detection_margin = 20
+var detection_margin = 40
 var explosion_poly
 
 var explosion_force = 400
@@ -65,12 +65,13 @@ func explode() -> void:
 		
 		else:
 			if body.is_in_group("Knockback"):
-				body.apply_central_impulse( \
-					(body.global_position - global_position).normalized() * explosion_force)
-				# Rocket jumping
-				if body.get_parent().name == owning_player:
+				if body.get_parent().name != owning_player:
 					body.apply_central_impulse( \
-						(body.global_position - global_position).normalized() * explosion_force * 6.9)
+						(body.global_position - global_position).normalized() * explosion_force)
+				# Rocket jumping
+				else:
+					body.apply_central_impulse( \
+						(body.global_position - global_position).normalized() * explosion_force * 5)
 			if body.is_in_group("Damageable"):
 				body.get_parent().do_damage(explosion_damage)
 	

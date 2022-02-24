@@ -15,6 +15,12 @@ var oneshot = true
 # Length of each turn, in seconds
 var turn_duration : float = 5.0
 
+# Speed the game runs at normally
+var normal_timescale : float = 1.0
+# Speed the game runs at when a player's inventory is open
+# Value of 1.0 means no slowdown, value of 0 means completely pause
+var inventory_timescale : float = 0.1
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.

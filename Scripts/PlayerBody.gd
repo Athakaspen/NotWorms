@@ -18,11 +18,11 @@ onready var jump_timer = $JumpTimer
 
 var is_active := false
 
-var weapon_path_list = [
-	"res://SubScenes/Weapons/BouncyBomb.tscn",
-	"res://SubScenes/Weapons/RocketLauncher.tscn",
-	"res://SubScenes/Weapons/RomanCandle.tscn"
-]
+#var weapon_path_list = [
+#	"res://SubScenes/Weapons/BouncyBomb.tscn",
+#	"res://SubScenes/Weapons/RocketLauncher.tscn",
+#	"res://SubScenes/Weapons/RomanCandle.tscn"
+#]
 var weapons = {}
 var cur_weapon
 var default_weapon = "bomb"
@@ -32,8 +32,9 @@ func _ready():
 	jump_timer.wait_time = jump_delay
 	
 	# Instance all weapons and add them to the dictionary for storage
-	for w_path in weapon_path_list:
-		var w = load(w_path).instance()
+	for weapon in GameData.WeaponData:
+		var res_path = GameData.WeaponData[weapon]["resource"]
+		var w = load(res_path).instance()
 		weapons[w.id_string] = w
 		w.owning_player = parent.name
 	
@@ -70,13 +71,21 @@ func finish_turn():
 	$RotPoint.visible = false
 	cur_weapon.set_inactive()
 
+func set_inventory_active(open : bool) -> void:
+	if open:
+		is_active = false
+	else:
+		is_active = true
+
 func _process(_delta: float) -> void:
+	
+	cur_weapon.update_trajectory(position.distance_to(parent.aim_point.position))
 	
 	# Bail if it's not ur turn
 	if not is_active: return
 	
 	$RotPoint.look_at(parent.aim_point.global_position)
-	cur_weapon.update_trajectory(position.distance_to(parent.aim_point.position))
+	
 
 
 func _input(event: InputEvent) -> void:
@@ -87,14 +96,19 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot"):
 		var did_shoot = cur_weapon.do_shoot(position.distance_to(parent.aim_point.position))
 		if MatchInfo.oneshot and did_shoot:
+			parent.decrease_ammo(cur_weapon.id_string)
 			parent.end_turn()
 
 func _physics_process(delta: float) -> void:
 	
 	# No input-based movement if it's not ur turn
 	if not is_active:
-		# Horizontal-only damping (so gravity feels heavier
-		apply_central_impulse(Vector2(-linear_velocity.x * H_damping * delta * mass, 0))
+		
+		# This delta checks if Engine.time_scale is 0, 
+		# which happens when we're paused and breaks things
+		if delta != 0:
+			# Horizontal-only damping (so gravity feels heavier
+			apply_central_impulse(Vector2(-linear_velocity.x * H_damping * delta * mass, 0))
 		return
 	
 	# Standard Movement
