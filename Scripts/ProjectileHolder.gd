@@ -18,6 +18,7 @@ func _ready():
 func _process(delta):
 	if get_child_count() == 0:
 		emit_signal("no_children")
+		cam_point = Vector2.ZERO
 	else:
 		var acc = Vector2.ZERO
 		for child in get_children():
@@ -25,6 +26,6 @@ func _process(delta):
 		cam_point = acc / get_child_count()
 
 func get_cam_point():
-	if get_child_count() > 0:
-		return cam_point
-	return null
+	if cam_point == Vector2.ZERO:
+		return null
+	return cam_point

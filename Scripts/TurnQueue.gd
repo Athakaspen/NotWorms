@@ -171,7 +171,7 @@ func get_camera_point() -> Vector2:
 			cam_point = player_pos
 		CamMode.MIDPOINT:
 			# follow weighted midpoint of aiming
-			var player_weight = 1.5
+			var player_weight = 1.2
 			cam_point = (player_weight*player_pos + active_player.aim_point.global_position) / (1+player_weight)
 		CamMode.PROJECTILE:
 			# Follow projectiles
