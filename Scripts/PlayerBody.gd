@@ -6,9 +6,11 @@ export var move_force := 1100.0
 export var MAX_SPEED = 400
 export var H_damping := 3.0
 
+var controller_aim_speed = 1000
+var max_aim_dist = 600
 
 export var jump_force := 350.0
-export var air_jump_scalar := 0.69
+export var air_jump_scalar := 0.75
 export var jump_delay := 0.2
 # Whether the jump cooldown is inactive
 var can_jump_cooldown = true
@@ -22,6 +24,7 @@ var cur_stamina = MAX_STAMINA
 
 onready var parent = $".."
 onready var jump_timer = $JumpTimer
+onready var aim_point = $AimPointHolder/AimPoint
 
 var PREV_STATE
 var STATE
@@ -63,6 +66,7 @@ func switch_weapon(weapon_name):
 
 func set_state_preturn():
 	STATE = State.PRETURN
+	aim_point.visible = true
 	cur_stamina = MAX_STAMINA
 	if parent.inventory_contents[cur_weapon.id_string] == 0:
 		switch_weapon(default_weapon)
@@ -75,6 +79,7 @@ func set_state_turn() -> void:
 
 func set_state_postturn():
 	STATE = State.POSTTURN
+	aim_point.visible = false
 	cur_weapon.hide_trajectory()
 
 func set_state_menu():
@@ -99,18 +104,41 @@ func _process(delta: float) -> void:
 	# Regen stamina
 	cur_stamina = clamp(cur_stamina + STAMINA_REGEN*delta, 0, MAX_STAMINA)
 	
+	# Aim point location
+	# Start by locking the holder's rotation
+	$AimPointHolder.global_rotation = 0
+	if STATE == State.TURN:
+		# Controller Movement
+		var aim_input = Vector2(
+			Input.get_action_strength("aim_right") - Input.get_action_strength("aim_left"),
+			Input.get_action_strength("aim_down") - Input.get_action_strength("aim_up")
+		)
+		if aim_input.length() > 0:
+#			var cur_mouse_pos = get_viewport().get_mouse_position()
+#			Input.warp_mouse_position(cur_mouse_pos + aim_input * controller_aim_speed * delta)
+			aim_point.global_position += aim_input * controller_aim_speed * delta
+	
+		# Lock cursor within a radius of the player
+		if aim_point.position.length() > max_aim_dist:
+			aim_point.position = aim_point.position.normalized()*max_aim_dist
+	
 	# Point weapon at target
-	$RotPoint.look_at(parent.aim_point.global_position)
+	$RotPoint.look_at(aim_point.global_position)
 	# regenerate the trajectory line based on new aim
-	cur_weapon.update_trajectory(position.distance_to(parent.aim_point.position))
+	cur_weapon.update_trajectory(position.distance_to(aim_point.position))
 
 
 func _input(event: InputEvent) -> void:
 	# Bail if it's not ur turn
 	if STATE != State.TURN: return
 	
+	# Aiming with mouse
+	if event is InputEventMouseMotion:
+		aim_point.global_position += event.relative
+	
+	# Shooting input
 	if event.is_action_pressed("shoot"):
-		var did_shoot = cur_weapon.do_shoot(position.distance_to(parent.aim_point.position))
+		var did_shoot = cur_weapon.do_shoot(position.distance_to(aim_point.position))
 		if MatchInfo.oneshot and did_shoot:
 			parent.decrease_ammo(cur_weapon.id_string)
 			parent.end_turn()
@@ -122,7 +150,6 @@ func _physics_process(delta: float) -> void:
 	
 	# No input-based movement if it's not ur turn
 	if STATE != State.TURN:
-		
 		# This delta checks if Engine.time_scale is 0, 
 		# which happens when we're paused and breaks things
 		if delta != 0:
@@ -182,6 +209,13 @@ func do_jump():
 		if linear_velocity.y > 0:
 			var jump_bonus = linear_velocity.y * 0.8
 			apply_central_impulse(Vector2.UP * jump_bonus * mass)
+
+var MIN_AIM_MARGIN = 50
+# returns a float between 0 and one, how string the shot should be
+func get_aim_strength() -> float:
+	var dist = aim_point.position.length()
+	dist = clamp(dist-MIN_AIM_MARGIN, 0, max_aim_dist)
+	return dist/(max_aim_dist-MIN_AIM_MARGIN)
 
 func get_stamina_percent() -> float:
 	return clamp((cur_stamina - JUMP_COST) / (MAX_STAMINA-JUMP_COST), 0, 1)

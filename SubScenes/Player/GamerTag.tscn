@@ -63,6 +63,7 @@ value = 0.85
 texture_under = ExtResource( 6 )
 texture_progress = ExtResource( 5 )
 fill_mode = 6
+tint_under = Color( 1, 1, 1, 0 )
 tint_progress = Color( 0.243137, 1, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false

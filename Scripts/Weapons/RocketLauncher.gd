@@ -49,8 +49,8 @@ func do_shoot(dist : float) -> bool:
 	return true
 
 func get_shoot_velocity(dist):
-	dist = clamp(dist-50, 0, 700)
-	return dist/700 * (MAX_SHOOT_VEL - MIN_SHOOT_VEL) + MIN_SHOOT_VEL
+	return $"../..".get_aim_strength() \
+		* (MAX_SHOOT_VEL - MIN_SHOOT_VEL) + MIN_SHOOT_VEL
 
 func set_active():
 	traj_line.visible = true
