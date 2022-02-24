@@ -11,7 +11,7 @@ var projectile_mass := 1.0
 var projectile_gravity := 6.0
 
 # Length of the Trajectory Line in seconds
-var traj_length := 1.0
+var traj_length := 0.8
 
 var projectile_res = preload("res://SubScenes/Weapons/RocketLauncher_Proj.tscn")
 
@@ -72,7 +72,7 @@ func update_trajectory(dist):
 	for _i in range(traj_length/line_detail):
 		traj_line.add_point(pos)
 		# the number is a scalar that makes it line up, found from trial and error
-		vel.y += projectile_gravity * line_detail * 104
+		vel.y += projectile_gravity * line_detail * 106
 		pos += vel * line_detail
 		
 #		# stop the line when it hits terrain
