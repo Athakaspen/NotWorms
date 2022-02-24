@@ -17,7 +17,7 @@ var oneshot = true
 # Length of each turn, in seconds
 var turn_duration : float = 5.0
 # The visible timer runs out coyote_time seconds before turn ends
-var coyote_time : float = 0.2
+var coyote_time : float = 0.25
 
 var starting_inventory = {
 	"bomb": 200,

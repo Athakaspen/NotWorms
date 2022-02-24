@@ -9,7 +9,7 @@ var MAX_SHOOT_VEL := 400.0
 var MIN_SHOOT_VEL := 300.0
 var projectile_mass := 0.4
 var projectile_gravity := 4.0
-var num_projectiles : int = 16
+var num_projectiles : int = 14
 var projectile_damage := 3
 var fire_delay := 0.02 # seconds
 var projectile_spread := 20.0 # Degrees
@@ -75,8 +75,8 @@ func shoot_helper():
 		yield(get_tree().create_timer(fire_delay), "timeout")
 
 func get_shoot_velocity(dist):
-	dist = clamp(dist-50, 0, 700)
-	return dist/700 * (MAX_SHOOT_VEL - MIN_SHOOT_VEL) + MIN_SHOOT_VEL
+	return $"../..".get_aim_strength() \
+		* (MAX_SHOOT_VEL - MIN_SHOOT_VEL) + MIN_SHOOT_VEL
 
 func set_active():
 	traj_line.visible = true

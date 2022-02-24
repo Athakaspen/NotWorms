@@ -7,11 +7,11 @@ signal turn_done
 onready var player_body = $PlayerBody
 onready var turn_timer = $TurnTimer
 onready var turn_queue = $".."
-onready var aim_point = $AimPoint
+#onready var aim_point = $AimPoint
 onready var tag = $GamerTag
 
-var controller_aim_speed = 1000
-var max_aim_dist = 600
+#var controller_aim_speed = 1000
+#var max_aim_dist = 600
 
 export var MAX_HEALTH = 100
 var health
@@ -30,7 +30,6 @@ var inventory_contents := {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	aim_point.position = player_body.position
 	tag.set_player_name(name)
 	health = MAX_HEALTH
 	update_healthbar()
@@ -39,22 +38,6 @@ func _ready():
 func _process(delta):
 	# ah cahnt dyu aneethin if ahm ded
 	#if is_dead: return
-	
-	if is_my_turn and not inventory_open:
-		# Controller Movement
-		var aim_input = Vector2(
-			Input.get_action_strength("aim_right") - Input.get_action_strength("aim_left"),
-			Input.get_action_strength("aim_down") - Input.get_action_strength("aim_up")
-		)
-		if aim_input.length() > 0:
-#			var cur_mouse_pos = get_viewport().get_mouse_position()
-#			Input.warp_mouse_position(cur_mouse_pos + aim_input * controller_aim_speed * delta)
-			aim_point.position += aim_input * controller_aim_speed * delta
-	
-		# Lock cursor within a radius of the player
-		if player_body.position.distance_to(aim_point.position) > max_aim_dist:
-			var difference:Vector2 = aim_point.position - player_body.position
-			aim_point.position = player_body.position + difference.normalized()*max_aim_dist
 	
 	# Stick tag to player's head
 	tag.position = player_body.position + Vector2.UP * 50
@@ -68,10 +51,6 @@ func _input(event):
 		elif event.is_action_released("menu_open"):
 			# This also switches to the selected weapon
 			close_inventory()
-	
-	if is_my_turn:
-		if event is InputEventMouseMotion and not inventory_open:
-			aim_point.position += event.relative
 
 	
 #	if event.is_action_pressed("menu_open"):
@@ -113,7 +92,6 @@ func give(item_dict : Dictionary):
 # before the actual turn begins. It's here to set up visuals mostly.
 func init_preturn():
 	in_preturn = true
-	aim_point.visible = true
 #	aim_point.position = player_body.position
 	player_body.set_state_preturn()
 	tag.set_turn_active(true)
@@ -139,7 +117,6 @@ func end_turn():
 	if inventory_open: close_inventory()
 	player_body.set_state_postturn()
 	is_my_turn = false
-	aim_point.visible = false
 	# Stop the timer if it's still going
 	turn_timer.stop()
 	emit_signal("turn_done")
