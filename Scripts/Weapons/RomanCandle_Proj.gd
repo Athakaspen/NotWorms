@@ -29,7 +29,7 @@ func _ready() -> void:
 	for i in range(nb_points+1):
 		var point = deg2rad(i * 360.0 / nb_points - 90)
 		points.push_back(Vector2.ZERO + Vector2(cos(point), sin(point)) * explosion_radius)
-	$ExplosionPoly.polygon = points
+	$ExplosionArea/ExplosionPoly.polygon = points
 	
 	# Detection body, larger to handle high speeds
 	points = PoolVector2Array()
@@ -63,9 +63,9 @@ func explode() -> void:
 	
 	for body in $DetectionArea.get_overlapping_bodies():
 		if body.is_in_group("Destructible"):
-			body.get_parent().clip(body, $ExplosionPoly)
+			body.get_parent().clip(body, $ExplosionArea/ExplosionPoly)
 		
-		else:
+		elif body in $ExplosionArea.get_overlapping_bodies():
 			if body.is_in_group("Knockback"):
 				if body.get_parent().name != owning_player:
 					body.apply_central_impulse( \

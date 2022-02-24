@@ -28,8 +28,9 @@ shape = SubResource( 1 )
 visible = false
 polygon = PoolVector2Array( -30, -43, 17, -51, 42, -34, 53, 6, 34, 41, -2, 49, -35, 41, -49, 18, -51, -11 )
 
-[node name="ExplosionPoly" type="CollisionPolygon2D" parent="."]
-disabled = true
+[node name="ExplosionArea" type="Area2D" parent="."]
+
+[node name="ExplosionPoly" type="CollisionPolygon2D" parent="ExplosionArea"]
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
