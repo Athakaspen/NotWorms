@@ -34,7 +34,8 @@ var is_active = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	# Make the check area have the projectile's collision shape
+	$ShootPoint/CheckArea.add_child(projectile_res.instance().get_node("CollisionShape2D").duplicate())
 
 # dist is the distance away the player is aiming
 func do_shoot(dist : float) -> bool:
@@ -61,6 +62,11 @@ func shoot_helper():
 #		p.apply_central_impulse(p.transform.x * shoot_velocity * p.mass)
 		p.owning_player = owning_player
 		p.explosion_damage = projectile_damage
+		
+		for body in $ShootPoint/CheckArea.get_overlapping_bodies():
+			if body.is_in_group("Ground") or body.is_in_group("Player"):
+				p.explode()
+				break
 		
 		# Push owner back
 		$"../..".apply_central_impulse(-p.transform.x * shoot_velocity * 0.12)

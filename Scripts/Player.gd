@@ -8,6 +8,7 @@ onready var player_body = $PlayerBody
 onready var turn_timer = $TurnTimer
 onready var turn_queue = $".."
 onready var aim_point = $AimPoint
+onready var tag = $GamerTag
 
 var controller_aim_speed = 1000
 var max_aim_dist = 600
@@ -30,7 +31,7 @@ var inventory_contents := {}
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	aim_point.position = player_body.position
-	$Tag/PlayerNametag.text = name
+	tag.set_player_name(name)
 	health = MAX_HEALTH
 	update_healthbar()
 	inventory_contents = MatchInfo.get_starting_inventory()
@@ -56,7 +57,8 @@ func _process(delta):
 			aim_point.position = player_body.position + difference.normalized()*max_aim_dist
 	
 	# Stick tag to player's head
-	$Tag.position = player_body.position + Vector2.UP * 50
+	tag.position = player_body.position + Vector2.UP * 50
+	update_staminabar()
 
 func _input(event):
 	
@@ -114,6 +116,7 @@ func init_preturn():
 	aim_point.visible = true
 #	aim_point.position = player_body.position
 	player_body.set_state_preturn()
+	tag.set_turn_active(true)
 
 func play_turn(turn_dur:float) -> void:
 	in_preturn = false
@@ -143,6 +146,7 @@ func end_turn():
 
 func finish_turn():
 	player_body.set_state_offturn()
+	tag.set_turn_active(false)
 
 func get_body() -> Node:
 	return player_body
@@ -150,8 +154,10 @@ func get_body() -> Node:
 func get_timer_progress() -> float:
 	# Return 1 if the timer is stopped (hasn't started yet)
 	if turn_timer.is_stopped(): return 1.0
-	# else calcualte the value
-	return turn_timer.time_left/turn_timer.wait_time
+	# else calculate the value
+	# Coyote time gives a buffer between the visible timer and actual turn end
+	return clamp((turn_timer.time_left - MatchInfo.coyote_time) \
+		/ (turn_timer.wait_time - MatchInfo.coyote_time), 0, 1)
 
 func do_damage(value:int) -> void:
 	
@@ -167,7 +173,11 @@ func do_damage(value:int) -> void:
 		die()
 
 func update_healthbar():
-	$Tag/HealthBar.value = float(health)/float(MAX_HEALTH)
+	# Extra value added to helth to prevent invisivle low health
+	tag.set_health_bar_value(float(health+2)/float(MAX_HEALTH))
+
+func update_staminabar():
+	tag.set_stamina_bar_value(player_body.get_stamina_percent())
 
 # TODO: Death... State? Turn? Basically need to delete self more carefully
 func die():

@@ -15,6 +15,9 @@ var explosion_delay = 0.6
 var live := false
 # used to make sure we don't try to explode more than once
 var exploded := false
+# If we should have exploded, but weren't live yet, set this to true.
+# Then check it to explode later
+var should_be_exploded := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -38,8 +41,6 @@ func _ready() -> void:
 		points.push_back(Vector2.ZERO + Vector2(cos(point), sin(point)) * (explosion_radius + detection_margin))
 	$DetectionArea/DetectionPolygon.polygon = points
 	
-	
-	
 	yield(get_tree(), "physics_frame")
 	yield(get_tree(), "physics_frame")
 	live = true
@@ -48,9 +49,14 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	self.rotation = linear_velocity.angle()
+	if should_be_exploded: explode()
 
 func explode() -> void:
-	if exploded or not live: return
+	if exploded: return
+	if not live:
+		should_be_exploded = true
+#		print("bailed")
+		return
 	exploded = true
 #	for x in affected:
 #		x.apply_central_impulse((x.global_position - global_position).normalized() * explosion_force)

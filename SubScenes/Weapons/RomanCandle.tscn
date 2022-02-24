@@ -18,6 +18,8 @@ __meta__ = {
 "_gizmo_extents_": 5.0
 }
 
+[node name="CheckArea" type="Area2D" parent="ShootPoint"]
+
 [node name="TrajectoryLine" type="Line2D" parent="."]
 z_index = -5
 width = 8.0
