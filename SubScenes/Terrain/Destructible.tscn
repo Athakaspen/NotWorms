@@ -6,4 +6,3 @@
 color = Color( 0.564706, 0.270588, 0.141176, 1 )
 
 [node name="CollisionPoly" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( 567, 848, 657, 1018, 772, 942, 864, 1018, 985, 845, 870, 935, 774, 843, 680, 913 )

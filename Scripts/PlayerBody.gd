@@ -63,6 +63,9 @@ func _ready():
 	set_state_offturn()
 
 func switch_weapon(weapon_name):
+	if not weapon_name in weapons.keys():
+		print("Invalid weapon_name passed to switch_weapon() in Playerbody.gd")
+		return
 	if cur_weapon != null:
 		cur_weapon.set_inactive()
 		$RotPoint.remove_child(cur_weapon)

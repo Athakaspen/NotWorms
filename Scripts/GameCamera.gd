@@ -18,9 +18,7 @@ func _ready():
 
 func _process(delta):
 	if is_active:
-		print("1" + str(_cur_zoom))
 		_cur_zoom = lerp(_cur_zoom, zoom_level, zoom_speed)
-		print("2" + str(_cur_zoom))
 		zoom = Vector2(1,1) * _cur_zoom
 
 func set_active():

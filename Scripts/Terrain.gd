@@ -2,11 +2,19 @@ extends Node2D
 
 var destructible = preload("res://SubScenes/Terrain/Destructible.tscn")
 
+# Number of pooled terrain objects to keep at a time
+var pool_size : int = 10
+var terrain_pool := []
+
 # Used to automaticallt chunkify terrain on debug map
 export var chunkify_on_load := false
 
 func _ready() -> void:
 	if chunkify_on_load: chunkify_terrain()
+	
+	# initialize pool
+	for _i in range(pool_size):
+		call_deferred("pool_new_terrain")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -20,7 +28,10 @@ func clip(source_body: StaticBody2D, neg_poly: CollisionPolygon2D) -> void:
 	
 	var source_poly = source_body.get_node("RenderPoly")
 	
+	var start_time = OS.get_ticks_usec()
 	var result = Geometry.clip_polygons_2d(source_poly.polygon, offset_poly.polygon)
+	var end_time = OS.get_ticks_usec()
+#	print("Geometry clip: " + str(end_time-start_time))
 	
 	if (len(result)) == 0:
 		source_body.queue_free()
@@ -33,12 +44,59 @@ func clip(source_body: StaticBody2D, neg_poly: CollisionPolygon2D) -> void:
 		# If there are more results, create new objects for them
 		for res_poly in result.slice(1,len(result)):
 			#print(Geometry.is_polygon_clockwise(res_poly))
-			var new_terr = create_new_terrain(res_poly, source_poly.color)
-			add_child(new_terr)
+			start_time = OS.get_ticks_usec()
+			var new_terr = add_new_terrain(res_poly, source_poly.color)
+			end_time = OS.get_ticks_usec()
+#			print("add_new_terrain: " + str(end_time-start_time))
+			
+#			start_time = OS.get_ticks_usec()
+#			var new_poly = CollisionPolygon2D.new()
+#			new_poly.polygon = res_poly
+#			end_time = OS.get_ticks_usec()
+#			print("create_new_poly: " + str(end_time-start_time))
+			
+#			start_time = OS.get_ticks_usec()
+#			add_child(new_terr)
+#			end_time = OS.get_ticks_usec()
+#			print("add_child: " + str(end_time-start_time))
+			
+#			start_time = OS.get_ticks_usec()
+#			source_body.call_deferred("add_child", new_poly)
+#			end_time = OS.get_ticks_usec()
+#			print("add_child: " + str(end_time-start_time))
 	
 	# Free the polygon to avoid memory leak
 	offset_poly.queue_free()
 
+# Uses pooling to avoid creating a new object at runtime
+func add_new_terrain(polygon : PoolVector2Array, poly_color):
+#	var start_time = OS.get_ticks_usec()
+	var newTerrain
+	if len(terrain_pool) > 0:
+#		print("Using terrain pool")
+		newTerrain = terrain_pool.pop_back()
+#		print("Above Deferred" + str(OS.get_ticks_usec()-start_time))
+		call_deferred("pool_new_terrain")
+#		print("Below deferred " + str(OS.get_ticks_usec()-start_time))
+	else:
+#		print("Terrain pool empty, adding new instance")
+		newTerrain = destructible.instance()
+		add_child(newTerrain)
+#	print("Above Renderpoly" + str(OS.get_ticks_usec()-start_time))
+	newTerrain.get_node("RenderPoly").polygon = polygon
+#	print("Above Collisionpoly" + str(OS.get_ticks_usec()-start_time))
+	newTerrain.get_node("CollisionPoly").set_deferred("polygon", polygon)
+#	print("Above Rendercolor" + str(OS.get_ticks_usec()-start_time))
+	newTerrain.get_node("RenderPoly").color = poly_color
+#	return newTerrain
+
+func pool_new_terrain():
+	var t = destructible.instance()
+	add_child(t)
+	terrain_pool.append(t)
+#	print("end of pool new")
+
+# Bypasses pooling, used in terrain generation
 func create_new_terrain(polygon : PoolVector2Array, poly_color):
 	var newTerrain = destructible.instance()
 	newTerrain.get_node("RenderPoly").polygon = polygon
@@ -47,7 +105,7 @@ func create_new_terrain(polygon : PoolVector2Array, poly_color):
 	return newTerrain
 
 # Size of the chunks in pixels
-const CHUNK_SIZE := 64
+const CHUNK_SIZE := 264
 # Partition terrain into chunks
 func chunkify_terrain() -> void:
 	
@@ -85,6 +143,7 @@ func chunkify_terrain() -> void:
 				
 				# Create object for each result
 				for res_poly in result:
+					# Don't use pooling to generate terrain
 					var new_terr = create_new_terrain(res_poly, terrain_obj.color)
 					chunk_array.append(new_terr)
 	
