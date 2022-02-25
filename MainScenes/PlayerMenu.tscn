@@ -104,7 +104,7 @@ custom_fonts/font = ExtResource( 1 )
 text = "Teams"
 align = 1
 script = ExtResource( 13 )
-option_id = "Teams"
+option_id = "teams"
 choice_list = [ "Off", "2", "3" ]
 can_loop = false
 
