@@ -39,23 +39,24 @@ __meta__ = {
 }
 
 [node name="TurnLabelCenter" type="Label" parent="Preturn"]
-margin_left = 428.0
-margin_top = 564.0
-margin_right = 875.0
-margin_bottom = 603.0
+margin_left = 716.0
+margin_top = 934.0
+margin_right = 1225.0
+margin_bottom = 979.0
 custom_fonts/font = ExtResource( 1 )
 text = "Player1's Turn!"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ReadyButton" type="Button" parent="Preturn"]
-margin_left = 489.0
-margin_top = 448.0
-margin_right = 822.0
-margin_bottom = 541.0
+margin_left = 805.0
+margin_top = 827.0
+margin_right = 1138.0
+margin_bottom = 920.0
 custom_fonts/font = ExtResource( 1 )
-text = "Ready (Y)"
+text = "Ready (A)"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -79,10 +80,10 @@ __meta__ = {
 }
 
 [node name="TurnTimer" type="TextureProgress" parent="Turn"]
-margin_left = 1131.0
-margin_top = 19.0
-margin_right = 1259.0
-margin_bottom = 147.0
+margin_left = 1769.0
+margin_top = 21.0
+margin_right = 1897.0
+margin_bottom = 149.0
 max_value = 1.0
 step = 0.0
 value = 1.0
@@ -95,12 +96,12 @@ __meta__ = {
 TimeGradient = SubResource( 2 )
 
 [node name="EndTurnButton" type="Button" parent="Turn"]
-margin_left = 882.0
-margin_top = 632.0
-margin_right = 1265.0
-margin_bottom = 697.0
+margin_left = 1488.0
+margin_top = 1000.0
+margin_right = 1900.0
+margin_bottom = 1065.0
 custom_fonts/font = ExtResource( 1 )
-text = "End Turn (Y)"
+text = "End Turn (A)"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -113,12 +114,13 @@ __meta__ = {
 }
 
 [node name="Text" type="Label" parent="DeathToast"]
-margin_left = 395.0
-margin_top = 200.0
-margin_right = 914.0
-margin_bottom = 239.0
+margin_left = 653.0
+margin_top = 202.0
+margin_right = 1248.0
+margin_bottom = 247.0
 custom_fonts/font = ExtResource( 1 )
 text = "PlayerX has Died!"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -128,6 +130,7 @@ wait_time = 2.5
 one_shot = true
 
 [node name="Inventory" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -150,10 +153,10 @@ __meta__ = {
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Inventory/CenterContainer"]
-margin_left = 464.0
-margin_top = 238.0
-margin_right = 815.0
-margin_bottom = 481.0
+margin_left = 784.0
+margin_top = 450.0
+margin_right = 1135.0
+margin_bottom = 629.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Inventory/CenterContainer/VBoxContainer"]
 margin_right = 351.0

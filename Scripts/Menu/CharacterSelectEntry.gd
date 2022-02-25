@@ -8,8 +8,11 @@ var _is_active := false
 onready var char_list = GameData.PlayerModels.keys()
 onready var portrait = $Portrait
 
+signal character_changed(player_index, new_id)
+
 var _cur_index : int = 0
 var player_model = null
+const MAX_SCALE = 4
 
 export(Color) var color_normal = Color.white
 export(Color) var color_focused = Color.green
@@ -19,8 +22,11 @@ func _ready():
 	# Set up focus
 	self.focus_mode = Control.FOCUS_ALL
 	_on_focus_exited()
+# warning-ignore:return_value_discarded
 	self.connect("focus_entered", self, "_on_focus_entered")
+# warning-ignore:return_value_discarded
 	self.connect("focus_exited", self, "_on_focus_exited")
+# warning-ignore:return_value_discarded
 	self.connect("resized", self, "update_portrait")
 	
 	_change_char(0)
@@ -63,10 +69,12 @@ func _change_char(offset:int):
 	add_child(player_model)
 	$Label.text = player_model.name
 	update_portrait()
+	emit_signal("character_changed", get_index()-1, char_list[_cur_index])
 
 func update_portrait():
 	player_model.global_position = portrait.rect_global_position + (portrait.rect_size / 2)
-	player_model.scale = Vector2(1,1) * 1.1 * 0.01 * min(portrait.rect_size.x, portrait.rect_size.y)
+	var new_scale = 1.1 * 0.01 * min(portrait.rect_size.x, portrait.rect_size.y)
+	player_model.scale = Vector2(1,1) * min(new_scale, MAX_SCALE)
 
 var saved_top_path
 var saved_bottom_path

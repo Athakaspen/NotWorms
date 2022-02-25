@@ -23,7 +23,11 @@ var cur_entry
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# So we can hide it in the editor
-	self.visible = true
+#	self.visible = true
+	# UPDATE: This is now set in the turnqueue,
+	# Set it to false for the wideshot instead
+	self.visible = false
+	
 	$DeathToast.visible = false
 	$Inventory.visible = false
 

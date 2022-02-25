@@ -37,7 +37,7 @@ func _ready():
 	inventory_contents = MatchInfo.get_starting_inventory()
 	player_body.load_player_model(player_model)
 
-func _process(delta):
+func _process(_delta):
 	# ah cahnt dyu aneethin if ahm ded
 	#if is_dead: return
 	
@@ -53,6 +53,10 @@ func _input(event):
 		elif event.is_action_released("menu_open"):
 			# This also switches to the selected weapon
 			close_inventory()
+		elif event.is_action_pressed("ui_up"):
+			MatchInfo.game_camera.zoom_in()
+		elif event.is_action_pressed("ui_down"):
+			MatchInfo.game_camera.zoom_out()
 
 	
 #	if event.is_action_pressed("menu_open"):

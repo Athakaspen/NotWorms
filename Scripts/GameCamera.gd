@@ -1,16 +1,38 @@
 extends Camera2D
 
+var zoom_level : float = 1
+var _cur_zoom : float
+export var MIN_ZOOM : float = 0.6
+export var MAX_ZOOM : float = 1.0
+export var ZOOM_STEP: float = 0.1
+export var default_zoom := 0.8
+export var zoom_speed := 0.08
+
+# Whether this script should control the camera
+var is_active = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
-	# set the limits for the camera
-	var limit_obj = $"../CameraLimit"
-	assert(limit_obj != null, "No camera limits found!")
-	limit_left = 0
-	limit_top = 0
-	limit_bottom = limit_obj.transform.y
-	limit_right = limit_obj.transform.x
-
+	# Instantly jump to editor-specified zoom level
+	pass
 
 func _process(delta):
-	align()
+	if is_active:
+		print("1" + str(_cur_zoom))
+		_cur_zoom = lerp(_cur_zoom, zoom_level, zoom_speed)
+		print("2" + str(_cur_zoom))
+		zoom = Vector2(1,1) * _cur_zoom
+
+func set_active():
+	is_active = true
+	_cur_zoom = zoom.y
+	zoom_level = default_zoom
+
+func reset_zoom():
+	zoom_level = default_zoom
+
+func zoom_in():
+	zoom_level = clamp(zoom_level - ZOOM_STEP, MIN_ZOOM, MAX_ZOOM)
+
+func zoom_out():
+	zoom_level = clamp(zoom_level + ZOOM_STEP, MIN_ZOOM, MAX_ZOOM)

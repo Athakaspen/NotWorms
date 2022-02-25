@@ -5,7 +5,10 @@ class_name Option
 var _is_focused := false
 var _is_active := false
 
+signal value_changed(new_value)
+
 export var option_id := "undefined_option"
+export var default_index : int = 0
 export var choice_list : Array = ["1", "2", "3"]
 var _cur_index : int = 0
 onready var option_title := text
@@ -18,11 +21,15 @@ export(Color) var color_focused = Color.green
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	_cur_index = default_index
 	self.focus_mode = Control.FOCUS_ALL
 	_on_focus_exited()
+# warning-ignore:return_value_discarded
 	self.connect("focus_entered", self, "_on_focus_entered")
+# warning-ignore:return_value_discarded
 	self.connect("focus_exited", self, "_on_focus_exited")
 	text = option_title + ": " + choice_list[_cur_index]
+	emit_signal("value_changed", choice_list[_cur_index])
 
 func _input(event):
 	# Change to active/inactive
@@ -53,6 +60,7 @@ func _change_choice(offset:int):
 	else:
 		_cur_index = int(clamp(_cur_index + offset, 0, len(choice_list)-1))
 	text = prefix + choice_list[_cur_index] + postfix
+	emit_signal("value_changed", choice_list[_cur_index])
 
 var saved_left_path
 var saved_right_path

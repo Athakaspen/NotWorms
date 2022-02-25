@@ -39,6 +39,12 @@ func initialize():
 	MatchInfo.initialize_match(self)
 	turnDuration = MatchInfo.turn_duration
 	player_list = get_children()
+	
+	# Wait a second for a dramatic wide angle
+	yield(get_tree().create_timer(1.5), "timeout")
+	
+	level.UI.visible = true
+	level.camera.set_active()
 	main_loop()
 
 func main_loop():
@@ -90,8 +96,11 @@ func get_next_player():
 		player_list.append(new_player)
 	return new_player
 
-func _process(delta : float) -> void:
-	check_win()
+func _process(_delta : float) -> void:
+	if STATE != State.INIT:
+		level.update_camera(get_camera_point())
+		level.update_UI()
+		check_win()
 
 func init_preturn():
 	active_player.init_preturn()
@@ -124,6 +133,7 @@ func do_endgame():
 	# Remove the winner as a child or it will be forceably deleted
 	remove_child(winner)
 	# Go straight to win screen
+# warning-ignore:return_value_discarded
 	get_tree().change_scene(winscreen_path)
 
 func get_current_player() -> Player:

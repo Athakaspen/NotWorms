@@ -17,15 +17,16 @@ func _ready():
 	
 	turn_queue.initialize()
 	
-	update_camera(turn_queue.get_camera_point())
+#	update_camera(turn_queue.get_camera_point())
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	update_camera(turn_queue.get_camera_point())
-	update_UI()
+	pass
+#	update_camera(turn_queue.get_camera_point())
+#	update_UI()
 
 
 func get_spawnpoints():

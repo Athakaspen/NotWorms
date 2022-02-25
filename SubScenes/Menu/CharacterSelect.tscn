@@ -6,7 +6,7 @@
 [ext_resource path="res://Sprites/chicken1.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=1]
-size = 24
+size = 36
 font_data = ExtResource( 1 )
 
 [node name="CharacterSelect" type="VBoxContainer"]
@@ -24,7 +24,7 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="."]
 margin_right = 284.0
-margin_bottom = 34.0
+margin_bottom = 50.0
 size_flags_vertical = 1
 custom_fonts/font = SubResource( 1 )
 text = "BOb"
@@ -43,7 +43,7 @@ flip_v = true
 
 [node name="Portrait" type="Panel" parent="."]
 modulate = Color( 1, 1, 1, 0 )
-margin_top = 38.0
+margin_top = 54.0
 margin_right = 284.0
 margin_bottom = 440.0
 size_flags_horizontal = 3
