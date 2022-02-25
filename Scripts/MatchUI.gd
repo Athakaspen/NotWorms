@@ -94,6 +94,8 @@ func show_inventory(inventory_data, cur_weapon):
 func hide_inventory() -> String:
 	$Inventory.visible = false
 	in_inventory = false
+	if cur_entry == null:
+		return "UNDEFINED"
 	return cur_entry.id_string
 
 func update_inventory(data, cur_weapon):
