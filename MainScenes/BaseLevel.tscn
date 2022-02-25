@@ -1,0 +1,50 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
+[ext_resource path="res://SubScenes/Player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/TurnQueue.gd" type="Script" id=4]
+[ext_resource path="res://MainScenes/LevelUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scripts/ProjectileHolder.gd" type="Script" id=9]
+
+[node name="Level" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="ChestHolder" type="Node2D" parent="."]
+
+[node name="ProjectileHolder" type="Node2D" parent="."]
+script = ExtResource( 9 )
+
+[node name="TurnQueue" type="Node" parent="."]
+script = ExtResource( 4 )
+
+[node name="Player1" parent="TurnQueue" instance=ExtResource( 3 )]
+
+[node name="Player2" parent="TurnQueue" instance=ExtResource( 3 )]
+player_model = "chicken2"
+
+[node name="PlayerBody" parent="TurnQueue/Player2" index="0"]
+position = Vector2( 378, 748 )
+
+[node name="CameraLimit" type="Position2D" parent="."]
+position = Vector2( 1920, 1080 )
+__meta__ = {
+"_gizmo_extents_": 10000.0
+}
+
+[node name="GameCamera" type="Camera2D" parent="."]
+position = Vector2( -1, -1 )
+current = true
+limit_left = 0
+limit_top = 0
+smoothing_enabled = true
+smoothing_speed = 3.0
+
+[node name="UICanvas" type="CanvasLayer" parent="."]
+
+[node name="UIHolder" parent="UICanvas" instance=ExtResource( 5 )]
+visible = false
+
+[editable path="TurnQueue/Player1"]
+[editable path="TurnQueue/Player1/PlayerBody"]
+[editable path="TurnQueue/Player2"]
+[editable path="TurnQueue/Player2/PlayerBody"]

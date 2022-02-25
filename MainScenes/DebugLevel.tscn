@@ -13,6 +13,7 @@
 script = ExtResource( 1 )
 
 [node name="Terrain" parent="." instance=ExtResource( 2 )]
+chunkify_on_load = true
 
 [node name="ChestSpawner" type="Node2D" parent="."]
 script = ExtResource( 6 )
