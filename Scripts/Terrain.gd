@@ -95,3 +95,4 @@ func chunkify_terrain() -> void:
 	# Add new chunks
 	for chunk in chunk_array:
 		add_child(chunk)
+

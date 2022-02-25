@@ -35,9 +35,10 @@ var player_list
 var turns_til_next_chest = 1
 
 func initialize():
-	player_list = get_children()
+	
 	MatchInfo.initialize_match(self)
 	turnDuration = MatchInfo.turn_duration
+	player_list = get_children()
 	main_loop()
 
 func main_loop():

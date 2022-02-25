@@ -7,7 +7,6 @@ signal turn_done
 onready var player_body = $PlayerBody
 onready var turn_timer = $TurnTimer
 onready var turn_queue = $".."
-#onready var aim_point = $AimPoint
 onready var tag = $GamerTag
 
 #var controller_aim_speed = 1000
@@ -131,6 +130,9 @@ func finish_turn():
 func get_body() -> Node:
 	return player_body
 
+func get_gamertag() -> String:
+	return tag.get_node("VBoxContainer/Nametag").text
+
 func get_timer_progress() -> float:
 	# Return 1 if the timer is stopped (hasn't started yet)
 	if turn_timer.is_stopped(): return 1.0
@@ -151,6 +153,9 @@ func do_damage(value:int) -> void:
 	
 	if health == 0:
 		die()
+
+func set_gamertag(gamertag: String) -> void:
+	tag.set_player_name(gamertag)
 
 func update_healthbar():
 	# Extra value added to helth to prevent invisivle low health

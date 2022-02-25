@@ -3,14 +3,14 @@ extends RigidBody2D
 class_name PlayerBody
 
 export var move_force := 1100.0
-export var MAX_SPEED = 400
+export var MAX_SPEED = 300
 export var H_damping := 3.0
 
 var controller_aim_speed = 1000
-var max_aim_dist = 600
+var max_aim_dist = 700
 
 export var jump_force := 350.0
-export var air_jump_scalar := 0.75
+export var air_jump_scalar := 0.72
 export var jump_delay := 0.2
 # Whether the jump cooldown is inactive
 var can_jump_cooldown = true
@@ -239,6 +239,8 @@ func load_player_model(model_id : String):
 	collider = model.get_node("Collider")
 	model.remove_child(collider)
 	add_child(collider)
+	
+	parent.set_gamertag(model.name)
 	
 	# free model to prevent leaks
 	model.queue_free()
