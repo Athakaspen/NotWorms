@@ -44,32 +44,23 @@ script = ExtResource( 4 )
 
 [node name="Player1" parent="TurnQueue" instance=ExtResource( 3 )]
 
-[node name="SpritePoly" parent="TurnQueue/Player1/PlayerBody" index="0"]
-color = Color( 0.231373, 0.478431, 1, 1 )
-
 [node name="Player2" parent="TurnQueue" instance=ExtResource( 3 )]
+player_model = "chicken2"
 
 [node name="PlayerBody" parent="TurnQueue/Player2" index="0"]
 position = Vector2( 378, 748 )
 
-[node name="SpritePoly" parent="TurnQueue/Player2/PlayerBody" index="0"]
-color = Color( 0.980392, 0.184314, 0.184314, 1 )
-
 [node name="Player3" parent="TurnQueue" instance=ExtResource( 3 )]
+player_model = "penguin1"
 
 [node name="PlayerBody" parent="TurnQueue/Player3" index="0"]
 position = Vector2( 1280, 717 )
 
-[node name="SpritePoly" parent="TurnQueue/Player3/PlayerBody" index="0"]
-color = Color( 0.247059, 0.980392, 0.184314, 1 )
-
 [node name="Player4" parent="TurnQueue" instance=ExtResource( 3 )]
+player_model = "penguin2"
 
 [node name="PlayerBody" parent="TurnQueue/Player4" index="0"]
 position = Vector2( 1808, 82 )
-
-[node name="SpritePoly" parent="TurnQueue/Player4/PlayerBody" index="0"]
-color = Color( 0.752941, 0.0627451, 0.972549, 1 )
 
 [node name="CameraLimit" type="Position2D" parent="."]
 position = Vector2( 1920, 1080 )
@@ -88,6 +79,7 @@ smoothing_speed = 3.0
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
 [node name="UIHolder" parent="UICanvas" instance=ExtResource( 5 )]
+visible = false
 
 [connection signal="body_entered" from="DeathPlane" to="." method="_on_DeathPlane_body_entered"]
 

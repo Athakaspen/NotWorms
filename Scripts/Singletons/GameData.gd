@@ -26,6 +26,16 @@ var WeaponData = {
 	}
 }
 
+var PlayerModels = {
+	"chicken1": "res://SubScenes/PlayerModels/Chicken1.tscn",
+	"chicken2": "res://SubScenes/PlayerModels/Chicken2.tscn",
+	"chicken3": "res://SubScenes/PlayerModels/Chicken3.tscn",
+	"chicken4": "res://SubScenes/PlayerModels/Chicken4.tscn",
+	"penguin1": "res://SubScenes/PlayerModels/Penguin1.tscn",
+	"penguin2": "res://SubScenes/PlayerModels/Penguin2.tscn"
+}
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

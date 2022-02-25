@@ -1,0 +1,71 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Fonts/TestFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Scripts/Menu/CharacterSelectEntry.gd" type="Script" id=2]
+[ext_resource path="res://Sprites/downarrowd.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/chicken1.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/downarrowf.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/downarrowp.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/downarrowh.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/downarrown.png" type="Texture" id=9]
+
+[node name="CharacterSelect" type="VBoxContainer"]
+margin_left = 132.0
+margin_right = 416.0
+margin_bottom = 440.0
+size_flags_horizontal = 7
+size_flags_vertical = 7
+alignment = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_right = 284.0
+margin_bottom = 53.0
+custom_fonts/font = ExtResource( 1 )
+text = "BOb"
+align = 1
+
+[node name="UpButton" type="TextureButton" parent="."]
+margin_top = 57.0
+margin_right = 284.0
+margin_bottom = 158.0
+focus_neighbour_bottom = NodePath("../UpButton2")
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 7 )
+texture_hover = ExtResource( 8 )
+texture_disabled = ExtResource( 4 )
+texture_focused = ExtResource( 6 )
+expand = true
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_top = 162.0
+margin_right = 284.0
+margin_bottom = 334.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.7
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 6
+
+[node name="UpButton2" type="TextureButton" parent="."]
+margin_top = 338.0
+margin_right = 284.0
+margin_bottom = 440.0
+focus_neighbour_top = NodePath("../UpButton")
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 7 )
+texture_hover = ExtResource( 8 )
+texture_disabled = ExtResource( 4 )
+texture_focused = ExtResource( 6 )
+expand = true
+stretch_mode = 5
+flip_v = true

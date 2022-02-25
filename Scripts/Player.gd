@@ -16,6 +16,8 @@ onready var tag = $GamerTag
 export var MAX_HEALTH = 100
 var health
 
+export var player_model = "chicken1"
+
 # bool, is it this players turn or not
 var is_my_turn := false
 var is_dead := false
@@ -34,6 +36,7 @@ func _ready():
 	health = MAX_HEALTH
 	update_healthbar()
 	inventory_contents = MatchInfo.get_starting_inventory()
+	player_body.load_player_model(player_model)
 
 func _process(delta):
 	# ah cahnt dyu aneethin if ahm ded

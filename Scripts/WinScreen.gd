@@ -15,7 +15,7 @@ func _ready():
 	$UI/Title.text = MatchInfo.winner + " Wins!"
 	if MatchInfo.winner != "UNDEFINED":
 		var winner_node = MatchInfo.player_info[MatchInfo.winner]
-		var winner_sprite = winner_node.player_body.get_node("SpritePoly")
+		var winner_sprite = winner_node.player_body.sprite
 	
 		winner_sprite.get_parent().remove_child(winner_sprite)
 		winner_sprite.position = Vector2.ZERO

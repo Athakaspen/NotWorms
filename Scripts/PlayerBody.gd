@@ -25,6 +25,8 @@ var cur_stamina = MAX_STAMINA
 onready var parent = $".."
 onready var jump_timer = $JumpTimer
 onready var aim_point = $AimPointHolder/AimPoint
+onready var sprite = $Sprite
+onready var collider = $Collider
 
 var PREV_STATE
 var STATE
@@ -42,7 +44,11 @@ var default_weapon = "bomb"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Set jump timer value from variable this script
 	jump_timer.wait_time = jump_delay
+	
+	# Load player model 
+#	load_player_model(player_model)
 	
 	# Instance all weapons and add them to the dictionary for storage
 	for weapon in GameData.WeaponData:
@@ -219,3 +225,29 @@ func get_aim_strength() -> float:
 
 func get_stamina_percent() -> float:
 	return clamp((cur_stamina - JUMP_COST) / (MAX_STAMINA-JUMP_COST), 0, 1)
+
+func load_player_model(model_id : String):
+	# Load model scene
+	var model = load(GameData.PlayerModels[model_id]).instance()
+	
+	sprite.queue_free()
+	sprite = model.get_node("Sprite")
+	model.remove_child(sprite)
+	add_child(sprite)
+	
+	collider.queue_free()
+	collider = model.get_node("Collider")
+	model.remove_child(collider)
+	add_child(collider)
+	
+	# free model to prevent leaks
+	model.queue_free()
+
+
+
+
+
+
+
+
+

@@ -76,6 +76,11 @@ func main_loop():
 		if turns_til_next_chest <= 0:
 			STATE = State.CHEST
 			yield(init_chest_spawn(), "completed")
+		
+		# Stop if we've detected that the game is over
+		if STATE == State.GAMEOVER: 
+			do_endgame()
+			break
 
 func get_next_player():
 	var new_player = null
@@ -171,7 +176,7 @@ func get_camera_point() -> Vector2:
 			cam_point = player_pos
 		CamMode.MIDPOINT:
 			# follow weighted midpoint of aiming
-			var player_weight = 1.2
+			var player_weight = 0.8
 			cam_point = (player_weight*player_pos + active_player.player_body.aim_point.global_position) / (1+player_weight)
 		CamMode.PROJECTILE:
 			# Follow projectiles
@@ -183,6 +188,7 @@ func get_camera_point() -> Vector2:
 			cam_point = MatchInfo.chest_spawner.get_cam_point()
 			if cam_point == null:
 				cam_point = prev_cam_point
+	
 	
 	prev_cam_point = cam_point
 	return cam_point

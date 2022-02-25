@@ -5,7 +5,7 @@
 [ext_resource path="res://Scripts/MatchUI.gd" type="Script" id=3]
 [ext_resource path="res://Sprites/whitecircle.png" type="Texture" id=4]
 [ext_resource path="res://Fonts/GOUDYSTO.TTF" type="DynamicFontData" id=5]
-[ext_resource path="res://SubScenes/InventoryEntry.tscn" type="PackedScene" id=6]
+[ext_resource path="res://SubScenes/Menu/InventoryEntry.tscn" type="PackedScene" id=6]
 
 [sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0.0731707, 0.334495, 0.519164, 0.832753 )
