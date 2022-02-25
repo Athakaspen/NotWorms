@@ -1,8 +1,9 @@
 [gd_scene format=2]
 
-[node name="Chicken1" type="Node2D"]
+[node name="Kevin" type="Node2D"]
 
 [node name="Sprite_OLD" type="Polygon2D" parent="."]
+visible = false
 modulate = Color( 1, 1, 1, 0.54902 )
 position = Vector2( -6, 11 )
 scale = Vector2( 2.53846, 2.53846 )

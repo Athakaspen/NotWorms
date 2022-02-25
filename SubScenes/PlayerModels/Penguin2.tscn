@@ -1,6 +1,6 @@
 [gd_scene format=2]
 
-[node name="Chicken1" type="Node2D"]
+[node name="Gary" type="Node2D"]
 
 [node name="Sprite_OLD" type="Polygon2D" parent="."]
 visible = false
@@ -48,7 +48,7 @@ polygon = PoolVector2Array( 8.66667, 6.30303, -3.54546, 6.30303, -4.72728, 2.363
 
 [node name="Polygon2D" type="Polygon2D" parent="Sprite"]
 color = Color( 1, 0.584314, 0, 1 )
-polygon = PoolVector2Array( 10.6364, -7.09091, 17.7273, -8.66667, 11.8182, -4.33334, 17.3333, -1.57576, 11.8182, -0.787879, 8.66667, -2.75758, 8.66667, -5.51515 )
+polygon = PoolVector2Array( 10.6364, -7.09091, 16.9394, -6.69697, 11.8182, -4.33334, 17.3333, -3.54546, 11.8182, -0.787879, 8.66667, -2.75758, 8.66667, -5.51515 )
 
 [node name="Polygon2D2" type="Polygon2D" parent="Sprite"]
 position = Vector2( -0.39394, -0.39394 )

@@ -5,9 +5,10 @@ class_name Option
 var _is_focused := false
 var _is_active := false
 
-export var option_name := "New Option"
-export var choice_list := ["1", "2", "3"]
+export var option_id := "undefined_option"
+export var choice_list : Array = ["1", "2", "3"]
 var _cur_index : int = 0
+onready var option_title := text
 
 export var can_loop := true
 export var prefix := "< "
@@ -21,7 +22,7 @@ func _ready():
 	_on_focus_exited()
 	self.connect("focus_entered", self, "_on_focus_entered")
 	self.connect("focus_exited", self, "_on_focus_exited")
-	text = option_name + ": " + choice_list[_cur_index]
+	text = option_title + ": " + choice_list[_cur_index]
 
 func _input(event):
 	# Change to active/inactive
@@ -39,7 +40,7 @@ func _input(event):
 func _toggle_active():
 	if _is_active:
 		_is_active = false
-		text = option_name + ": " + choice_list[_cur_index]
+		text = option_title + ": " + choice_list[_cur_index]
 		_set_sticky(false)
 	else:
 		_is_active = true
@@ -50,7 +51,7 @@ func _change_choice(offset:int):
 	if can_loop:
 		_cur_index = int(fposmod(_cur_index + offset, len(choice_list)))
 	else:
-		_cur_index = clamp(_cur_index + offset, 0, len(choice_list)-1)
+		_cur_index = int(clamp(_cur_index + offset, 0, len(choice_list)-1))
 	text = prefix + choice_list[_cur_index] + postfix
 
 var saved_left_path

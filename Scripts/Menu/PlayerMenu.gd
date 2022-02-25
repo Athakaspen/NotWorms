@@ -1,4 +1,4 @@
-extends TextureButton
+extends Control
 
 
 # Declare member variables here. Examples:
@@ -8,13 +8,9 @@ extends TextureButton
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
-#	grab_focus()
+	$VBoxContainer/PlayerList/CharacterSelectEntry.grab_focus()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
-
-func _on_UpButton_pressed():
-	print("Pressed!")

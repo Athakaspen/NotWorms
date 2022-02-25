@@ -1,11 +1,9 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Fonts/TestFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://SubScenes/Menu/PlusMinus.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/Menu/PlayerMenu.gd" type="Script" id=3]
 [ext_resource path="res://Fonts/GOUDYSTO.TTF" type="DynamicFontData" id=5]
-[ext_resource path="res://Sprites/downarrowf.png" type="Texture" id=6]
-[ext_resource path="res://Sprites/minus.png" type="Texture" id=9]
-[ext_resource path="res://Sprites/plus.png" type="Texture" id=10]
-[ext_resource path="res://MainScenes/Label.gd" type="Script" id=12]
 [ext_resource path="res://Scripts/Menu/Option.gd" type="Script" id=13]
 [ext_resource path="res://SubScenes/Menu/CharacterSelect.tscn" type="PackedScene" id=14]
 
@@ -13,10 +11,11 @@
 size = 52
 font_data = ExtResource( 5 )
 
-[node name="SetupMenu" type="Control"]
+[node name="PlayerMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_clip_content = true
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -36,7 +35,6 @@ focus_mode = 2
 custom_fonts/font = SubResource( 1 )
 text = "TITLE TEXT"
 align = 1
-script = ExtResource( 12 )
 
 [node name="PlayerList" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 76.0
@@ -45,36 +43,31 @@ margin_bottom = 516.0
 size_flags_vertical = 7
 alignment = 1
 
-[node name="PlusMinus" type="VBoxContainer" parent="VBoxContainer/PlayerList"]
-margin_right = 128.0
-margin_bottom = 440.0
-alignment = 1
-
-[node name="TextureButton" type="TextureButton" parent="VBoxContainer/PlayerList/PlusMinus"]
-margin_top = 90.0
-margin_right = 128.0
-margin_bottom = 218.0
-focus_neighbour_bottom = NodePath("../TextureButton2")
-texture_normal = ExtResource( 10 )
-texture_focused = ExtResource( 6 )
-
-[node name="TextureButton2" type="TextureButton" parent="VBoxContainer/PlayerList/PlusMinus"]
-margin_top = 222.0
-margin_right = 128.0
-margin_bottom = 350.0
-texture_normal = ExtResource( 9 )
-texture_focused = ExtResource( 6 )
+[node name="PlusMinus" parent="VBoxContainer/PlayerList" instance=ExtResource( 2 )]
+margin_right = 64.0
 
 [node name="CharacterSelectEntry" parent="VBoxContainer/PlayerList" instance=ExtResource( 14 )]
-margin_right = 512.0
-focus_mode = 2
+margin_left = 68.0
+margin_right = 267.0
 
 [node name="CharacterSelectEntry2" parent="VBoxContainer/PlayerList" instance=ExtResource( 14 )]
-margin_left = 516.0
-margin_right = 897.0
+margin_left = 271.0
+margin_right = 470.0
 
 [node name="CharacterSelectEntry3" parent="VBoxContainer/PlayerList" instance=ExtResource( 14 )]
-margin_left = 901.0
+margin_left = 474.0
+margin_right = 673.0
+
+[node name="CharacterSelectEntry4" parent="VBoxContainer/PlayerList" instance=ExtResource( 14 )]
+margin_left = 677.0
+margin_right = 876.0
+
+[node name="CharacterSelectEntry5" parent="VBoxContainer/PlayerList" instance=ExtResource( 14 )]
+margin_left = 880.0
+margin_right = 1079.0
+
+[node name="CharacterSelectEntry6" parent="VBoxContainer/PlayerList" instance=ExtResource( 14 )]
+margin_left = 1083.0
 margin_right = 1282.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
@@ -91,29 +84,29 @@ size_flags_horizontal = 3
 alignment = 1
 
 [node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
-margin_top = 33.0
+margin_top = 53.0
 margin_right = 639.0
-margin_bottom = 86.0
+margin_bottom = 98.0
 focus_mode = 2
 custom_fonts/font = ExtResource( 1 )
-text = "TITLE TEXT"
+text = "Turn Length"
 align = 1
 script = ExtResource( 13 )
+option_id = "turn_dur"
+choice_list = [ "6 sec", "8 sec", "10 sec", "12 sec", "15 sec", "20 sec", "30 sec" ]
+can_loop = false
 
 [node name="Label3" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
-margin_top = 90.0
+margin_top = 102.0
 margin_right = 639.0
-margin_bottom = 143.0
+margin_bottom = 147.0
 custom_fonts/font = ExtResource( 1 )
-text = "TITLE TEXT"
+text = "Teams"
 align = 1
 script = ExtResource( 13 )
-
-[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
-margin_top = 147.0
-margin_right = 639.0
-margin_bottom = 167.0
-text = "BUTTON"
+option_id = "Teams"
+choice_list = [ "Off", "2", "3" ]
+can_loop = false
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
 margin_left = 643.0
@@ -123,23 +116,19 @@ size_flags_horizontal = 3
 alignment = 1
 
 [node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
-margin_top = 33.0
+margin_top = 53.0
 margin_right = 639.0
-margin_bottom = 86.0
+margin_bottom = 98.0
 custom_fonts/font = ExtResource( 1 )
-text = "TITLE TEXT"
+text = "an option"
 align = 1
-
-[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
-margin_top = 90.0
-margin_right = 639.0
-margin_bottom = 110.0
-text = "BUTTON"
+script = ExtResource( 13 )
 
 [node name="Label3" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
-margin_top = 114.0
+margin_top = 102.0
 margin_right = 639.0
-margin_bottom = 167.0
+margin_bottom = 147.0
 custom_fonts/font = ExtResource( 1 )
-text = "TITLE TEXT"
+text = "idk"
 align = 1
+script = ExtResource( 13 )
