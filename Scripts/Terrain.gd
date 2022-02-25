@@ -2,9 +2,11 @@ extends Node2D
 
 var destructible = preload("res://SubScenes/Terrain/Destructible.tscn")
 
-func _ready() -> void:
-	chunkify_terrain()
+# Used to automaticallt chunkify terrain on debug map
+export var chunkify_on_load := false
 
+func _ready() -> void:
+	if chunkify_on_load: chunkify_terrain()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -93,3 +95,4 @@ func chunkify_terrain() -> void:
 	# Add new chunks
 	for chunk in chunk_array:
 		add_child(chunk)
+

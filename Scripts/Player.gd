@@ -7,7 +7,6 @@ signal turn_done
 onready var player_body = $PlayerBody
 onready var turn_timer = $TurnTimer
 onready var turn_queue = $".."
-#onready var aim_point = $AimPoint
 onready var tag = $GamerTag
 
 #var controller_aim_speed = 1000
@@ -15,6 +14,8 @@ onready var tag = $GamerTag
 
 export var MAX_HEALTH = 100
 var health
+
+export var player_model = "chicken1"
 
 # bool, is it this players turn or not
 var is_my_turn := false
@@ -34,8 +35,9 @@ func _ready():
 	health = MAX_HEALTH
 	update_healthbar()
 	inventory_contents = MatchInfo.get_starting_inventory()
+	player_body.load_player_model(player_model)
 
-func _process(delta):
+func _process(_delta):
 	# ah cahnt dyu aneethin if ahm ded
 	#if is_dead: return
 	
@@ -51,6 +53,10 @@ func _input(event):
 		elif event.is_action_released("menu_open"):
 			# This also switches to the selected weapon
 			close_inventory()
+		elif event.is_action_pressed("ui_up"):
+			MatchInfo.game_camera.zoom_in()
+		elif event.is_action_pressed("ui_down"):
+			MatchInfo.game_camera.zoom_out()
 
 	
 #	if event.is_action_pressed("menu_open"):
@@ -128,6 +134,9 @@ func finish_turn():
 func get_body() -> Node:
 	return player_body
 
+func get_gamertag() -> String:
+	return tag.get_node("VBoxContainer/Nametag").text
+
 func get_timer_progress() -> float:
 	# Return 1 if the timer is stopped (hasn't started yet)
 	if turn_timer.is_stopped(): return 1.0
@@ -148,6 +157,9 @@ func do_damage(value:int) -> void:
 	
 	if health == 0:
 		die()
+
+func set_gamertag(gamertag: String) -> void:
+	tag.set_player_name(gamertag)
 
 func update_healthbar():
 	# Extra value added to helth to prevent invisivle low health

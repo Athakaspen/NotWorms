@@ -14,12 +14,12 @@ __meta__ = {
 }
 
 [node name="StartButton" type="Button" parent="MenuHolder"]
-margin_left = 389.0
-margin_top = 412.0
-margin_right = 864.0
-margin_bottom = 585.0
+margin_left = 749.0
+margin_top = 621.0
+margin_right = 1224.0
+margin_bottom = 794.0
 custom_fonts/font = ExtResource( 2 )
-text = "Start (Y)"
+text = "Start"
 __meta__ = {
 "_edit_use_anchors_": false
 }

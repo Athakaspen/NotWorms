@@ -3,6 +3,7 @@
 [ext_resource path="res://Scripts/Weapons/BouncyBomb.gd" type="Script" id=1]
 
 [sub_resource type="CircleShape2D" id=2]
+radius = 4.0
 
 [sub_resource type="Curve" id=1]
 _data = [ Vector2( 0, 0.727273 ), 0.0, 0.644156, 0, 0, Vector2( 0.290323, 0.990909 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -3.01948, 0.0, 0, 0 ]

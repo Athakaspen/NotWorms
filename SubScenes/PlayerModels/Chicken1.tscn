@@ -1,0 +1,40 @@
+[gd_scene format=2]
+
+[node name="BOb" type="Node2D"]
+
+[node name="Sprite" type="Polygon2D" parent="."]
+position = Vector2( -6, 11 )
+scale = Vector2( 2.53846, 2.53846 )
+z_index = -5
+polygon = PoolVector2Array( -3.54546, 5.51515, 9.06061, 5.51515, 14.5758, 0, 14.5758, -8.66667, 8.27273, -15.3636, -3.15152, -15.3636, -9.45455, -8.66667, -9.45455, -0.39394 )
+
+[node name="Wing" type="Polygon2D" parent="Sprite"]
+position = Vector2( 4.33334, 0.787879 )
+color = Color( 0.411765, 0.411765, 0.411765, 1 )
+polygon = PoolVector2Array( -4, -9, -7, -7, -11, -6, -6, -6, -4, -8 )
+
+[node name="Eye" type="Polygon2D" parent="Sprite"]
+position = Vector2( 3.9394, 2.36364 )
+color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 2, -17, 4, -17, 4, -15, 2, -15 )
+
+[node name="Beak" type="Polygon2D" parent="Sprite"]
+position = Vector2( 1.18182, 2.36364 )
+color = Color( 0.976471, 0.603922, 0.0745098, 1 )
+polygon = PoolVector2Array( 8, -16, 11, -18, 14, -18, 12.2121, -15.7576, 9.45455, -14.5758 )
+
+[node name="Gobble" type="Polygon2D" parent="Sprite"]
+position = Vector2( 2.36364, 4.72727 )
+color = Color( 0.976471, 0.0745098, 0.0745098, 1 )
+polygon = PoolVector2Array( 8, -17, 11.4242, -18.5152, 12.6061, -16.9394, 12.2121, -14.5758, 9.45455, -14.9697 )
+
+[node name="Mohawk" type="Polygon2D" parent="Sprite"]
+position = Vector2( -8.27273, -0.39394 )
+color = Color( 0.976471, 0.0745098, 0.0745098, 1 )
+polygon = PoolVector2Array( 7.24242, -17.8788, 11.9697, -19.8485, 14.3333, -17.4849, 13, -15, 9.21212, -15.5152, 6.0606, -15.1212 )
+
+[node name="Collider" type="CollisionPolygon2D" parent="."]
+visible = false
+position = Vector2( -4.76837e-07, 0 )
+scale = Vector2( 2.98611, 3.125 )
+polygon = PoolVector2Array( 10.3814, -3.52, 10.3814, 3.52, 5.69303, 8, -5.02326, 8, -10.0465, 3.2, -10.0465, -3.52, -4.68837, -8.96, 5.02326, -8.96 )

@@ -35,9 +35,16 @@ var player_list
 var turns_til_next_chest = 1
 
 func initialize():
-	player_list = get_children()
+	
 	MatchInfo.initialize_match(self)
 	turnDuration = MatchInfo.turn_duration
+	player_list = get_children()
+	
+	# Wait a second for a dramatic wide angle
+	yield(get_tree().create_timer(1.5), "timeout")
+	
+	level.UI.visible = true
+	level.camera.set_active()
 	main_loop()
 
 func main_loop():
@@ -76,6 +83,11 @@ func main_loop():
 		if turns_til_next_chest <= 0:
 			STATE = State.CHEST
 			yield(init_chest_spawn(), "completed")
+		
+		# Stop if we've detected that the game is over
+		if STATE == State.GAMEOVER: 
+			do_endgame()
+			break
 
 func get_next_player():
 	var new_player = null
@@ -84,8 +96,11 @@ func get_next_player():
 		player_list.append(new_player)
 	return new_player
 
-func _process(delta : float) -> void:
-	check_win()
+func _process(_delta : float) -> void:
+	if STATE != State.INIT:
+		level.update_camera(get_camera_point())
+		level.update_UI()
+		check_win()
 
 func init_preturn():
 	active_player.init_preturn()
@@ -118,6 +133,7 @@ func do_endgame():
 	# Remove the winner as a child or it will be forceably deleted
 	remove_child(winner)
 	# Go straight to win screen
+# warning-ignore:return_value_discarded
 	get_tree().change_scene(winscreen_path)
 
 func get_current_player() -> Player:
@@ -171,7 +187,7 @@ func get_camera_point() -> Vector2:
 			cam_point = player_pos
 		CamMode.MIDPOINT:
 			# follow weighted midpoint of aiming
-			var player_weight = 1.2
+			var player_weight = 0.8
 			cam_point = (player_weight*player_pos + active_player.player_body.aim_point.global_position) / (1+player_weight)
 		CamMode.PROJECTILE:
 			# Follow projectiles
@@ -183,6 +199,7 @@ func get_camera_point() -> Vector2:
 			cam_point = MatchInfo.chest_spawner.get_cam_point()
 			if cam_point == null:
 				cam_point = prev_cam_point
+	
 	
 	prev_cam_point = cam_point
 	return cam_point

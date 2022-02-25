@@ -13,7 +13,7 @@ color = Color( 0.901961, 0.466667, 0, 1 )
 polygon = PoolVector2Array( -7, -5, -7, 5, 21, 5, 20, 0, 21, -5 )
 
 [node name="ShootPoint" type="Position2D" parent="."]
-position = Vector2( 50, 0 )
+position = Vector2( 44, 0 )
 __meta__ = {
 "_gizmo_extents_": 5.0
 }

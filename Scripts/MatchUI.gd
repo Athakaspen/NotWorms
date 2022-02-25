@@ -8,7 +8,7 @@ onready var inv_info_name = $Inventory/CenterContainer/VBoxContainer/Name
 onready var inv_info_desc = $Inventory/CenterContainer/VBoxContainer/Description
 onready var inv_info_count = $Inventory/CenterContainer/VBoxContainer/Count
 
-var inv_entry_res = preload("res://SubScenes/InventoryEntry.tscn")
+var inv_entry_res = preload("res://SubScenes/Menu/InventoryEntry.tscn")
 
 signal start_turn
 var cur_player : String
@@ -22,6 +22,12 @@ var cur_entry
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# So we can hide it in the editor
+#	self.visible = true
+	# UPDATE: This is now set in the turnqueue,
+	# Set it to false for the wideshot instead
+	self.visible = false
+	
 	$DeathToast.visible = false
 	$Inventory.visible = false
 

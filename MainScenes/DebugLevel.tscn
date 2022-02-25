@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Level.gd" type="Script" id=1]
 [ext_resource path="res://SubScenes/Terrain/Terrain.tscn" type="PackedScene" id=2]
@@ -9,16 +9,13 @@
 [ext_resource path="res://SubScenes/Chest.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scripts/ProjectileHolder.gd" type="Script" id=9]
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 9999, 100 )
-
 [node name="Level" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="Terrain" parent="." instance=ExtResource( 2 )]
+chunkify_on_load = true
 
 [node name="ChestSpawner" type="Node2D" parent="."]
-visible = false
 script = ExtResource( 6 )
 
 [node name="ChestLine" type="Line2D" parent="ChestSpawner"]
@@ -35,41 +32,32 @@ script = ExtResource( 9 )
 
 [node name="DeathPlane" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathPlane"]
-position = Vector2( 972, 1448 )
-shape = SubResource( 3 )
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DeathPlane"]
+visible = false
+polygon = PoolVector2Array( -78, 1184, 2058, 1184, 2045, -984, 2231, -984, 2227, 1339, -252, 1341, -252, -903, -70, -899 )
 
 [node name="TurnQueue" type="Node" parent="."]
 script = ExtResource( 4 )
 
 [node name="Player1" parent="TurnQueue" instance=ExtResource( 3 )]
 
-[node name="SpritePoly" parent="TurnQueue/Player1/PlayerBody" index="0"]
-color = Color( 0.231373, 0.478431, 1, 1 )
-
 [node name="Player2" parent="TurnQueue" instance=ExtResource( 3 )]
+player_model = "chicken2"
 
 [node name="PlayerBody" parent="TurnQueue/Player2" index="0"]
 position = Vector2( 378, 748 )
 
-[node name="SpritePoly" parent="TurnQueue/Player2/PlayerBody" index="0"]
-color = Color( 0.980392, 0.184314, 0.184314, 1 )
-
 [node name="Player3" parent="TurnQueue" instance=ExtResource( 3 )]
+player_model = "penguin1"
 
 [node name="PlayerBody" parent="TurnQueue/Player3" index="0"]
 position = Vector2( 1280, 717 )
 
-[node name="SpritePoly" parent="TurnQueue/Player3/PlayerBody" index="0"]
-color = Color( 0.247059, 0.980392, 0.184314, 1 )
-
 [node name="Player4" parent="TurnQueue" instance=ExtResource( 3 )]
+player_model = "penguin2"
 
 [node name="PlayerBody" parent="TurnQueue/Player4" index="0"]
 position = Vector2( 1808, 82 )
-
-[node name="SpritePoly" parent="TurnQueue/Player4/PlayerBody" index="0"]
-color = Color( 0.752941, 0.0627451, 0.972549, 1 )
 
 [node name="CameraLimit" type="Position2D" parent="."]
 position = Vector2( 1920, 1080 )
@@ -88,6 +76,7 @@ smoothing_speed = 3.0
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
 [node name="UIHolder" parent="UICanvas" instance=ExtResource( 5 )]
+visible = false
 
 [connection signal="body_entered" from="DeathPlane" to="." method="_on_DeathPlane_body_entered"]
 
