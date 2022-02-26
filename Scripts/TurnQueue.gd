@@ -79,6 +79,9 @@ func main_loop():
 			do_endgame()
 			break
 		
+		# Reset zoom after the player's turn is done
+		MatchInfo.game_camera.reset_zoom()
+		
 		turns_til_next_chest -= 1
 		if turns_til_next_chest <= 0:
 			STATE = State.CHEST
@@ -164,7 +167,7 @@ func check_win() -> void:
 		# We have a winner!
 		STATE = State.GAMEOVER
 		winner = get_child(0)
-		print("Winner: " + winner.get_gamertag())
+#		print("Winner: " + winner.get_gamertag())
 		MatchInfo.set_winner(winner.name)
 		MatchInfo.winner_tag = winner.get_gamertag()
 		

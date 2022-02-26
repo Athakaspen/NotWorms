@@ -5,7 +5,7 @@ extends Node
 var WeaponData = {
 	"bomb":{
 		"pretty_name": "Bouncy Bomb",
-		"description": "Throw it and see what happens.\nBlows up after 3 seconds.",
+		"description": "Not the best weapon, but you seem to have a lot of these.\nBlows up after 3 seconds.",
 		"damage": "XX",
 		"icon": "res://icon.png",
 		"resource": "res://SubScenes/Weapons/BouncyBomb.tscn"
@@ -23,6 +23,13 @@ var WeaponData = {
 		"damage": "XX",
 		"icon": "res://icon.png",
 		"resource": "res://SubScenes/Weapons/RomanCandle.tscn"
+	},
+	"bag":{
+		"pretty_name": "Bomb Bag",
+		"description": "Found in a cave somewhere.\nReleases bombs on impact.",
+		"damage": "XX",
+		"icon": "res://icon.png",
+		"resource": "res://SubScenes/Weapons/BombBag.tscn"
 	}
 }
 
