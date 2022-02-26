@@ -4,9 +4,11 @@ var explosion_radius = 65
 var detection_margin = 30
 var explosion_poly
 
+var explosion_particles_res = preload("res://SubScenes/Weapons/ExplosionParticles.tscn")
+
 var explosion_force = 400
 var explosion_damage = 6
-var explosion_delay = 3.0
+var explosion_delay = 3.5
 var owning_player = "UNDEFINED"
 
 # Called when the node enters the scene tree for the first time.
@@ -50,15 +52,25 @@ func explode() -> void:
 	# TODO: Add a list of bodies that were created this frame,
 	# and check all of those too
 	
+	var hit_terrain := false
 	for body in $DetectionArea.get_overlapping_bodies():
 		if body.is_in_group("Destructible"):
 			body.get_parent().clip(body, $ExplosionArea/ExplosionPoly)
+			hit_terrain = true
+		
 		elif body in $ExplosionArea.get_overlapping_bodies():
 			if body.is_in_group("Knockback"):
 				body.apply_central_impulse( \
 					(body.global_position - global_position).normalized() * explosion_force)
 			if body.is_in_group("Damageable"):
 				body.get_parent().do_damage(explosion_damage)
+	
+	# Explosion Particle effect
+	var particles = explosion_particles_res.instance()
+	particles.set_radius(explosion_radius)
+	particles.position = position
+	if not hit_terrain: particles.set_dirt_visible(false)
+	MatchInfo.projectile_holder.call_deferred("add_child", particles)
 	
 	call_deferred("queue_free")
 

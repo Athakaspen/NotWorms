@@ -1,6 +1,38 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Weapons/RocketLauncher_Proj.gd" type="Script" id=1]
+
+[sub_resource type="Gradient" id=5]
+offsets = PoolRealArray( 0, 0.346154, 0.881988, 1 )
+colors = PoolColorArray( 0.992383, 0.203322, 0.203322, 1, 1, 0.662505, 0.0837889, 1, 0.98457, 0.976718, 0.517092, 1, 0.996078, 0.996078, 0.894118, 0 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 5 )
+width = 128
+
+[sub_resource type="Curve" id=6]
+_data = [ Vector2( 0, 0.189773 ), 0.0, 0.0, 0, 0, Vector2( 0.0952381, 0.996591 ), 0.0, 0.0, 0, 0, Vector2( 0.619565, 0.998864 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.296591 ), -3.25343, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 6 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+emission_shape = 2
+emission_box_extents = Vector3( 10, 1, 1 )
+flag_disable_z = true
+direction = Vector3( -1, 0, 0 )
+spread = 5.55
+gravity = Vector3( 0, -100, 0 )
+initial_velocity = 102.95
+initial_velocity_random = 0.83
+angular_velocity = 470.24
+angular_velocity_random = 0.8
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 5.0
+scale_random = 0.43
+scale_curve = SubResource( 4 )
+color_ramp = SubResource( 2 )
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 5.0
@@ -14,13 +46,37 @@ contact_monitor = true
 can_sleep = false
 script = ExtResource( 1 )
 
+[node name="Particles2D" type="Particles2D" parent="."]
+modulate = Color( 1.5, 1.5, 1.5, 1 )
+position = Vector2( -10.785, 0 )
+amount = 50
+lifetime = 0.2
+explosiveness = 0.1
+local_coords = false
+process_material = SubResource( 7 )
+
 [node name="SpritePoly" type="Polygon2D" parent="."]
-position = Vector2( -5, 0 )
-color = Color( 0.956863, 0.337255, 0, 1 )
-polygon = PoolVector2Array( -9, 5, -9, -5, 14, -5, 14, 5 )
+position = Vector2( -7, 0 )
+polygon = PoolVector2Array( -9, 3, -9, -3, -8, -5, -8, -8, 5, -5, 14, -5, 14, 5, 5, 5, -8, 8, -8, 5 )
 
 [node name="Fuse" type="Polygon2D" parent="SpritePoly"]
-polygon = PoolVector2Array( 14, 5, 14, -5, 17, -4, 19, -1, 19, 1, 17, 4 )
+color = Color( 1, 0, 0, 1 )
+polygon = PoolVector2Array( 14, 5, 14, -5, 18, -4, 20, -2, 21, 0, 20, 2, 18, 4 )
+
+[node name="Fuse2" type="Polygon2D" parent="SpritePoly"]
+position = Vector2( -22, 4 )
+color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 10, 4, 14, 1, 27, 1, 23, 2, 17, 4 )
+
+[node name="Fuse3" type="Polygon2D" parent="SpritePoly"]
+position = Vector2( -22, -9 )
+color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 14, 4, 10, 1, 17, 1, 23, 3, 27, 4 )
+
+[node name="Fuse4" type="Polygon2D" parent="SpritePoly"]
+position = Vector2( -22, -4 )
+color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 14, 5, 9, 4, 14, 3, 18, 3, 27, 4, 18, 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708

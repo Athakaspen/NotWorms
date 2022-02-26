@@ -118,6 +118,7 @@ func set_team_mode(mode : String):
 			MIN_TEAM_IDX = 1
 			MAX_TEAM_IDX = 3
 			$Team.visible = true
+# warning-ignore:narrowing_conversion
 	_cur_team_index = clamp(_cur_team_index, MIN_TEAM_IDX, MAX_TEAM_IDX)
 	_change_team(0)
 
