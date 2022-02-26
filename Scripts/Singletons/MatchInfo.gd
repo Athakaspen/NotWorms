@@ -35,7 +35,7 @@ var turn_duration : float = 12.0
 # The visible timer runs out coyote_time seconds before turn ends
 var coyote_time : float = 0.25
 # Starting health of each player
-var starting_health : int = 30
+var starting_health : int = 1
 
 var starting_inventory = {
 	"bomb": 200,

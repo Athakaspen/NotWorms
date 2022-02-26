@@ -10,6 +10,7 @@ onready var turn_queue = $".."
 onready var tag = $GamerTag
 
 var damage_popup_res = preload("res://SubScenes/DamagePopup.tscn")
+var grave_res = preload("res://SubScenes/Grave.tscn")
 
 export var MAX_HEALTH = 100
 var health
@@ -188,6 +189,12 @@ func die():
 	is_dead = true
 	turn_queue.level.UI.do_deathtoast(get_gamertag())
 	MatchInfo.rec_death(name)
+	
+	# add the grave
+	var grave = grave_res.instance()
+	grave.position = player_body.position
+	MatchInfo.chest_holder.call_deferred("add_child", grave)
+	
 	if not is_my_turn:
 		
 		# Replace queue_free with remove_child. A reference to the player node
