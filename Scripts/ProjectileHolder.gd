@@ -15,7 +15,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if get_child_count() == 0:
 		emit_signal("no_children")
 		cam_point = Vector2.ZERO

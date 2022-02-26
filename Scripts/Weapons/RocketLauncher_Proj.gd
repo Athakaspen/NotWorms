@@ -4,7 +4,7 @@ var explosion_radius = 90
 var detection_margin = 40
 var explosion_poly
 
-var explosion_force = 400
+var explosion_force = 800
 var explosion_damage = 20
 var owning_player = "UNDEFINED"
 
@@ -46,7 +46,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
+func _physics_process(_delta):
 	self.rotation = linear_velocity.angle()
 	if should_be_exploded: explode()
 

@@ -157,28 +157,56 @@ func check_win() -> void:
 	# Don't check wins again after one was found
 	if STATE == State.GAMEOVER: return
 	
-	var num_players = get_child_count()
-	#print ("Checking win... " + str(num_players) + " Players...")
+	if MatchInfo.TEAM_MODE == "off":
+		var num_players = get_child_count()
+		#print ("Checking win... " + str(num_players) + " Players...")
+		
+		if num_players >= 2:
+			# no winner
+			return
+		elif num_players == 1:
+			# We have a winner!
+			STATE = State.GAMEOVER
+			winner = get_child(0)
+	#		print("Winner: " + winner.get_gamertag())
+#			MatchInfo.set_winner(winner.name)
+			MatchInfo.add_winner_name(winner.name)
+#			MatchInfo.winner_tag = winner.get_gamertag()
+			MatchInfo.add_winner_tag(winner.get_gamertag())
+			
+			winner.set_invincible()
+			
+			return
+		else:
+			# Num Players is 0, we have a problem
+			print("This is a problem")
+			STATE = State.GAMEOVER
+			level.UI.do_deathtoast("Everyone")
 	
-	if num_players >= 2:
-		# no winner
-		return
-	elif num_players == 1:
-		# We have a winner!
-		STATE = State.GAMEOVER
-		winner = get_child(0)
-#		print("Winner: " + winner.get_gamertag())
-		MatchInfo.set_winner(winner.name)
-		MatchInfo.winner_tag = winner.get_gamertag()
+	else: # This is in two or three team mode
+		if get_child_count() == 0:
+			# everyone died
+			print("This is a problem")
+			STATE = State.GAMEOVER
+			level.UI.do_deathtoast("Everyone")
+			return
 		
-		winner.set_invincible()
-		
-		return
-	else:
-		# Num Players is 0, we have a problem
-		print("This is a problem")
-		STATE = State.GAMEOVER
-		level.UI.do_deathtoast("Everyone")
+		# Check if more than one team is still alive
+		var first_team = get_child(0).team
+		var is_it_gameover = true
+		for child in get_children():
+			if child.team != first_team:
+				is_it_gameover = false
+				break
+		if is_it_gameover:
+			# If we get here, only one team is left
+			STATE = State.GAMEOVER
+			# Add all players to winner list
+			MatchInfo.set_winning_team(first_team)
+			for child in get_children():
+				MatchInfo.add_winner_name(child.name)
+				MatchInfo.add_winner_tag(child.get_gamertag())
+				child.set_invincible()
 
 var prev_cam_point : Vector2
 # Return the point the camera should be moving towards this frame.

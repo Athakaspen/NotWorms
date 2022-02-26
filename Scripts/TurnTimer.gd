@@ -13,5 +13,5 @@ extends TextureProgress
 export(Gradient) var TimeGradient
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	modulate = TimeGradient.interpolate(value)

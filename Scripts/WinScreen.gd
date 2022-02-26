@@ -7,15 +7,15 @@ func _ready():
 	Input.set_custom_mouse_cursor(null)
 	
 	$PlayerHolder/_placeholder.visible = false
-	$UI/Title.text = MatchInfo.winner_tag + " Wins!"
-	if MatchInfo.winner != "UNDEFINED":
-		var winner_node = MatchInfo.player_info[MatchInfo.winner]
-		var winner_sprite = winner_node.player_body.sprite
-	
-		winner_sprite.get_parent().remove_child(winner_sprite)
-		winner_sprite.position = Vector2.ZERO
-		
-		$PlayerHolder.add_child(winner_sprite)
+	$UI/Title.text = MatchInfo.get_win_text()
+#	if MatchInfo.winner != "UNDEFINED":
+#		var winner_node = MatchInfo.player_info[MatchInfo.winner]
+#		var winner_sprite = winner_node.player_body.sprite
+#
+#		winner_sprite.get_parent().remove_child(winner_sprite)
+#		winner_sprite.position = Vector2.ZERO
+#
+#		$PlayerHolder.add_child(winner_sprite)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

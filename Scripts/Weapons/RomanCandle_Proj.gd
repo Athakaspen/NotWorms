@@ -47,7 +47,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
+func _physics_process(_delta):
 	self.rotation = linear_velocity.angle()
 	if should_be_exploded: explode()
 

@@ -28,9 +28,9 @@ func clip(source_body: StaticBody2D, neg_poly: CollisionPolygon2D) -> void:
 	
 	var source_poly = source_body.get_node("RenderPoly")
 	
-	var start_time = OS.get_ticks_usec()
+#	var start_time = OS.get_ticks_usec()
 	var result = Geometry.clip_polygons_2d(source_poly.polygon, offset_poly.polygon)
-	var end_time = OS.get_ticks_usec()
+#	var end_time = OS.get_ticks_usec()
 #	print("Geometry clip: " + str(end_time-start_time))
 	
 	if (len(result)) == 0:
@@ -44,9 +44,9 @@ func clip(source_body: StaticBody2D, neg_poly: CollisionPolygon2D) -> void:
 		# If there are more results, create new objects for them
 		for res_poly in result.slice(1,len(result)):
 			#print(Geometry.is_polygon_clockwise(res_poly))
-			start_time = OS.get_ticks_usec()
-			var new_terr = add_new_terrain(res_poly, source_poly.color)
-			end_time = OS.get_ticks_usec()
+#			start_time = OS.get_ticks_usec()
+			add_new_terrain(res_poly, source_poly.color)
+#			end_time = OS.get_ticks_usec()
 #			print("add_new_terrain: " + str(end_time-start_time))
 			
 #			start_time = OS.get_ticks_usec()

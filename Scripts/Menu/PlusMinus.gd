@@ -13,7 +13,7 @@ func _ready():
 
 func update_visible_players():
 	for i in range(MAX_PLAYERS + 1):
-		get_parent().get_child(i).visible = i <= cur_players
+		$"../..".get_child(i).visible = i <= cur_players
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

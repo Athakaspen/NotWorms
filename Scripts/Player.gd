@@ -10,11 +10,13 @@ onready var turn_queue = $".."
 onready var tag = $GamerTag
 
 var damage_popup_res = preload("res://SubScenes/DamagePopup.tscn")
+var grave_res = preload("res://SubScenes/Grave.tscn")
 
 export var MAX_HEALTH = 100
 var health
 
 export var player_model = "chicken1"
+var team = "normal"
 
 # bool, is it this players turn or not
 var is_my_turn := false
@@ -175,6 +177,16 @@ func do_damage(value:int) -> void:
 func set_gamertag(gamertag: String) -> void:
 	tag.set_player_name(gamertag)
 
+func set_team(new_team : String):
+	self.team = new_team
+	# Change color if this is a team match
+	if MatchInfo.TEAM_MODE != "off":
+		match team:
+#			"normal": tag.set_tag_color(Color.white)
+			"red": tag.set_tag_color(Color.red)
+			"blue": tag.set_tag_color(Color.blue)
+			"green": tag.set_tag_color(Color.green)
+
 func update_healthbar():
 	# Extra value added to helth to prevent invisivle low health
 	tag.set_health_bar_value(float(health+2)/float(MAX_HEALTH))
@@ -188,6 +200,12 @@ func die():
 	is_dead = true
 	turn_queue.level.UI.do_deathtoast(get_gamertag())
 	MatchInfo.rec_death(name)
+	
+	# add the grave
+	var grave = grave_res.instance()
+	grave.position = player_body.position
+	MatchInfo.chest_holder.call_deferred("add_child", grave)
+	
 	if not is_my_turn:
 		
 		# Replace queue_free with remove_child. A reference to the player node
