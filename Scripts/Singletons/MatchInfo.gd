@@ -40,7 +40,8 @@ var starting_health : int = 30
 var starting_inventory = {
 	"bomb": 200,
 	"rocket": 2,
-	"candle": 2
+	"candle": 2,
+	"bag": 5
 }
 
 # Speed the game runs at normally
