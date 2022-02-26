@@ -9,23 +9,20 @@ script = ExtResource( 2 )
 [node name="UI" type="Control" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Title" type="Label" parent="UI"]
-margin_left = 423.0
-margin_top = 171.0
-margin_right = 833.0
-margin_bottom = 210.0
+margin_left = 654.0
+margin_top = 195.0
+margin_right = 1356.0
+margin_bottom = 261.0
 custom_fonts/font = ExtResource( 1 )
 text = "PlayerX Wins!"
 
 [node name="MainMenuButton" type="Button" parent="UI"]
-margin_left = 398.0
-margin_top = 498.0
-margin_right = 879.0
-margin_bottom = 602.0
+margin_left = 598.0
+margin_top = 769.0
+margin_right = 1299.0
+margin_bottom = 873.0
 custom_fonts/font = ExtResource( 1 )
 text = "Main Menu (Y)"
 __meta__ = {
@@ -33,9 +30,13 @@ __meta__ = {
 }
 
 [node name="PlayerHolder" type="Position2D" parent="."]
-position = Vector2( 635, 346 )
+position = Vector2( 946, 543 )
+scale = Vector2( 5, 5 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="_placeholder" type="Polygon2D" parent="PlayerHolder"]
-polygon = PoolVector2Array( -43, 48, -83, -16, -41, -66, 46, -69, 67, -43, 52, 18, 38, 53, -5, 56 )
+polygon = PoolVector2Array( -36, 29.2, -42.6, -2.6, -27, -32.2, 17.8, -36.4, 40.6, -15.6, 40.6, 5.4, 28.6, 27.2, -2.8, 33 )
 
 [connection signal="pressed" from="UI/MainMenuButton" to="." method="_on_MainMenuButton_pressed"]

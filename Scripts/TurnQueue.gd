@@ -96,6 +96,12 @@ func get_next_player():
 		player_list.append(new_player)
 	return new_player
 
+func shuffle_player_order():
+	var children = get_children()
+	children.shuffle()
+	for child in children:
+		move_child(child, 0)
+
 func _process(_delta : float) -> void:
 	if STATE != State.INIT:
 		level.update_camera(get_camera_point())
@@ -158,8 +164,9 @@ func check_win() -> void:
 		# We have a winner!
 		STATE = State.GAMEOVER
 		winner = get_child(0)
-		print("Winner: " + winner.name)
+		print("Winner: " + winner.get_gamertag())
 		MatchInfo.set_winner(winner.name)
+		MatchInfo.winner_tag = winner.get_gamertag()
 		
 		winner.set_invincible()
 		
@@ -205,5 +212,5 @@ func get_camera_point() -> Vector2:
 	return cam_point
 
 func end_turn() -> void:
-	print("Turn ended by external caller")
+	print("Turn ended by external caller (this shouldn't happen anymore)")
 	active_player.end_turn()

@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Fonts/GOUDYSTO.TTF" type="DynamicFontData" id=1]
 [ext_resource path="res://Scripts/Menu/CharacterSelectEntry.gd" type="Script" id=2]
 [ext_resource path="res://Sprites/downarrow.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/chicken1.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 36
@@ -18,9 +17,6 @@ size_flags_horizontal = 7
 size_flags_vertical = 7
 alignment = 1
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="."]
 margin_right = 284.0
@@ -35,6 +31,7 @@ visible = false
 margin_top = 57.0
 margin_right = 284.0
 margin_bottom = 142.0
+mouse_filter = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 3 )
@@ -46,29 +43,17 @@ modulate = Color( 1, 1, 1, 0 )
 margin_top = 54.0
 margin_right = 284.0
 margin_bottom = 440.0
+mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.4
-
-[node name="TextureRect" type="TextureRect" parent="Portrait"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 2.4
-texture = ExtResource( 5 )
-expand = true
-stretch_mode = 6
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="DownArrow" type="TextureRect" parent="."]
 visible = false
 margin_top = 328.0
 margin_right = 284.0
 margin_bottom = 440.0
+mouse_filter = 0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 3 )
