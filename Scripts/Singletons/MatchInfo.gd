@@ -1,6 +1,7 @@
 extends Node
 
 var winner:String = "UNDEFINED"
+var winner_tag:String = "UNDEFINED_TAG"
 
 var death_order = []
 
@@ -25,12 +26,16 @@ enum TeamMode {
 }
 var TEAM_MODE = TeamMode.NO_TEAMS
 
+# Whether or not we should randomize turn order
+var rand_turn_order := true
 # Whether the player is allowed more than one shot per turn
-var oneshot = true
+var oneshot := true
 # Length of each turn, in seconds
 var turn_duration : float = 12.0
 # The visible timer runs out coyote_time seconds before turn ends
 var coyote_time : float = 0.25
+# Starting health of each player
+var starting_health : int = 30
 
 var starting_inventory = {
 	"bomb": 200,
@@ -50,15 +55,21 @@ func _ready():
 
 # Get information at the start of a match
 func initialize_match(turn_queue:TurnQueue) -> void:
-	print(num_players)
+#	print(num_players)
 	var spawnpoints = turn_queue.level.get_spawnpoints()
+	spawnpoints.shuffle()
 	for i in range(num_players):
 		var new_player = player_res.instance()
 		turn_queue.add_child(new_player)
 		new_player.player_body.load_player_model(player_models[i])
 		new_player.player_body.position = spawnpoints[i]
+		new_player.MAX_HEALTH = starting_health
+		new_player.health = starting_health
 		# Create a dict of the players to reference later
 		player_info[new_player.name] = new_player
+		
+	if rand_turn_order:
+		turn_queue.shuffle_player_order()
 	
 	projectile_holder = turn_queue.level.projectile_holder
 	terrain_holder = turn_queue.level.get_node("Terrain")

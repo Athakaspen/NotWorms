@@ -34,9 +34,9 @@ func _ready():
 func _input(event):
 	# This is really bad, should be updated
 	if event.is_action_pressed("ready") and $Preturn.visible and $Preturn/ReadyButton.visible:
-		_on_ReadyButton_pressed()
-	if event.is_action_pressed("ready") and $Turn.visible and $Turn/EndTurnButton.visible:
-		_on_EndTurnButton_pressed()
+		emit_signal("start_turn")
+#	if event.is_action_pressed("ready") and $Turn.visible and $Turn/EndTurnButton.visible:
+#		_on_EndTurnButton_pressed()
 	if event.is_action_pressed("menu_next") and in_inventory:
 		next_weapon()
 	if event.is_action_pressed("menu_prev") and in_inventory:
@@ -146,11 +146,11 @@ func init_postturn():
 	$Turn/TurnTimer.visible = false
 	$Turn/EndTurnButton.visible = false
 
-func _on_EndTurnButton_pressed():
-	level.turn_queue.end_turn()
-
-func _on_ReadyButton_pressed():
-	emit_signal("start_turn")
+#func _on_EndTurnButton_pressed():
+#	level.turn_queue.end_turn()
+#
+#func _on_ReadyButton_pressed():
+#	emit_signal("start_turn")
 
 func _on_DeathToastTimer_timeout():
 	$DeathToast.visible = false

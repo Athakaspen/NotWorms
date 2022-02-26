@@ -12,7 +12,7 @@ signal character_changed(player_index, new_id)
 
 var _cur_index : int = 0
 var player_model = null
-const MAX_SCALE = 4
+const MAX_SCALE = 4.5
 
 export(Color) var color_normal = Color.white
 export(Color) var color_focused = Color.green

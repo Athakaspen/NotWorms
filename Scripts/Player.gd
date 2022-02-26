@@ -57,6 +57,11 @@ func _input(event):
 			MatchInfo.game_camera.zoom_in()
 		elif event.is_action_pressed("ui_down"):
 			MatchInfo.game_camera.zoom_out()
+	
+	# end turn functionality
+	if is_my_turn:
+		if event.is_action_pressed("end_turn"):
+			end_turn()
 
 	
 #	if event.is_action_pressed("menu_open"):
@@ -172,7 +177,7 @@ func update_staminabar():
 func die():
 	if is_dead: return
 	is_dead = true
-	turn_queue.level.UI.do_deathtoast(name)
+	turn_queue.level.UI.do_deathtoast(get_gamertag())
 	MatchInfo.rec_death(name)
 	if not is_my_turn:
 		
