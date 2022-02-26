@@ -74,7 +74,7 @@ func shoot_helper():
 		if get_tree() == null: return
 		yield(get_tree().create_timer(fire_delay), "timeout")
 
-func get_shoot_velocity(dist):
+func get_shoot_velocity(_dist):
 	return $"../..".get_aim_strength() \
 		* (MAX_SHOOT_VEL - MIN_SHOOT_VEL) + MIN_SHOOT_VEL
 
@@ -88,7 +88,7 @@ func set_inactive():
 func hide_trajectory():
 	traj_line.visible = false
 
-func _process(delta):
+func _process(_delta):
 	# reset the line object transform so it drawin in the right place
 	traj_line.global_transform = Transform.IDENTITY
 

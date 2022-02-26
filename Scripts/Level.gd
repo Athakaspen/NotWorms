@@ -31,17 +31,41 @@ func _process(_delta):
 
 func get_spawnpoints():
 	var num_players = MatchInfo.num_players
-	var team_mode = MatchInfo.TEAM_MODE
-	if team_mode == MatchInfo.TeamMode.NO_TEAMS:
+	if MatchInfo.TEAM_MODE == "off":
 		var base = $SpawnPoints/NoTeams.get_node("PlayerCount"+str(num_players))
 		var setup = Utilities.rand_choice(base.get_children())
 		var res = []
 		for point in setup.get_children():
 			res.append(point.position)
 		return res
-	else:
-		print("Teams have not been implemented yet")
-		return null
+	elif MatchInfo.TEAM_MODE == "two":
+		# Returns an array with two arrays.
+		var team1 = $SpawnPoints/TeamCount2/Team1
+		var t1 = []
+		for point in team1.get_children():
+			t1.append(point.position)
+		var team2 = $SpawnPoints/TeamCount2/Team2
+		var t2 = []
+		for point in team2.get_children():
+			t2.append(point.position)
+		return [t1, t2]
+	elif MatchInfo.TEAM_MODE == "three":
+		# Returns an array with three arrays.
+		var team1 = $SpawnPoints/TeamCount3/Team1
+		var t1 = []
+		for point in team1.get_children():
+			t1.append(point.position)
+		var team2 = $SpawnPoints/TeamCount3/Team2
+		var t2 = []
+		for point in team2.get_children():
+			t2.append(point.position)
+		var team3 = $SpawnPoints/TeamCount3/Team3
+		var t3 = []
+		for point in team3.get_children():
+			t3.append(point.position)
+		return [t1, t2, t3]
+#		print("Teams have not been implemented yet")
+#		return null
 
 
 func update_UI():

@@ -18,6 +18,9 @@ func set_stamina_bar_value(value : float):
 func set_player_name(value:String):
 	nametag.text = value
 
+func set_tag_color(value:Color):
+	nametag.modulate = value
+
 func set_turn_active(value):
 	if value == true:
 		staminabar.visible = true

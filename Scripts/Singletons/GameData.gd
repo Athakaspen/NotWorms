@@ -42,6 +42,8 @@ var PlayerModels = {
 	"penguin2": "res://SubScenes/PlayerModels/Penguin2.tscn"
 }
 
+var TeamIDs = ["normal", "red", "blue", "green"]
+
 
 
 # Called when the node enters the scene tree for the first time.

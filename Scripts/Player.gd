@@ -16,6 +16,7 @@ export var MAX_HEALTH = 100
 var health
 
 export var player_model = "chicken1"
+var team = "normal"
 
 # bool, is it this players turn or not
 var is_my_turn := false
@@ -175,6 +176,16 @@ func do_damage(value:int) -> void:
 
 func set_gamertag(gamertag: String) -> void:
 	tag.set_player_name(gamertag)
+
+func set_team(new_team : String):
+	self.team = new_team
+	# Change color if this is a team match
+	if MatchInfo.TEAM_MODE != "off":
+		match team:
+#			"normal": tag.set_tag_color(Color.white)
+			"red": tag.set_tag_color(Color.red)
+			"blue": tag.set_tag_color(Color.blue)
+			"green": tag.set_tag_color(Color.green)
 
 func update_healthbar():
 	# Extra value added to helth to prevent invisivle low health

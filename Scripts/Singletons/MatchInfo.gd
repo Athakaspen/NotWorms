@@ -1,13 +1,15 @@
 extends Node
 
-var winner:String = "UNDEFINED"
-var winner_tag:String = "UNDEFINED_TAG"
+var winners_list = []
+var winner_tags_list = []
+var winning_team = "NULL"
 
 var death_order = []
 
 var player_info = {}
 
 var player_models = ["chicken1", "chicken1", "chicken1", "chicken1", "chicken1", "chicken1"]
+var player_teams = ["normal", "normal", "normal", "normal", "normal", "normal"]
 var player_res = preload("res://SubScenes/Player/Player.tscn")
 
 var projectile_holder : Node2D
@@ -19,12 +21,13 @@ var game_camera : Camera2D
 # Number of players at the start of the game
 var num_players : int = 2
 # Team settings
-enum TeamMode {
-	NO_TEAMS,
-	TWO_TEAMS,
-	THREE_TEAMS
-}
-var TEAM_MODE = TeamMode.NO_TEAMS
+#enum TeamMode {
+#	NO_TEAMS,
+#	TWO_TEAMS,
+#	THREE_TEAMS
+#}
+# Team mode. Either "off", "two", or "three"
+var TEAM_MODE = "off"
 
 # Whether or not we should randomize turn order
 var rand_turn_order := true
@@ -35,13 +38,13 @@ var turn_duration : float = 12.0
 # The visible timer runs out coyote_time seconds before turn ends
 var coyote_time : float = 0.25
 # Starting health of each player
-var starting_health : int = 1
+var starting_health : int = 100
 
 var starting_inventory = {
-	"bomb": 200,
-	"rocket": 2,
-	"candle": 2,
-	"bag": 5
+	"bomb": 69,
+	"rocket": 1,
+	"candle": 1,
+	"bag": 1
 }
 
 # Speed the game runs at normally
@@ -56,19 +59,63 @@ func _ready():
 
 # Get information at the start of a match
 func initialize_match(turn_queue:TurnQueue) -> void:
+	# Reset values
+	winners_list = []
+	winner_tags_list = []
+	winning_team = "NULL"
 #	print(num_players)
-	var spawnpoints = turn_queue.level.get_spawnpoints()
-	spawnpoints.shuffle()
+	var player_list = []
 	for i in range(num_players):
 		var new_player = player_res.instance()
 		turn_queue.add_child(new_player)
-		new_player.player_body.load_player_model(player_models[i])
-		new_player.player_body.position = spawnpoints[i]
+		new_player.player_body.load_player_model(player_models[i], player_teams[i])
+		new_player.set_team(player_teams[i])
 		new_player.MAX_HEALTH = starting_health
 		new_player.health = starting_health
 		# Create a dict of the players to reference later
 		player_info[new_player.name] = new_player
-		
+		# This is redundant and bad, but it's for spawnpoints below
+		player_list.append(new_player)
+	
+	# Place players at spawn points
+	# This is gonna get messy
+	var spawnpoints = turn_queue.level.get_spawnpoints()
+	match TEAM_MODE:
+		"off":
+			spawnpoints.shuffle()
+			for i in range(num_players):
+				player_list[i].player_body.position = spawnpoints[i]
+		"two":
+			spawnpoints.shuffle()
+			var t1 = spawnpoints[0]
+			t1.shuffle()
+			var t2 = spawnpoints[1]
+			t2.shuffle()
+			for player in player_list:
+				if player.team == "red":
+					player.player_body.position = t1.pop_back()
+				elif player.team == "blue":
+					player.player_body.position = t2.pop_back()
+				else:
+					print("Something went horribly wrong in 2-team spawning")
+		"three":
+			spawnpoints.shuffle()
+			var t1 = spawnpoints[0]
+			t1.shuffle()
+			var t2 = spawnpoints[1]
+			t2.shuffle()
+			var t3 = spawnpoints[2]
+			t3.shuffle()
+			for player in player_list:
+				if player.team == "red":
+					player.player_body.position = t1.pop_back()
+				elif player.team == "blue":
+					player.player_body.position = t2.pop_back()
+				elif player.team == "green":
+					player.player_body.position = t3.pop_back()
+				else:
+					print("Something went horribly wrong in 3-team spawning")
+	
 	if rand_turn_order:
 		turn_queue.shuffle_player_order()
 	
@@ -78,23 +125,39 @@ func initialize_match(turn_queue:TurnQueue) -> void:
 	chest_spawner = turn_queue.level.get_node("ChestSpawner")
 	game_camera = turn_queue.level.get_node("GameCamera")
 	
-	winner = "UNDEFINED"
-	
 
 
 func get_starting_inventory() -> Dictionary:
 	return starting_inventory.duplicate()
 
 func get_chest_contents() -> Dictionary:
-#	return Utilities.rand_choice([{"bomb": 1}, {"rocket": 1}, {"candle": 1}])
-	return Utilities.rand_choice([{"rocket": 1}, {"candle": 1}])
+	return Utilities.rand_choice([{"rocket": 1}, {"candle": 1}, {"bag": 1}])
 
 func get_turns_til_next_chest() -> int:
 	return randi() % 3 + 1
 
 # Set the name of the winner, for use on winscreen
-func set_winner(playername:String):
-	winner = playername
+func add_winner_name(playername:String):
+	winners_list.append(playername)
+
+func add_winner_tag(tag:String):
+	winner_tags_list.append(tag)
+
+func set_winning_team(team:String):
+	winning_team = team
+
+func get_win_text() -> String:
+	if TEAM_MODE == "off":
+		return winner_tags_list[0] + " Wins!"
+	else:
+		match winning_team:
+			"red":
+				return "The RED Team Wins!"
+			"blue":
+				return "The BLUE Team Wins!"
+			"green":
+				return "The GREEN Team Wins!"
+	return "A WINNER IS YOU"
 
 # Record a death, for potential use later
 func rec_death(playername:String):

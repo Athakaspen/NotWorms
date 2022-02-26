@@ -4,7 +4,7 @@ var explosion_radius = 65
 var detection_margin = 30
 var explosion_poly
 
-var explosion_force = 700
+var explosion_force = 400
 var explosion_damage = 6
 var explosion_delay = 3.0
 var owning_player = "UNDEFINED"

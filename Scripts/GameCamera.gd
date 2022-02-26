@@ -16,7 +16,7 @@ func _ready():
 	# Instantly jump to editor-specified zoom level
 	pass
 
-func _process(delta):
+func _process(_delta):
 	if is_active:
 		_cur_zoom = lerp(_cur_zoom, zoom_level, zoom_speed)
 		zoom = Vector2(1,1) * _cur_zoom

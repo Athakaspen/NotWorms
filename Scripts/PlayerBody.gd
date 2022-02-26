@@ -229,14 +229,16 @@ func get_aim_strength() -> float:
 func get_stamina_percent() -> float:
 	return clamp((cur_stamina - JUMP_COST) / (MAX_STAMINA-JUMP_COST), 0, 1)
 
-func load_player_model(model_id : String):
+func load_player_model(model_id : String, team : String = "normal"):
 	# Load model scene
 	var model = load(GameData.PlayerModels[model_id]).instance()
 	
 	sprite.queue_free()
-	sprite = model.get_node("Sprite")
+	# get the sprite that corresponds to the given team
+	sprite = model.get_node(team)
 	model.remove_child(sprite)
 	add_child(sprite)
+	sprite.visible = true # just in case
 	
 	collider.queue_free()
 	collider = model.get_node("Collider")

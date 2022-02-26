@@ -2,29 +2,103 @@
 
 [node name="Pengu" type="Node2D"]
 
-[node name="Sprite" type="Polygon2D" parent="."]
+[node name="normal" type="Polygon2D" parent="."]
+visible = false
 position = Vector2( -6, 11 )
 scale = Vector2( 2.53846, 2.53846 )
 z_index = -5
 color = Color( 0, 0, 0, 1 )
 polygon = PoolVector2Array( -3.54546, 5.51515, 9.06061, 5.51515, 14.5758, 0, 14.5758, -8.66667, 8.27273, -15.3636, 2.36364, -16.1515, -3.15152, -15.3636, -9.45455, -8.66667, -9.45455, -0.39394 )
 
-[node name="Eye" type="Polygon2D" parent="Sprite"]
+[node name="Eye" type="Polygon2D" parent="normal"]
 position = Vector2( 1.9697, 3.15152 )
 polygon = PoolVector2Array( 2.36364, -16.9394, 3.54546, -16.9394, 3.9394, -16.1515, 3.54546, -15.3636, 2.36364, -15.3636, 1.9697, -16.1515 )
 
-[node name="Beak" type="Polygon2D" parent="Sprite"]
+[node name="Beak" type="Polygon2D" parent="normal"]
 position = Vector2( -0.39394, 4.33334 )
 color = Color( 0.976471, 0.603922, 0.0745098, 1 )
-polygon = PoolVector2Array( 8, -16, 10.2424, -17.7273, 13.7879, -20.0909, 14, -18, 15.3636, -17.3333, 12.2121, -15.3636, 9.45455, -14.5758 )
+polygon = PoolVector2Array( 8, -16, 10.2424, -17.7273, 13.7879, -20.0909, 13.7879, -18.1212, 15.3636, -17.3333, 12.6061, -15.7576, 9.45455, -14.5758 )
 
-[node name="Polygon2D" type="Polygon2D" parent="Sprite"]
+[node name="Belly" type="Polygon2D" parent="normal"]
 polygon = PoolVector2Array( -0.787879, 5.51515, -3.54546, 1.9697, -3.15152, -2.75758, 0.787879, -6.69697, 8.27273, -8.66667, 13.3939, -7.09091, 14.5758, -6.30303, 14.5758, 0, 9.06061, 5.51515 )
 
-[node name="Wing" type="Polygon2D" parent="Sprite"]
+[node name="Wing" type="Polygon2D" parent="normal"]
 position = Vector2( 9.06061, 3.9394 )
-scale = Vector2( 1, 1 )
 color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( -5.51515, -9.06061, -7, -7, -11.4242, -5.12122, -6.30303, -5.90909, -4.72728, -8.27273 )
+
+[node name="red" type="Polygon2D" parent="."]
+visible = false
+position = Vector2( -6, 11 )
+scale = Vector2( 2.53846, 2.53846 )
+z_index = -5
+color = Color( 1, 0, 0, 1 )
+polygon = PoolVector2Array( -3.54546, 5.51515, 9.06061, 5.51515, 14.5758, 0, 14.5758, -8.66667, 8.27273, -15.3636, 2.36364, -16.1515, -3.15152, -15.3636, -9.45455, -8.66667, -9.45455, -0.39394 )
+
+[node name="Eye" type="Polygon2D" parent="red"]
+position = Vector2( 1.9697, 3.15152 )
+polygon = PoolVector2Array( 2.36364, -16.9394, 3.54546, -16.9394, 3.9394, -16.1515, 3.54546, -15.3636, 2.36364, -15.3636, 1.9697, -16.1515 )
+
+[node name="Beak" type="Polygon2D" parent="red"]
+position = Vector2( -0.39394, 4.33334 )
+color = Color( 0.976471, 0.603922, 0.0745098, 1 )
+polygon = PoolVector2Array( 8, -16, 10.2424, -17.7273, 13.7879, -20.0909, 13.7879, -18.1212, 15.3636, -17.3333, 12.6061, -15.7576, 9.45455, -14.5758 )
+
+[node name="Belly" type="Polygon2D" parent="red"]
+polygon = PoolVector2Array( -0.787879, 5.51515, -3.54546, 1.9697, -3.15152, -2.75758, 0.787879, -6.69697, 8.27273, -8.66667, 13.3939, -7.09091, 14.5758, -6.30303, 14.5758, 0, 9.06061, 5.51515 )
+
+[node name="Wing" type="Polygon2D" parent="red"]
+position = Vector2( 9.06061, 3.9394 )
+color = Color( 1, 0, 0, 1 )
+polygon = PoolVector2Array( -5.51515, -9.06061, -7, -7, -11.4242, -5.12122, -6.30303, -5.90909, -4.72728, -8.27273 )
+
+[node name="blue" type="Polygon2D" parent="."]
+visible = false
+position = Vector2( -6, 11 )
+scale = Vector2( 2.53846, 2.53846 )
+z_index = -5
+color = Color( 0, 0.392157, 1, 1 )
+polygon = PoolVector2Array( -3.54546, 5.51515, 9.06061, 5.51515, 14.5758, 0, 14.5758, -8.66667, 8.27273, -15.3636, 2.36364, -16.1515, -3.15152, -15.3636, -9.45455, -8.66667, -9.45455, -0.39394 )
+
+[node name="Eye" type="Polygon2D" parent="blue"]
+position = Vector2( 1.9697, 3.15152 )
+polygon = PoolVector2Array( 2.36364, -16.9394, 3.54546, -16.9394, 3.9394, -16.1515, 3.54546, -15.3636, 2.36364, -15.3636, 1.9697, -16.1515 )
+
+[node name="Beak" type="Polygon2D" parent="blue"]
+position = Vector2( -0.39394, 4.33334 )
+color = Color( 0.976471, 0.603922, 0.0745098, 1 )
+polygon = PoolVector2Array( 8, -16, 10.2424, -17.7273, 13.7879, -20.0909, 13.7879, -18.1212, 15.3636, -17.3333, 12.6061, -15.7576, 9.45455, -14.5758 )
+
+[node name="Belly" type="Polygon2D" parent="blue"]
+polygon = PoolVector2Array( -0.787879, 5.51515, -3.54546, 1.9697, -3.15152, -2.75758, 0.787879, -6.69697, 8.27273, -8.66667, 13.3939, -7.09091, 14.5758, -6.30303, 14.5758, 0, 9.06061, 5.51515 )
+
+[node name="Wing" type="Polygon2D" parent="blue"]
+position = Vector2( 9.06061, 3.9394 )
+color = Color( 0, 0.392157, 1, 1 )
+polygon = PoolVector2Array( -5.51515, -9.06061, -7, -7, -11.4242, -5.12122, -6.30303, -5.90909, -4.72728, -8.27273 )
+
+[node name="green" type="Polygon2D" parent="."]
+position = Vector2( -6, 11 )
+scale = Vector2( 2.53846, 2.53846 )
+z_index = -5
+color = Color( 0, 1, 0, 1 )
+polygon = PoolVector2Array( -3.54546, 5.51515, 9.06061, 5.51515, 14.5758, 0, 14.5758, -8.66667, 8.27273, -15.3636, 2.36364, -16.1515, -3.15152, -15.3636, -9.45455, -8.66667, -9.45455, -0.39394 )
+
+[node name="Eye" type="Polygon2D" parent="green"]
+position = Vector2( 1.9697, 3.15152 )
+polygon = PoolVector2Array( 2.36364, -16.9394, 3.54546, -16.9394, 3.9394, -16.1515, 3.54546, -15.3636, 2.36364, -15.3636, 1.9697, -16.1515 )
+
+[node name="Beak" type="Polygon2D" parent="green"]
+position = Vector2( -0.39394, 4.33334 )
+color = Color( 0.976471, 0.603922, 0.0745098, 1 )
+polygon = PoolVector2Array( 8, -16, 10.2424, -17.7273, 13.7879, -20.0909, 13.7879, -18.1212, 15.3636, -17.3333, 12.6061, -15.7576, 9.45455, -14.5758 )
+
+[node name="Belly" type="Polygon2D" parent="green"]
+polygon = PoolVector2Array( -0.787879, 5.51515, -3.54546, 1.9697, -3.15152, -2.75758, 0.787879, -6.69697, 8.27273, -8.66667, 13.3939, -7.09091, 14.5758, -6.30303, 14.5758, 0, 9.06061, 5.51515 )
+
+[node name="Wing" type="Polygon2D" parent="green"]
+position = Vector2( 9.06061, 3.9394 )
+color = Color( 0, 1, 0, 1 )
 polygon = PoolVector2Array( -5.51515, -9.06061, -7, -7, -11.4242, -5.12122, -6.30303, -5.90909, -4.72728, -8.27273 )
 
 [node name="Collider" type="CollisionPolygon2D" parent="."]
