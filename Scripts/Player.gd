@@ -9,8 +9,7 @@ onready var turn_timer = $TurnTimer
 onready var turn_queue = $".."
 onready var tag = $GamerTag
 
-#var controller_aim_speed = 1000
-#var max_aim_dist = 600
+var damage_popup_res = preload("res://SubScenes/DamagePopup.tscn")
 
 export var MAX_HEALTH = 100
 var health
@@ -103,6 +102,7 @@ func give(item_dict : Dictionary):
 # before the actual turn begins. It's here to set up visuals mostly.
 func init_preturn():
 	in_preturn = true
+#	MatchInfo.game_camera.reset_zoom()
 #	aim_point.position = player_body.position
 	player_body.set_state_preturn()
 	tag.set_turn_active(true)
@@ -157,6 +157,15 @@ func do_damage(value:int) -> void:
 	
 	# decrease health
 	health = int(clamp(health-value, 0, MAX_HEALTH))
+	
+	# create popup
+	var damage_popup = damage_popup_res.instance()
+	damage_popup.set_text("-" + str(value))
+	damage_popup.set_color(Color.red)
+	damage_popup.set_lifespan(1.0)
+	damage_popup.position = player_body.position \
+		+ Vector2(rand_range(-20, 20), rand_range(-10, 10))
+	get_parent().level.add_child(damage_popup)
 	
 	update_healthbar()
 	

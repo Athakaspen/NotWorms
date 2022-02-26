@@ -79,6 +79,9 @@ func main_loop():
 			do_endgame()
 			break
 		
+		# Reset zoom after the player's turn is done
+		MatchInfo.game_camera.reset_zoom()
+		
 		turns_til_next_chest -= 1
 		if turns_til_next_chest <= 0:
 			STATE = State.CHEST
