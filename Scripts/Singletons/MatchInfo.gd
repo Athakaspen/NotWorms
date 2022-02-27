@@ -146,7 +146,7 @@ func get_starting_inventory() -> Dictionary:
 	return starting_inventory.duplicate()
 
 func get_chest_contents() -> Dictionary:
-	return Utilities.rand_choice([{"rocket": 1}, {"candle": 1}, {"bag": 1}])
+	return Utilities.rand_choice(GameData.PossibleChests).duplicate()
 
 func get_turns_til_next_chest() -> int:
 	match chest_freq:

@@ -33,6 +33,19 @@ var WeaponData = {
 	}
 }
 
+var PossibleChests = [
+	{"rocket": 1},
+	{"candle": 1},
+	{"bag": 1},
+	{"rocket": 2},
+	{"candle": 2},
+	{"bag": 2},
+	{"rocket": 1, "candle": 1},
+	{"candle": 1, "bag": 1},
+	{"rocket": 1, "bag": 1},
+	{"rocket": 1, "candle": 1, "bag": 1}
+]
+
 var PlayerModels = {
 	"chicken1": "res://SubScenes/PlayerModels/Chicken1.tscn",
 	"chicken2": "res://SubScenes/PlayerModels/Chicken2.tscn",
