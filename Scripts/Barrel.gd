@@ -5,9 +5,9 @@ var owning_player = "UNDEFINED"
 var explosion_particles_res = preload("res://SubScenes/Weapons/ExplosionParticles.tscn")
 
 # This var used for particles only
-var explosion_radius = 200
+var explosion_radius = 220
 var explosion_damage = 25
-var explosion_force = 2500
+var explosion_force = 3500
 
 var fakebullet_res = preload("res://SubScenes/FakeBullet.tscn")
 

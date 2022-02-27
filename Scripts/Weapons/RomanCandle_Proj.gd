@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-var explosion_radius = 24
+var explosion_radius = 30
 var detection_margin = 30
 var explosion_poly
 
@@ -29,7 +29,7 @@ func _ready() -> void:
 	
 	# This code taken directly from the destructible terrain demo
 	# Actual explotion poly
-	var nb_points = 16
+	var nb_points = 20
 	var points = PoolVector2Array()
 	for i in range(nb_points+1):
 		var point = deg2rad(i * 360.0 / nb_points - 90)

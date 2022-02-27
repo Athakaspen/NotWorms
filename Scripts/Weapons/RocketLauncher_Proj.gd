@@ -1,10 +1,10 @@
 extends RigidBody2D
 
-var explosion_radius = 100
+var explosion_radius = 120
 var detection_margin = 40
 var explosion_poly
 
-var explosion_force = 800
+var explosion_force = 1000
 var explosion_damage = 20
 var owning_player = "UNDEFINED"
 
@@ -82,7 +82,7 @@ func explode() -> void:
 				# Rocket jumping
 				else:
 					body.apply_central_impulse( \
-						(body.global_position - global_position).normalized() * explosion_force * 5)
+						(body.global_position - global_position).normalized() * explosion_force * 3)
 			if body.is_in_group("Damageable"):
 				if body.has_method("do_damage"):
 					body.do_damage(explosion_damage, owning_player)

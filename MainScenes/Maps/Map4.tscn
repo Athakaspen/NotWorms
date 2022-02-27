@@ -1,0 +1,404 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Scripts/Terrain.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/ChestSpawner.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/Level.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/TurnQueue.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/GameCamera.gd" type="Script" id=5]
+[ext_resource path="res://MainScenes/LevelUI.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scripts/ProjectileHolder.gd" type="Script" id=7]
+[ext_resource path="res://SubScenes/Lettuce.tscn" type="PackedScene" id=8]
+[ext_resource path="res://SubScenes/Chest.tscn" type="PackedScene" id=9]
+[ext_resource path="res://SubScenes/Barrel.tscn" type="PackedScene" id=10]
+
+[node name="Map2" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Decor" type="Node2D" parent="."]
+z_index = -100
+
+[node name="Polygon2D" type="Polygon2D" parent="Decor"]
+color = Color( 0.298039, 0.784314, 0.0784314, 1 )
+polygon = PoolVector2Array( 401, 2009, 276, 688, 1541, 856, 1479, 2017, 1481, 2202, 407, 2205 )
+
+[node name="Polygon2D2" type="Polygon2D" parent="Decor"]
+color = Color( 0.631373, 0.219608, 0.886275, 1 )
+polygon = PoolVector2Array( 1977, 1993, 1993, 1761, 2124, 963, 1983, 617, 2561, 456, 2768, 860, 2924, 1990, 2933, 2207, 1972, 2205 )
+
+[node name="Terrain" type="Node2D" parent="."]
+script = ExtResource( 1 )
+chunkify_on_load = true
+
+[node name="base" type="Polygon2D" parent="Terrain"]
+color = Color( 0.592157, 1, 0, 1 )
+polygon = PoolVector2Array( 1550, 851, 1497, 1785, 1460, 1781, 1511, 883, 788, 785, 790, 752 )
+
+[node name="base9" type="Polygon2D" parent="Terrain"]
+color = Color( 0.592157, 1, 0, 1 )
+polygon = PoolVector2Array( 346, 1547, 268, 683, 563, 722, 562, 762, 312, 730, 397, 1543 )
+
+[node name="base11" type="Polygon2D" parent="Terrain"]
+color = Color( 0.592157, 1, 0, 1 )
+polygon = PoolVector2Array( 393, 1983, 368, 1721, 409, 1717, 440, 1983 )
+
+[node name="base2" type="Polygon2D" parent="Terrain"]
+color = Color( 0.592157, 1, 0, 1 )
+polygon = PoolVector2Array( 1476, 1690, 1009, 1694, 1005, 1737, 1478, 1732 )
+
+[node name="base4" type="Polygon2D" parent="Terrain"]
+color = Color( 0.592157, 1, 0, 1 )
+polygon = PoolVector2Array( 805, 1709, 409, 1717, 411, 1755, 803, 1747 )
+
+[node name="base3" type="Polygon2D" parent="Terrain"]
+color = Color( 0.592157, 1, 0, 1 )
+polygon = PoolVector2Array( 1122, 1485, 381, 1503, 383, 1544, 1126, 1521 )
+
+[node name="base12" type="Polygon2D" parent="Terrain"]
+color = Color( 0.592157, 1, 0, 1 )
+polygon = PoolVector2Array( 1513, 1100, 1201, 1075, 1195, 1111, 1508, 1140 )
+
+[node name="base13" type="Polygon2D" parent="Terrain"]
+color = Color( 0.592157, 1, 0, 1 )
+polygon = PoolVector2Array( 969, 947, 743, 950, 745, 981, 972, 982 )
+
+[node name="base15" type="Polygon2D" parent="Terrain"]
+color = Color( 0.592157, 1, 0, 1 )
+polygon = PoolVector2Array( 1144, 1331, 844, 1362, 840, 1328, 1142, 1299 )
+
+[node name="base14" type="Polygon2D" parent="Terrain"]
+color = Color( 0.592157, 1, 0, 1 )
+polygon = PoolVector2Array( 846, 1158, 369, 1349, 365.118, 1312.77, 790, 1153, 342, 1097, 335, 1058, 858, 1122 )
+
+[node name="rightbase" type="Polygon2D" parent="Terrain"]
+color = Color( 0.968627, 0, 1, 1 )
+polygon = PoolVector2Array( 2366, 499, 2568, 441, 2773, 857, 2829, 1229, 2794, 1210, 2737, 869, 2542, 501, 2384, 542 )
+
+[node name="rightbase13" type="Polygon2D" parent="Terrain"]
+color = Color( 0.968627, 0, 1, 1 )
+polygon = PoolVector2Array( 2024, 1522, 2114, 961, 1961, 610, 2147, 557, 2157, 597, 2016, 636, 2168, 955, 2067, 1533 )
+
+[node name="rightbase5" type="Polygon2D" parent="Terrain"]
+color = Color( 0.968627, 0, 1, 1 )
+polygon = PoolVector2Array( 2844, 1363, 2934, 1997, 2895, 1992, 2803, 1352 )
+
+[node name="rightbase2" type="Polygon2D" parent="Terrain"]
+color = Color( 0.968627, 0, 1, 1 )
+polygon = PoolVector2Array( 1966, 1984, 1987, 1750, 2035, 1749, 1992, 1991 )
+
+[node name="rightbase3" type="Polygon2D" parent="Terrain"]
+color = Color( 0.968627, 0, 1, 1 )
+polygon = PoolVector2Array( 1981, 1812, 1989, 1754, 2027, 1752, 2007, 1842, 1965, 1843, 1954, 1898, 1892, 1901, 1883, 1951, 1840, 1954, 1836, 1974, 1802, 1972, 1804, 1926, 1856, 1925, 1866, 1875, 1927, 1870, 1929, 1813 )
+
+[node name="rightbase4" type="Polygon2D" parent="Terrain"]
+color = Color( 0.968627, 0, 1, 1 )
+polygon = PoolVector2Array( 2493, 1199, 2818, 1389, 2844, 1363, 2505, 1168 )
+
+[node name="rightbase7" type="Polygon2D" parent="Terrain"]
+color = Color( 0.968627, 0, 1, 1 )
+polygon = PoolVector2Array( 2021, 1788, 2313, 1788, 2330, 1741, 2025, 1749 )
+
+[node name="rightbase8" type="Polygon2D" parent="Terrain"]
+color = Color( 0.968627, 0, 1, 1 )
+polygon = PoolVector2Array( 2255, 1531, 2426, 1588, 2600, 1482, 2554, 1453, 2417, 1540, 2263, 1492 )
+
+[node name="rightbase9" type="Polygon2D" parent="Terrain"]
+color = Color( 0.968627, 0, 1, 1 )
+polygon = PoolVector2Array( 2106, 1262, 2272, 1260, 2269, 1222, 2111, 1222 )
+
+[node name="rightbase10" type="Polygon2D" parent="Terrain"]
+color = Color( 0.968627, 0, 1, 1 )
+polygon = PoolVector2Array( 2155, 1000, 2312, 1021, 2315, 971, 2158, 968 )
+
+[node name="rightbase12" type="Polygon2D" parent="Terrain"]
+color = Color( 0.968627, 0, 1, 1 )
+polygon = PoolVector2Array( 2273, 789, 2481, 793, 2483, 753, 2280, 751 )
+
+[node name="rightbase11" type="Polygon2D" parent="Terrain"]
+color = Color( 0.968627, 0, 1, 1 )
+polygon = PoolVector2Array( 2607, 1028, 2772, 1022, 2766, 1008, 2612, 1010 )
+
+[node name="rightbase6" type="Polygon2D" parent="Terrain"]
+color = Color( 0.968627, 0, 1, 1 )
+polygon = PoolVector2Array( 2559, 1753, 2867, 1748, 2880, 1781, 2593, 1785, 2574, 2002, 2532, 1999 )
+
+[node name="island" type="Polygon2D" parent="Terrain"]
+color = Color( 0.635294, 0.317647, 0.105882, 1 )
+polygon = PoolVector2Array( -14, 1968, 3022, 1975, 3021, 2207, -8, 2204 )
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+[node name="NoTeams" type="Node2D" parent="SpawnPoints"]
+
+[node name="PlayerCount2" type="Node2D" parent="SpawnPoints/NoTeams"]
+
+[node name="Setup1" type="Node2D" parent="SpawnPoints/NoTeams/PlayerCount2"]
+
+[node name="Position2D" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount2/Setup1"]
+position = Vector2( 1174, 1635 )
+
+[node name="Position2D2" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount2/Setup1"]
+position = Vector2( 2208, 1149 )
+
+[node name="PlayerCount3" type="Node2D" parent="SpawnPoints/NoTeams"]
+
+[node name="Setup2" type="Node2D" parent="SpawnPoints/NoTeams/PlayerCount3"]
+
+[node name="Position2D" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount3/Setup2"]
+position = Vector2( 778, 696 )
+
+[node name="Position2D2" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount3/Setup2"]
+position = Vector2( 1290, 797 )
+
+[node name="Position2D3" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount3/Setup2"]
+position = Vector2( 1053, 807 )
+
+[node name="PlayerCount4" type="Node2D" parent="SpawnPoints/NoTeams"]
+
+[node name="Setup1" type="Node2D" parent="SpawnPoints/NoTeams/PlayerCount4"]
+
+[node name="Position2D" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount4/Setup1"]
+position = Vector2( 1017, 611 )
+
+[node name="Position2D2" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount4/Setup1"]
+position = Vector2( 1071, 744 )
+
+[node name="Position2D3" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount4/Setup1"]
+position = Vector2( 774, 724 )
+
+[node name="Position2D4" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount4/Setup1"]
+position = Vector2( 1279, 834 )
+
+[node name="PlayerCount5" type="Node2D" parent="SpawnPoints/NoTeams"]
+
+[node name="Setup1" type="Node2D" parent="SpawnPoints/NoTeams/PlayerCount5"]
+
+[node name="Position2D" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount5/Setup1"]
+position = Vector2( 910, 638 )
+
+[node name="Position2D2" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount5/Setup1"]
+position = Vector2( 1251, 721 )
+
+[node name="Position2D3" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount5/Setup1"]
+position = Vector2( 765, 711 )
+
+[node name="Position2D4" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount5/Setup1"]
+position = Vector2( 1021, 804 )
+
+[node name="Position2D5" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount5/Setup1"]
+position = Vector2( 1268, 826 )
+
+[node name="PlayerCount6" type="Node2D" parent="SpawnPoints/NoTeams"]
+
+[node name="Setup1" type="Node2D" parent="SpawnPoints/NoTeams/PlayerCount6"]
+
+[node name="Position2D" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount6/Setup1"]
+position = Vector2( 791, 724 )
+
+[node name="Position2D2" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount6/Setup1"]
+position = Vector2( 1124, 827 )
+
+[node name="Position2D3" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount6/Setup1"]
+position = Vector2( 1248, 720 )
+
+[node name="Position2D4" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount6/Setup1"]
+position = Vector2( 959, 788 )
+
+[node name="Position2D5" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount6/Setup1"]
+position = Vector2( 1009, 649 )
+
+[node name="Position2D6" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount6/Setup1"]
+position = Vector2( 1251, 827 )
+
+[node name="TeamCount2" type="Node2D" parent="SpawnPoints"]
+
+[node name="Team1" type="Node2D" parent="SpawnPoints/TeamCount2"]
+
+[node name="Position2D" type="Position2D" parent="SpawnPoints/TeamCount2/Team1"]
+position = Vector2( 826, 713 )
+
+[node name="Position2D2" type="Position2D" parent="SpawnPoints/TeamCount2/Team1"]
+position = Vector2( 945, 591 )
+
+[node name="Position2D3" type="Position2D" parent="SpawnPoints/TeamCount2/Team1"]
+position = Vector2( 866, 690 )
+
+[node name="Position2D4" type="Position2D" parent="SpawnPoints/TeamCount2/Team1"]
+position = Vector2( 910, 640 )
+
+[node name="Position2D5" type="Position2D" parent="SpawnPoints/TeamCount2/Team1"]
+position = Vector2( 1091, 649 )
+
+[node name="Position2D6" type="Position2D" parent="SpawnPoints/TeamCount2/Team1"]
+position = Vector2( 779, 660 )
+
+[node name="Team2" type="Node2D" parent="SpawnPoints/TeamCount2"]
+
+[node name="Position2D" type="Position2D" parent="SpawnPoints/TeamCount2/Team2"]
+position = Vector2( 1258, 684 )
+
+[node name="Position2D2" type="Position2D" parent="SpawnPoints/TeamCount2/Team2"]
+position = Vector2( 929, 765 )
+
+[node name="Position2D3" type="Position2D" parent="SpawnPoints/TeamCount2/Team2"]
+position = Vector2( 967, 692 )
+
+[node name="Position2D4" type="Position2D" parent="SpawnPoints/TeamCount2/Team2"]
+position = Vector2( 1193, 806 )
+
+[node name="Position2D5" type="Position2D" parent="SpawnPoints/TeamCount2/Team2"]
+position = Vector2( 1133, 704 )
+
+[node name="Position2D6" type="Position2D" parent="SpawnPoints/TeamCount2/Team2"]
+position = Vector2( 1238, 714 )
+
+[node name="TeamCount3" type="Node2D" parent="SpawnPoints"]
+
+[node name="Team1" type="Node2D" parent="SpawnPoints/TeamCount3"]
+
+[node name="Position2D" type="Position2D" parent="SpawnPoints/TeamCount3/Team1"]
+position = Vector2( 1098, 822 )
+
+[node name="Position2D2" type="Position2D" parent="SpawnPoints/TeamCount3/Team1"]
+position = Vector2( 1020, 728 )
+
+[node name="Position2D3" type="Position2D" parent="SpawnPoints/TeamCount3/Team1"]
+position = Vector2( 844, 683 )
+
+[node name="Position2D4" type="Position2D" parent="SpawnPoints/TeamCount3/Team1"]
+position = Vector2( 1015, 786 )
+
+[node name="Position2D5" type="Position2D" parent="SpawnPoints/TeamCount3/Team1"]
+position = Vector2( 1109, 630 )
+
+[node name="Position2D6" type="Position2D" parent="SpawnPoints/TeamCount3/Team1"]
+position = Vector2( 858, 639 )
+
+[node name="Team2" type="Node2D" parent="SpawnPoints/TeamCount3"]
+
+[node name="Position2D" type="Position2D" parent="SpawnPoints/TeamCount3/Team2"]
+position = Vector2( 890, 774 )
+
+[node name="Position2D2" type="Position2D" parent="SpawnPoints/TeamCount3/Team2"]
+position = Vector2( 1062, 797 )
+
+[node name="Position2D3" type="Position2D" parent="SpawnPoints/TeamCount3/Team2"]
+position = Vector2( 1098, 817 )
+
+[node name="Position2D4" type="Position2D" parent="SpawnPoints/TeamCount3/Team2"]
+position = Vector2( 1022, 619 )
+
+[node name="Position2D5" type="Position2D" parent="SpawnPoints/TeamCount3/Team2"]
+position = Vector2( 829, 653 )
+
+[node name="Position2D6" type="Position2D" parent="SpawnPoints/TeamCount3/Team2"]
+position = Vector2( 1075, 731 )
+
+[node name="Team3" type="Node2D" parent="SpawnPoints/TeamCount3"]
+
+[node name="Position2D" type="Position2D" parent="SpawnPoints/TeamCount3/Team3"]
+position = Vector2( 1255, 727 )
+
+[node name="Position2D2" type="Position2D" parent="SpawnPoints/TeamCount3/Team3"]
+position = Vector2( 933, 670 )
+
+[node name="Position2D3" type="Position2D" parent="SpawnPoints/TeamCount3/Team3"]
+position = Vector2( 925, 747 )
+
+[node name="Position2D4" type="Position2D" parent="SpawnPoints/TeamCount3/Team3"]
+position = Vector2( 1106, 832 )
+
+[node name="Position2D5" type="Position2D" parent="SpawnPoints/TeamCount3/Team3"]
+position = Vector2( 922, 637 )
+
+[node name="Position2D6" type="Position2D" parent="SpawnPoints/TeamCount3/Team3"]
+position = Vector2( 1090, 749 )
+
+[node name="TurnQueue" type="Node" parent="."]
+script = ExtResource( 4 )
+
+[node name="ChestSpawner" type="Node2D" parent="."]
+visible = false
+script = ExtResource( 2 )
+
+[node name="ChestLine" type="Line2D" parent="ChestSpawner"]
+modulate = Color( 1, 0.866667, 0.00784314, 0.552941 )
+points = PoolVector2Array( 940, 1167, 1449, 1170 )
+default_color = Color( 1, 1, 1, 1 )
+
+[node name="ChestLine2" type="Line2D" parent="ChestSpawner"]
+modulate = Color( 1, 0.866667, 0.00784314, 0.552941 )
+points = PoolVector2Array( 2170, 1319, 2628, 1322 )
+default_color = Color( 1, 1, 1, 1 )
+
+[node name="ChestLine3" type="Line2D" parent="ChestSpawner"]
+modulate = Color( 1, 0.866667, 0.00784314, 0.552941 )
+points = PoolVector2Array( 1590, 1209, 1998, 1212 )
+default_color = Color( 1, 1, 1, 1 )
+
+[node name="ChestLine6" type="Line2D" parent="ChestSpawner"]
+modulate = Color( 1, 0.866667, 0.00784314, 0.552941 )
+points = PoolVector2Array( 74, 1595, 577, 1584 )
+default_color = Color( 1, 1, 1, 1 )
+
+[node name="ChestLine7" type="Line2D" parent="ChestSpawner"]
+modulate = Color( 1, 0.866667, 0.00784314, 0.552941 )
+points = PoolVector2Array( 2440, 1845, 2080, 1850 )
+default_color = Color( 1, 1, 1, 1 )
+
+[node name="ChestLine4" type="Line2D" parent="ChestSpawner"]
+modulate = Color( 1, 0.866667, 0.00784314, 0.552941 )
+points = PoolVector2Array( 322, 510, 1433, 624 )
+default_color = Color( 1, 1, 1, 1 )
+
+[node name="ChestLine5" type="Line2D" parent="ChestSpawner"]
+modulate = Color( 1, 0.866667, 0.00784314, 0.552941 )
+points = PoolVector2Array( 2012, 459, 2471, 368 )
+default_color = Color( 1, 1, 1, 1 )
+
+[node name="ChestHolder" type="Node2D" parent="."]
+
+[node name="Chest" parent="ChestHolder" instance=ExtResource( 9 )]
+position = Vector2( 2698, 1923 )
+
+[node name="Chest2" parent="ChestHolder" instance=ExtResource( 9 )]
+position = Vector2( 2743, 1863 )
+
+[node name="Lettuce" parent="ChestHolder" instance=ExtResource( 8 )]
+position = Vector2( 458, 1201 )
+
+[node name="Lettuce2" parent="ChestHolder" instance=ExtResource( 8 )]
+position = Vector2( 537, 1176 )
+
+[node name="Barrel" parent="ChestHolder" instance=ExtResource( 10 )]
+position = Vector2( 1923, 1939 )
+
+[node name="ProjectileHolder" type="Node2D" parent="."]
+script = ExtResource( 7 )
+
+[node name="DeathPlane" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DeathPlane"]
+polygon = PoolVector2Array( -180, 2376, 3224, 2388, 3209, -1182, 3541, -1174, 3466, 2556, -385, 2541, -475, -1037, -227, -1021 )
+
+[node name="CameraLimit" type="Position2D" parent="."]
+position = Vector2( 3013, 2199 )
+__meta__ = {
+"_gizmo_extents_": 10000.0
+}
+
+[node name="GameCamera" type="Camera2D" parent="."]
+position = Vector2( 1504, 1213 )
+current = true
+zoom = Vector2( 1.55, 1.55 )
+limit_left = 0
+limit_top = 0
+smoothing_enabled = true
+smoothing_speed = 3.0
+script = ExtResource( 5 )
+
+[node name="UICanvas" type="CanvasLayer" parent="."]
+
+[node name="UIHolder" parent="UICanvas" instance=ExtResource( 6 )]
+visible = false
+
+[connection signal="body_entered" from="DeathPlane" to="." method="_on_DeathPlane_body_entered"]

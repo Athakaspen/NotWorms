@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Terrain.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/ChestSpawner.gd" type="Script" id=2]
@@ -7,47 +7,54 @@
 [ext_resource path="res://Scripts/GameCamera.gd" type="Script" id=5]
 [ext_resource path="res://MainScenes/LevelUI.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scripts/ProjectileHolder.gd" type="Script" id=7]
-[ext_resource path="res://SubScenes/Chest.tscn" type="PackedScene" id=8]
 
-[node name="Map1" type="Node2D"]
+[node name="Map2" type="Node2D"]
 script = ExtResource( 3 )
 
 [node name="Decor" type="Node2D" parent="."]
 z_index = -100
 
+[node name="bg" type="Polygon2D" parent="Decor"]
+position = Vector2( -2, 40 )
+scale = Vector2( 1, 0.95 )
+color = Color( 0.333333, 0.0156863, 0.509804, 1 )
+polygon = PoolVector2Array( 506, 770, 616, 800, 2179, 785, 2332, 750, 2373, 825, 2368, 891, 2253, 988, 2093, 1050, 2043, 1180, 1919, 1140, 1871, 1222, 1755, 1326, 1705, 1230, 1547, 1250, 1565, 1364, 1463, 1364, 1379, 1294, 1235, 1364, 1141, 1278, 1107, 1372, 1021, 1368, 993, 1216, 885, 1176, 785, 1236, 714, 1167.37, 719, 1066, 551, 1012, 468, 934, 460, 843 )
+
+[node name="bg3" type="Polygon2D" parent="Decor"]
+position = Vector2( -2, 40 )
+color = Color( 0.0980392, 0.886275, 0.92549, 1 )
+polygon = PoolVector2Array( 771, 741, 764, 637, 784, 522, 855, 416, 968, 339, 1107, 327, 1311, 389, 1450, 489, 1442, 559, 1368, 522, 1222, 453, 1062, 440, 964, 473, 897, 547, 869, 633, 884, 774 )
+
+[node name="bg2" type="Polygon2D" parent="Decor"]
+position = Vector2( -2, 40 )
+color = Color( 0.294118, 0.027451, 0.447059, 1 )
+polygon = PoolVector2Array( 602, 773, 651, 709, 956, 783, 1021, 701, 996, 605, 1047, 483, 990, 161, 1238, 589, 1316, 608, 1407, 758, 1498, 760, 1511, 667, 1435, 557, 1452, 415, 1560, 459, 1568, 542, 1661, 622, 1716, 758, 1774, 758, 1877, 635, 1920, 714, 2231, 474, 2083, 669, 2221, 663, 2125, 720, 2138, 752, 2136, 773, 1055, 826 )
+
 [node name="Polygon2D" type="Polygon2D" parent="Decor"]
-color = Color( 0.733333, 0.447059, 0.101961, 1 )
-polygon = PoolVector2Array( -45, 1003, 102, 1011, 261, 1033, 431, 1061, 574, 1098, 672, 1131, 740, 1185, 800, 1282, 868, 1358, 970, 1388, 1069, 1400, 1166, 1368, 1248, 1365, 1297, 1379, 1400, 1376, 1487, 1353, 1574, 1290, 1785, 1169, 1863, 1095, 1956, 1025, 2136, 1001, 2284, 1025, 2350, 1086, 2413, 1191, 2487, 1296, 2527, 1377, 2590, 1422, 2683, 1430, 2754, 1430, 2791, 1426, 2826, 1410, 2868, 1385, 2908, 1352, 2955, 1295, 2978, 1234, 2990, 1161, 2995, 988, 3049, 899, 3139, 841, 3294, 783, 3482, 730, 3655, 697, 3807, 678, 3927, 655, 4064, 617, 4200, 591, 4181, 2113, -32, 2114 )
+position = Vector2( -2, 40 )
+color = Color( 1, 0, 0, 1 )
+polygon = PoolVector2Array( 1002, 202, 1186, 772, 1136, 774, 1010, 615, 1116, 775, 1118, 786, 1959, 774, 2086, 628, 1950, 766, 1691, 767, 1640, 636, 1545, 550, 1466, 434, 1534, 556, 1621, 639, 1669, 764, 1515, 769, 1531, 721, 1499, 769, 1391, 769, 1309, 626, 1378, 769, 1202, 771 )
 
 [node name="Terrain" type="Node2D" parent="."]
 script = ExtResource( 1 )
 chunkify_on_load = true
 
-[node name="RenderPoly" type="Polygon2D" parent="Terrain"]
-visible = false
-modulate = Color( 1, 1, 1, 0.384314 )
-color = Color( 0.564706, 0.270588, 0.141176, 1 )
-polygon = PoolVector2Array( -2, 154, 96, 199, 188, 275, 210, 376, 152, 513, 150, 699, 287, 816, 482, 801, 615, 713, 653, 623, 641, 506, 574, 441, 574, 338, 711, 246, 835, 246, 951, 251, 1039, 277, 1106, 376, 1099, 441, 1032, 475, 949, 540, 942, 641, 1039, 587, 996, 726, 1099, 695, 1111, 792, 1209, 731, 1284, 845, 1373, 731, 1465, 722, 1445, 581, 1378, 547, 1470, 459, 1416, 374, 1409, 295, 1432, 233, 1438, 149, 1558, 140, 1607, 210, 1725, 119, 1839, 115, 1889, 229, 1927, 285, 1925, 1081, 0, 1082 )
-
 [node name="base" type="Polygon2D" parent="Terrain"]
-color = Color( 0.635294, 0.317647, 0.105882, 1 )
-polygon = PoolVector2Array( -9, 116, 96, 214, 194, 358, 319, 652, 364, 811, 522, 914, 715, 948, 784, 991, 848, 1147, 931, 1260, 1116, 1286, 1248, 1347, 1248, 1483, 1123, 1551, 950, 1554, 806, 1494, 689, 1343, 587, 1264, 425, 1249, 274, 1275, 138, 1381, 126, 1513, 142, 1698, 277, 1826, 496, 1830, 722, 1887, 794, 1885, 1082, 1836, 1279, 1730, 1542, 1672, 1751, 1653, 1948, 1679, 2069, 1736, 2179, 1821, 2303, 1855, 2540, 1851, 2610, 1841, 2731, 1834, 2930, 1711, 3006, 1643, 3214, 1635, 3481, 1639, 3663, 1639, 3875, 1576, 3973, 1423, 3989, 1258, 3943, 1135, 3845, 991, 3680, 915, 3511, 953, 3382, 1027, 3282, 1131, 3287, 1260, 3255, 1302, 3174, 1333, 3055, 1310, 3006, 1263, 2973, 1093, 2955, 923, 3005, 800, 3096, 729, 3282, 692, 3477, 680, 3728, 570, 3829, 446, 3934, 309, 3996, 209, 4153, 94, 4156, 2082, -3, 2082 )
+color = Color( 0.47451, 0.0470588, 0.713726, 1 )
+polygon = PoolVector2Array( 506, 770, 616, 800, 2179, 785, 2332, 750, 2373, 825, 2368, 891, 2253, 988, 2093, 1050, 2043, 1180, 1919, 1140, 1871, 1222, 1755, 1326, 1705, 1230, 1547, 1250, 1565, 1364, 1463, 1364, 1379, 1294, 1235, 1364, 1141, 1278, 1107, 1372, 1021, 1368, 993, 1216, 885, 1176, 785, 1236, 687, 1170, 719, 1066, 551, 1012, 468, 934, 460, 843 )
+
+[node name="base2" type="Polygon2D" parent="Terrain"]
+visible = false
+polygon = PoolVector2Array( 506, 770, 616, 800, 2179, 785, 2332, 750, 2341, 767, 2180, 800, 611, 814, 497, 786 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Terrain"]
+color = Color( 0.92549, 0.117647, 0.0117647, 1 )
+polygon = PoolVector2Array( 1375, 1094, 1316, 1069, 1278, 1033, 1276, 974, 1294, 930, 1346, 897, 1413, 883, 1481, 893, 1514, 910, 1536, 945, 1541, 995, 1520, 1032, 1476, 1060, 1441, 1083 )
 
 [node name="island" type="Polygon2D" parent="Terrain"]
+visible = false
 color = Color( 0.635294, 0.317647, 0.105882, 1 )
 polygon = PoolVector2Array( 1622, 1189, 1761, 1102, 1841, 998, 2012, 958, 2214, 958, 2347, 987, 2442, 1084, 2520, 1198, 2574, 1345, 2730, 1366, 2769, 1464, 2673, 1515, 2510, 1512, 2371, 1444, 2298, 1360, 2174, 1265, 2046, 1236, 1922, 1231, 1760, 1312, 1617, 1393, 1542.65, 1312 )
-
-[node name="island_grass" type="Polygon2D" parent="Terrain"]
-color = Color( 0, 0.666667, 0.152941, 1 )
-polygon = PoolVector2Array( 1543, 1313, 1576, 1225, 1614, 1169, 1658, 1134, 1725, 1097, 1778, 1032, 1849, 967, 1920, 952, 2032, 949, 2145, 941, 2286, 950, 2324, 957, 2391, 988, 2433, 1042, 2487, 1113, 2543, 1189, 2560, 1266, 2584, 1324, 2629, 1350, 2733, 1362, 2755, 1429, 2698, 1374, 2590, 1372, 2548, 1324, 2522, 1253, 2488, 1180, 2413, 1110, 2377, 1041, 2338, 999, 2288, 1003, 2187, 966, 2096, 971, 2055, 983, 1959, 976, 1880, 997, 1813, 1059, 1786, 1107, 1715, 1153, 1618, 1232 )
-
-[node name="left_grass" type="Polygon2D" parent="Terrain"]
-color = Color( 0, 0.666667, 0.152941, 1 )
-polygon = PoolVector2Array( 1248, 1347, 1167, 1294, 1072, 1268, 964, 1254, 928, 1238, 873, 1152, 824, 1051, 786, 969, 736, 938, 604, 917, 534, 907, 420, 838, 356, 760, 327, 628, 250, 467, 187, 312, 86, 192, -14, 102, -22, 124, 109, 252, 197, 397, 263, 546, 321, 699, 347, 813, 400, 878, 492, 901, 577, 945, 652, 946, 723, 968, 801, 1056, 848, 1186, 878, 1219, 921, 1267, 987, 1294, 1098, 1297, 1226, 1346, 1248, 1363 )
-
-[node name="left_grass2" type="Polygon2D" parent="Terrain"]
-color = Color( 0, 0.666667, 0.152941, 1 )
-polygon = PoolVector2Array( 2965, 1017, 2949, 962, 2947, 878, 2989, 805, 3062, 737, 3114, 712, 3243, 695, 3335, 684, 3419, 660, 3448, 659, 3537, 646, 3675, 588, 3751, 529, 3818, 439, 3892, 343, 3991, 207, 4146, 87, 4158, 109, 4071, 166, 3967, 279, 3888, 393, 3796, 495, 3716, 595, 3476, 685, 3243, 711, 3109, 757, 3042, 785, 2974, 905 )
 
 [node name="SpawnPoints" type="Node2D" parent="."]
 
@@ -58,245 +65,198 @@ polygon = PoolVector2Array( 2965, 1017, 2949, 962, 2947, 878, 2989, 805, 3062, 7
 [node name="Setup1" type="Node2D" parent="SpawnPoints/NoTeams/PlayerCount2"]
 
 [node name="Position2D" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount2/Setup1"]
-position = Vector2( 564, 870 )
+position = Vector2( 765, 676 )
 
 [node name="Position2D2" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount2/Setup1"]
-position = Vector2( 3283, 645 )
-
-[node name="Setup2" type="Node2D" parent="SpawnPoints/NoTeams/PlayerCount2"]
-
-[node name="Position2D" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount2/Setup2"]
-position = Vector2( 757, 1838 )
-
-[node name="Position2D2" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount2/Setup2"]
-position = Vector2( 3122, 1580 )
+position = Vector2( 2152, 680 )
 
 [node name="PlayerCount3" type="Node2D" parent="SpawnPoints/NoTeams"]
-
-[node name="Setup1" type="Node2D" parent="SpawnPoints/NoTeams/PlayerCount3"]
-
-[node name="Position2D" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount3/Setup1"]
-position = Vector2( 564, 870 )
-
-[node name="Position2D2" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount3/Setup1"]
-position = Vector2( 3283, 645 )
-
-[node name="Position2D3" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount3/Setup1"]
-position = Vector2( 2325, 1812 )
 
 [node name="Setup2" type="Node2D" parent="SpawnPoints/NoTeams/PlayerCount3"]
 
 [node name="Position2D" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount3/Setup2"]
-position = Vector2( 401, 1764 )
+position = Vector2( 684, 650 )
 
 [node name="Position2D2" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount3/Setup2"]
-position = Vector2( 3571, 1571 )
+position = Vector2( 2181, 668 )
 
 [node name="Position2D3" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount3/Setup2"]
-position = Vector2( 2161, 860 )
+position = Vector2( 1429, 675 )
 
 [node name="PlayerCount4" type="Node2D" parent="SpawnPoints/NoTeams"]
 
 [node name="Setup1" type="Node2D" parent="SpawnPoints/NoTeams/PlayerCount4"]
 
 [node name="Position2D" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount4/Setup1"]
-position = Vector2( 564, 870 )
+position = Vector2( 1098, 632 )
 
 [node name="Position2D2" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount4/Setup1"]
-position = Vector2( 3283, 645 )
+position = Vector2( 1685, 663 )
 
 [node name="Position2D3" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount4/Setup1"]
-position = Vector2( 401, 1765 )
+position = Vector2( 680, 678 )
 
 [node name="Position2D4" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount4/Setup1"]
-position = Vector2( 3557, 1574 )
+position = Vector2( 2149, 676 )
 
 [node name="PlayerCount5" type="Node2D" parent="SpawnPoints/NoTeams"]
 
 [node name="Setup1" type="Node2D" parent="SpawnPoints/NoTeams/PlayerCount5"]
 
 [node name="Position2D" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount5/Setup1"]
-position = Vector2( 564, 870 )
+position = Vector2( 991, 659 )
 
 [node name="Position2D2" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount5/Setup1"]
-position = Vector2( 3283, 645 )
+position = Vector2( 1851, 672 )
 
 [node name="Position2D3" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount5/Setup1"]
-position = Vector2( 401, 1765 )
+position = Vector2( 671, 665 )
 
 [node name="Position2D4" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount5/Setup1"]
-position = Vector2( 3557, 1574 )
+position = Vector2( 1397, 672 )
 
 [node name="Position2D5" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount5/Setup1"]
-position = Vector2( 2289, 1804 )
+position = Vector2( 2138, 668 )
 
 [node name="PlayerCount6" type="Node2D" parent="SpawnPoints/NoTeams"]
 
 [node name="Setup1" type="Node2D" parent="SpawnPoints/NoTeams/PlayerCount6"]
 
 [node name="Position2D" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount6/Setup1"]
-position = Vector2( 564, 870 )
+position = Vector2( 697, 678 )
 
 [node name="Position2D2" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount6/Setup1"]
-position = Vector2( 3283, 645 )
+position = Vector2( 1994, 669 )
 
 [node name="Position2D3" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount6/Setup1"]
-position = Vector2( 401, 1765 )
+position = Vector2( 1848, 671 )
 
 [node name="Position2D4" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount6/Setup1"]
-position = Vector2( 3557, 1574 )
+position = Vector2( 1335, 656 )
 
 [node name="Position2D5" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount6/Setup1"]
-position = Vector2( 2289, 1804 )
+position = Vector2( 1090, 670 )
 
 [node name="Position2D6" type="Position2D" parent="SpawnPoints/NoTeams/PlayerCount6/Setup1"]
-position = Vector2( 2099, 861 )
+position = Vector2( 2121, 669 )
 
 [node name="TeamCount2" type="Node2D" parent="SpawnPoints"]
 
 [node name="Team1" type="Node2D" parent="SpawnPoints/TeamCount2"]
 
 [node name="Position2D" type="Position2D" parent="SpawnPoints/TeamCount2/Team1"]
-position = Vector2( 671, 887 )
+position = Vector2( 732, 667 )
 
 [node name="Position2D2" type="Position2D" parent="SpawnPoints/TeamCount2/Team1"]
-position = Vector2( 1044, 1223 )
+position = Vector2( 945, 591 )
 
 [node name="Position2D3" type="Position2D" parent="SpawnPoints/TeamCount2/Team1"]
-position = Vector2( 459, 1778 )
+position = Vector2( 772, 644 )
 
 [node name="Position2D4" type="Position2D" parent="SpawnPoints/TeamCount2/Team1"]
-position = Vector2( 754, 1840 )
+position = Vector2( 991, 661 )
 
 [node name="Position2D5" type="Position2D" parent="SpawnPoints/TeamCount2/Team1"]
-position = Vector2( 1452, 1653 )
+position = Vector2( 1172, 670 )
 
 [node name="Position2D6" type="Position2D" parent="SpawnPoints/TeamCount2/Team1"]
-position = Vector2( 309, 1778 )
+position = Vector2( 654, 644 )
 
 [node name="Team2" type="Node2D" parent="SpawnPoints/TeamCount2"]
 
 [node name="Position2D" type="Position2D" parent="SpawnPoints/TeamCount2/Team2"]
-position = Vector2( 3448, 623 )
+position = Vector2( 1916, 640 )
 
 [node name="Position2D2" type="Position2D" parent="SpawnPoints/TeamCount2/Team2"]
-position = Vector2( 2649, 1788 )
+position = Vector2( 1543, 684 )
 
 [node name="Position2D3" type="Position2D" parent="SpawnPoints/TeamCount2/Team2"]
-position = Vector2( 3586, 1572 )
+position = Vector2( 1581, 611 )
 
 [node name="Position2D4" type="Position2D" parent="SpawnPoints/TeamCount2/Team2"]
-position = Vector2( 3184, 680 )
+position = Vector2( 2063, 648 )
 
 [node name="Position2D5" type="Position2D" parent="SpawnPoints/TeamCount2/Team2"]
-position = Vector2( 2665, 1302 )
+position = Vector2( 1733, 655 )
 
 [node name="Position2D6" type="Position2D" parent="SpawnPoints/TeamCount2/Team2"]
-position = Vector2( 3167, 1588 )
+position = Vector2( 1838, 665 )
 
 [node name="TeamCount3" type="Node2D" parent="SpawnPoints"]
 
 [node name="Team1" type="Node2D" parent="SpawnPoints/TeamCount3"]
 
 [node name="Position2D" type="Position2D" parent="SpawnPoints/TeamCount3/Team1"]
-position = Vector2( 690, 891 )
+position = Vector2( 1968, 664 )
 
 [node name="Position2D2" type="Position2D" parent="SpawnPoints/TeamCount3/Team1"]
-position = Vector2( 999, 1206 )
+position = Vector2( 1634, 647 )
 
 [node name="Position2D3" type="Position2D" parent="SpawnPoints/TeamCount3/Team1"]
-position = Vector2( 312, 1776 )
+position = Vector2( 750, 637 )
 
 [node name="Position2D4" type="Position2D" parent="SpawnPoints/TeamCount3/Team1"]
-position = Vector2( 565, 876 )
+position = Vector2( 1391, 654 )
 
 [node name="Position2D5" type="Position2D" parent="SpawnPoints/TeamCount3/Team1"]
-position = Vector2( 784, 1830 )
+position = Vector2( 1190, 651 )
 
 [node name="Position2D6" type="Position2D" parent="SpawnPoints/TeamCount3/Team1"]
-position = Vector2( 420, 1778 )
+position = Vector2( 858, 639 )
 
 [node name="Team2" type="Node2D" parent="SpawnPoints/TeamCount3"]
 
 [node name="Position2D" type="Position2D" parent="SpawnPoints/TeamCount3/Team2"]
-position = Vector2( 3448, 623 )
+position = Vector2( 1266, 642 )
 
 [node name="Position2D2" type="Position2D" parent="SpawnPoints/TeamCount3/Team2"]
-position = Vector2( 3086, 1593 )
+position = Vector2( 1438, 665 )
 
 [node name="Position2D3" type="Position2D" parent="SpawnPoints/TeamCount3/Team2"]
-position = Vector2( 3658, 1587 )
+position = Vector2( 1968, 659 )
 
 [node name="Position2D4" type="Position2D" parent="SpawnPoints/TeamCount3/Team2"]
-position = Vector2( 3174, 666 )
+position = Vector2( 1103, 640 )
 
 [node name="Position2D5" type="Position2D" parent="SpawnPoints/TeamCount3/Team2"]
-position = Vector2( 2669, 1314 )
+position = Vector2( 829, 653 )
 
 [node name="Position2D6" type="Position2D" parent="SpawnPoints/TeamCount3/Team2"]
-position = Vector2( 3337, 1578 )
+position = Vector2( 1689, 650 )
 
 [node name="Team3" type="Node2D" parent="SpawnPoints/TeamCount3"]
 
 [node name="Position2D" type="Position2D" parent="SpawnPoints/TeamCount3/Team3"]
-position = Vector2( 2314, 1802 )
+position = Vector2( 1855, 678 )
 
 [node name="Position2D2" type="Position2D" parent="SpawnPoints/TeamCount3/Team3"]
-position = Vector2( 1589, 1623 )
+position = Vector2( 933, 670 )
 
 [node name="Position2D3" type="Position2D" parent="SpawnPoints/TeamCount3/Team3"]
-position = Vector2( 1993, 893 )
+position = Vector2( 1539, 666 )
 
 [node name="Position2D4" type="Position2D" parent="SpawnPoints/TeamCount3/Team3"]
-position = Vector2( 2477, 1798 )
+position = Vector2( 1976, 674 )
 
 [node name="Position2D5" type="Position2D" parent="SpawnPoints/TeamCount3/Team3"]
-position = Vector2( 1734, 1606 )
+position = Vector2( 1003, 658 )
 
 [node name="Position2D6" type="Position2D" parent="SpawnPoints/TeamCount3/Team3"]
-position = Vector2( 2218, 895 )
+position = Vector2( 1704, 668 )
 
 [node name="TurnQueue" type="Node" parent="."]
 script = ExtResource( 4 )
 
 [node name="ChestSpawner" type="Node2D" parent="."]
-visible = false
 script = ExtResource( 2 )
 
 [node name="ChestLine" type="Line2D" parent="ChestSpawner"]
+visible = false
 modulate = Color( 1, 0.866667, 0.00784314, 0.552941 )
-points = PoolVector2Array( 478, 768, 840, 886, 949, 1136, 1138, 1244 )
-default_color = Color( 1, 1, 1, 1 )
-
-[node name="ChestLine2" type="Line2D" parent="ChestSpawner"]
-modulate = Color( 1, 0.866667, 0.00784314, 0.552941 )
-points = PoolVector2Array( 3582, 482, 2954, 656 )
-default_color = Color( 1, 1, 1, 1 )
-
-[node name="ChestLine3" type="Line2D" parent="ChestSpawner"]
-modulate = Color( 1, 0.866667, 0.00784314, 0.552941 )
-points = PoolVector2Array( 2673, 1142, 2345, 823, 1888, 823, 1569, 1061 )
-default_color = Color( 1, 1, 1, 1 )
-
-[node name="ChestLine4" type="Line2D" parent="ChestSpawner"]
-modulate = Color( 1, 0.866667, 0.00784314, 0.552941 )
-points = PoolVector2Array( 630, 1397, 199, 1401 )
-default_color = Color( 1, 1, 1, 1 )
-
-[node name="ChestLine5" type="Line2D" parent="ChestSpawner"]
-modulate = Color( 1, 0.866667, 0.00784314, 0.552941 )
-points = PoolVector2Array( 3891, 1137, 3349, 1141 )
-default_color = Color( 1, 1, 1, 1 )
-
-[node name="ChestLine6" type="Line2D" parent="ChestSpawner"]
-modulate = Color( 1, 0.866667, 0.00784314, 0.552941 )
-points = PoolVector2Array( 2525, 1579, 2154, 1423, 1727, 1401 )
+points = PoolVector2Array( 537, 553, 907, 469, 1919, 466, 2304, 538 )
 default_color = Color( 1, 1, 1, 1 )
 
 [node name="ChestHolder" type="Node2D" parent="."]
-
-[node name="Chest" parent="ChestHolder" instance=ExtResource( 8 )]
-position = Vector2( 1844, 1638 )
 
 [node name="ProjectileHolder" type="Node2D" parent="."]
 script = ExtResource( 7 )
@@ -304,19 +264,18 @@ script = ExtResource( 7 )
 [node name="DeathPlane" type="Area2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DeathPlane"]
-polygon = PoolVector2Array( -195, 2323, 4389, 2291, 4341, -1269, 4733, -1237, 4733, 2571, -475, 2563, -475, -1037, -227, -1021 )
+polygon = PoolVector2Array( -196, 1832, 3068, 1847, 3111, -1282, 3425, -1268, 3375, 2110, -452, 2096, -475, -1037, -227, -1021 )
 
 [node name="CameraLimit" type="Position2D" parent="."]
-position = Vector2( 4150, 2078 )
+position = Vector2( 2869, 1645 )
 __meta__ = {
 "_gizmo_extents_": 10000.0
 }
 
 [node name="GameCamera" type="Camera2D" parent="."]
-visible = false
-position = Vector2( 2049, 1016 )
+position = Vector2( 1388, 752 )
 current = true
-zoom = Vector2( 2.03, 1.86 )
+zoom = Vector2( 1.2, 1.2 )
 limit_left = 0
 limit_top = 0
 smoothing_enabled = true

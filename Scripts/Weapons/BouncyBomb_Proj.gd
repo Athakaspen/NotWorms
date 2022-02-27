@@ -1,12 +1,12 @@
 extends RigidBody2D
 
-var explosion_radius = 65
+var explosion_radius = 75
 var detection_margin = 30
 var explosion_poly
 
 var explosion_particles_res = preload("res://SubScenes/Weapons/ExplosionParticles.tscn")
 
-var explosion_force = 400
+var explosion_force = 500
 var explosion_damage = 6
 var explosion_delay = 3.5
 var owning_player = "UNDEFINED"
