@@ -33,13 +33,19 @@ _global_script_classes=[ {
 "class": "TurnQueue",
 "language": "GDScript",
 "path": "res://Scripts/TurnQueue.gd"
+}, {
+"base": "VBoxContainer",
+"class": "WinScreenCharacter",
+"language": "GDScript",
+"path": "res://Scripts/Menu/WinScreenCharacter.gd"
 } ]
 _global_script_class_icons={
 "CharacterSelectEntry": "",
 "Option": "",
 "Player": "",
 "PlayerBody": "",
-"TurnQueue": ""
+"TurnQueue": "",
+"WinScreenCharacter": ""
 }
 
 [application]

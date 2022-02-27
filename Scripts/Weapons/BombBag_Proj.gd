@@ -11,12 +11,12 @@ extends RigidBody2D
 var bomb_res = preload("res://SubScenes/Weapons/BouncyBomb_Proj.tscn")
 
 # number of bombs inside
-var num_bombs = 5
+var num_bombs = 6
 
 # Base delay until explode
-var bomb_fuse_dur := 2.5
+var bomb_fuse_dur := 2.0
 # Additionally, a random amount of this delay is added
-var bomb_fuse_rand := 0.7
+var bomb_fuse_rand := 1.0
 
 var bomb_mass := 1.0
 var bomb_gravity := 6.0
@@ -96,7 +96,7 @@ func release_bombs():
 #				body.apply_central_impulse( \
 #					(body.global_position - global_position).normalized() * explosion_force)
 #			if body.is_in_group("Damageable"):
-#				body.get_parent().do_damage(explosion_damage)
+#				body.get_parent().do_damage(explosion_damage, owning_player)
 #
 #	call_deferred("queue_free")
 

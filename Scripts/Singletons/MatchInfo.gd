@@ -8,6 +8,11 @@ var death_order = []
 
 var player_info = {}
 
+# stats
+var damage_dealt = {}
+var killed_by = {}
+var kill_count = {}
+
 var player_models = ["chicken1", "chicken1", "chicken1", "chicken1", "chicken1", "chicken1"]
 var player_teams = ["normal", "normal", "normal", "normal", "normal", "normal"]
 var player_res = preload("res://SubScenes/Player/Player.tscn")
@@ -38,7 +43,7 @@ var turn_duration : float = 12.0
 # The visible timer runs out coyote_time seconds before turn ends
 var coyote_time : float = 0.25
 # Starting health of each player
-var starting_health : int = 100
+var starting_health : int = 1
 
 var starting_inventory = {
 	"bomb": 69,
@@ -60,6 +65,7 @@ func _ready():
 # Get information at the start of a match
 func initialize_match(turn_queue:TurnQueue) -> void:
 	# Reset values
+	player_info = {}
 	winners_list = []
 	winner_tags_list = []
 	winning_team = "NULL"
@@ -74,8 +80,14 @@ func initialize_match(turn_queue:TurnQueue) -> void:
 		new_player.health = starting_health
 		# Create a dict of the players to reference later
 		player_info[new_player.name] = new_player
+		# init stats
+		damage_dealt[new_player.name] = 0
+		kill_count[new_player.name] = 0
+		killed_by[new_player.name] = "UNDEFINED"
 		# This is redundant and bad, but it's for spawnpoints below
 		player_list.append(new_player)
+	kill_count["UNDEFINED"] = 0
+	damage_dealt["UNDEFINED"] = 0
 	
 	# Place players at spawn points
 	# This is gonna get messy
@@ -148,7 +160,10 @@ func set_winning_team(team:String):
 
 func get_win_text() -> String:
 	if TEAM_MODE == "off":
-		return winner_tags_list[0] + " Wins!"
+		if winner_tags_list == []:
+			return "ENTROPY ALWAYS WINS"
+		else:
+			return winner_tags_list[0] + " Wins!"
 	else:
 		match winning_team:
 			"red":
@@ -157,8 +172,13 @@ func get_win_text() -> String:
 				return "The BLUE Team Wins!"
 			"green":
 				return "The GREEN Team Wins!"
-	return "A WINNER IS YOU"
+	return "ENTROPY ALWAYS WINS"
 
 # Record a death, for potential use later
-func rec_death(playername:String):
-	death_order.append(playername)
+func rec_death(dead_player:String, killing_player:String = "UNDEFINED"):
+	death_order.append(dead_player)
+	kill_count[killing_player] += 1
+	killed_by[dead_player] = killing_player
+
+func rec_damage(victim:String, culprit:String, amount:int):
+	damage_dealt[culprit] += amount

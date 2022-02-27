@@ -152,13 +152,16 @@ func get_timer_progress() -> float:
 	return clamp((turn_timer.time_left - MatchInfo.coyote_time) \
 		/ (turn_timer.wait_time - MatchInfo.coyote_time), 0, 1)
 
-func do_damage(value:int) -> void:
+func do_damage(value:int, source_player:String = "UNDEFINED") -> void:
 	
 	if is_invincible: return
 	if is_dead: return
 	
 	# decrease health
 	health = int(clamp(health-value, 0, MAX_HEALTH))
+	
+	# update stats
+	MatchInfo.rec_damage(self.name, source_player, value)
 	
 	# create popup
 	var damage_popup = damage_popup_res.instance()
@@ -172,7 +175,7 @@ func do_damage(value:int) -> void:
 	update_healthbar()
 	
 	if health == 0:
-		die()
+		die(source_player)
 
 func set_gamertag(gamertag: String) -> void:
 	tag.set_player_name(gamertag)
@@ -195,11 +198,11 @@ func update_staminabar():
 	tag.set_stamina_bar_value(player_body.get_stamina_percent())
 
 # TODO: Death... State? Turn? Basically need to delete self more carefully
-func die():
+func die(source_player : String):
 	if is_dead: return
 	is_dead = true
 	turn_queue.level.UI.do_deathtoast(get_gamertag())
-	MatchInfo.rec_death(name)
+	MatchInfo.rec_death(name, source_player)
 	
 	# add the grave
 	var grave = grave_res.instance()

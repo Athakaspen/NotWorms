@@ -87,9 +87,9 @@ func explode() -> void:
 			if body.is_in_group("Damageable"):
 				# Do less damage to owner
 				if body.get_parent().name != owning_player:
-					body.get_parent().do_damage(explosion_damage)
+					body.get_parent().do_damage(explosion_damage, owning_player)
 				else:
-					body.get_parent().do_damage(explosion_damage*0.4)
+					body.get_parent().do_damage(explosion_damage*0.4, owning_player)
 	
 	# Explosion Particle effect
 	var particles = explosion_particles_res.instance()

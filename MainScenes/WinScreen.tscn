@@ -1,42 +1,80 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Fonts/TestFont.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scripts/WinScreen.gd" type="Script" id=2]
+[ext_resource path="res://SubScenes/Menu/WinScreenCharacter.tscn" type="PackedScene" id=3]
 
-[node name="WinScreen" type="Node2D"]
+[node name="WinScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 59.0
+margin_top = 57.0
+margin_right = -59.0
+margin_bottom = -57.0
 script = ExtResource( 2 )
 
-[node name="UI" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+[node name="UI" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -28.0
+margin_bottom = 28.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 7
+custom_constants/separation = 60
+alignment = 1
 
 [node name="Title" type="Label" parent="UI"]
-margin_left = 654.0
-margin_top = 195.0
-margin_right = 1356.0
-margin_bottom = 261.0
+margin_top = 40.0
+margin_right = 1802.0
+margin_bottom = 106.0
 custom_fonts/font = ExtResource( 1 )
 text = "PlayerX Wins!"
+align = 1
+
+[node name="PlayerHolder" type="HBoxContainer" parent="UI"]
+margin_top = 166.0
+margin_right = 1802.0
+margin_bottom = 761.0
+
+[node name="CharacterSelect" parent="UI/PlayerHolder" instance=ExtResource( 3 )]
+margin_left = 0.0
+margin_right = 297.0
+margin_bottom = 595.0
+
+[node name="CharacterSelect2" parent="UI/PlayerHolder" instance=ExtResource( 3 )]
+margin_left = 301.0
+margin_right = 598.0
+margin_bottom = 595.0
+
+[node name="CharacterSelect3" parent="UI/PlayerHolder" instance=ExtResource( 3 )]
+margin_left = 602.0
+margin_right = 899.0
+margin_bottom = 595.0
+
+[node name="CharacterSelect4" parent="UI/PlayerHolder" instance=ExtResource( 3 )]
+margin_left = 903.0
+margin_right = 1200.0
+margin_bottom = 595.0
+
+[node name="CharacterSelect5" parent="UI/PlayerHolder" instance=ExtResource( 3 )]
+margin_left = 1204.0
+margin_right = 1501.0
+margin_bottom = 595.0
+
+[node name="CharacterSelect6" parent="UI/PlayerHolder" instance=ExtResource( 3 )]
+margin_left = 1505.0
+margin_right = 1802.0
+margin_bottom = 595.0
 
 [node name="MainMenuButton" type="Button" parent="UI"]
-margin_left = 598.0
-margin_top = 769.0
-margin_right = 1299.0
-margin_bottom = 873.0
+margin_left = 571.0
+margin_top = 821.0
+margin_right = 1231.0
+margin_bottom = 981.0
+rect_min_size = Vector2( 660, 160 )
+size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 1 )
-text = "Main Menu (Y)"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PlayerHolder" type="Position2D" parent="."]
-position = Vector2( 946, 543 )
-scale = Vector2( 5, 5 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="_placeholder" type="Polygon2D" parent="PlayerHolder"]
-polygon = PoolVector2Array( -36, 29.2, -42.6, -2.6, -27, -32.2, 17.8, -36.4, 40.6, -15.6, 40.6, 5.4, 28.6, 27.2, -2.8, 33 )
+text = "Main Menu"
 
 [connection signal="pressed" from="UI/MainMenuButton" to="." method="_on_MainMenuButton_pressed"]
