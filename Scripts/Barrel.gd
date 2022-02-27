@@ -21,6 +21,7 @@ var has_exploded = false
 func _ready():
 	grav = gravity_scale
 	gravity_scale = 0.0
+	$ExplosionArea/ExplosionPoly.rotate(randf()*6.2)
 
 func do_damage(_value:int, source_player:String = "UNDEFINED"):
 	if not has_exploded:
@@ -40,6 +41,10 @@ func do_damage(_value:int, source_player:String = "UNDEFINED"):
 		_explode()
 
 func _explode() -> void:
+	
+	#Vibrate controller
+	Input.start_joy_vibration(0, 1.0, 1.0, 0.6)
+	
 	var hit_terrain := false
 	for body in $DetectionArea.get_overlapping_bodies():
 		if body.is_in_group("Destructible"):

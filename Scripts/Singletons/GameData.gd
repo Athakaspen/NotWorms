@@ -59,21 +59,21 @@ var TeamIDs = ["normal", "red", "blue", "green"]
 
 # Map info
 var Maps = {
-	"Tilted Towers": {
-		"path": "res://MainScenes/Maps/Map4.tscn",
-		"image": "res://Sprites/crosshair.png"
-	},
 	"The Garden": {
 		"path": "res://MainScenes/Maps/Map1.tscn",
-		"image": "res://Sprites/plus-green.png"
+		"image": "res://Sprites/Map1.png"
+	},
+	"Tilted Towers": {
+		"path": "res://MainScenes/Maps/Map4.tscn",
+		"image": "res://Sprites/Map4.png"
 	},
 	"Final Destination": {
 		"path": "res://MainScenes/Maps/Map2.tscn",
-		"image": "res://Sprites/crosshair.png"
+		"image": "res://Sprites/Map2.png"
 	},
 	"Hell in a Cell": {
 		"path": "res://MainScenes/Maps/Map3.tscn",
-		"image": "res://Sprites/crosshair.png"
+		"image": "res://Sprites/Map3.png"
 	}
 }
 

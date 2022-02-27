@@ -43,11 +43,9 @@ func _ready() -> void:
 #	pass
 
 func explode() -> void:
-#	for x in affected:
-#		x.apply_central_impulse((x.global_position - global_position).normalized() * explosion_force)
-#	var inst = particles.instance()
-#	inst.global_position = global_position
-#	get_parent().call_deferred("add_child", inst)
+
+	#Vibrate controller
+	Input.start_joy_vibration(0, 1.0, 1.0, 0.3)
 	
 	# TODO: Add a list of bodies that were created this frame,
 	# and check all of those too

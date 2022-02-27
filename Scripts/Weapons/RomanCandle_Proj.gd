@@ -27,6 +27,9 @@ func _ready() -> void:
 	# Backup kill fuse
 	$Timer.start(explosion_delay)
 	
+	#Vibrate controller
+	Input.start_joy_vibration(0, 1.0, 1.0, 0.2)
+	
 	# This code taken directly from the destructible terrain demo
 	# Actual explotion poly
 	var nb_points = 20

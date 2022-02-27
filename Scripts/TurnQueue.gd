@@ -34,7 +34,7 @@ var player_list
 
 var team_turn_queue
 
-var turns_til_next_chest = 1
+var turns_til_next_chest = MatchInfo.get_turns_til_next_chest()
 var turns_til_next_barrel = MatchInfo.get_turns_til_next_barrel()
 var turns_til_next_lettuce = MatchInfo.get_turns_til_next_lettuce()
 

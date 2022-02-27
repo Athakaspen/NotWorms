@@ -28,6 +28,7 @@ alignment = 1
 [node name="MapSelect" parent="VBoxContainer" instance=ExtResource( 6 )]
 margin_top = 51.0
 margin_bottom = 560.0
+focus_neighbour_top = NodePath("../StartButton")
 alignment = 1
 
 [node name="TurnLength" type="Label" parent="VBoxContainer"]
@@ -40,8 +41,8 @@ text = "Turn Length"
 align = 1
 script = ExtResource( 2 )
 option_id = "turn_dur"
-default_index = 2
-choice_list = [ "6 sec", "8 sec", "10 sec", "12 sec", "15 sec", "20 sec", "30 sec" ]
+default_index = 3
+choice_list = [ "4 sec", "6 sec", "8 sec", "10 sec", "12 sec", "15 sec", "20 sec", "30 sec" ]
 can_loop = false
 
 [node name="Health" type="Label" parent="VBoxContainer"]
@@ -62,7 +63,7 @@ margin_top = 712.0
 margin_right = 1920.0
 margin_bottom = 782.0
 custom_fonts/font = SubResource( 1 )
-text = "Chest Frequency"
+text = "Item Frequency"
 align = 1
 script = ExtResource( 2 )
 option_id = "chest_freq"
@@ -81,6 +82,7 @@ margin_left = 709.0
 margin_top = 840.0
 margin_right = 1210.0
 margin_bottom = 1029.0
+focus_neighbour_bottom = NodePath("../MapSelect")
 size_flags_horizontal = 4
 theme = ExtResource( 5 )
 custom_fonts/font = SubResource( 2 )

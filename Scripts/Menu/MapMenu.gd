@@ -9,7 +9,7 @@ var map_path = "res://MainScenes/Maps/Map1.tscn"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$VBoxContainer/StartButton.grab_focus()
+	$VBoxContainer/MapSelect.grab_focus()
 
 
 func _on_TurnLength_value_changed(new_value:String):

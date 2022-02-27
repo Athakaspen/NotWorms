@@ -34,6 +34,8 @@ func _input(event):
 			_change_map(1)
 		elif event.is_action_pressed("ui_left"):
 			_change_map(-1)
+#		elif event.is_action_pressed("ui_accept"):
+#			$"../StartButton".grab_focus()
 
 func _change_map(offset:int):
 	_cur_map_index = int(fposmod(_cur_map_index + offset, len(map_list)))

@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-var explosion_radius = 120
+var explosion_radius = 100
 var detection_margin = 40
 var explosion_poly
 
@@ -59,11 +59,9 @@ func explode() -> void:
 #		print("bailed")
 		return
 	exploded = true
-#	for x in affected:
-#		x.apply_central_impulse((x.global_position - global_position).normalized() * explosion_force)
-#	var inst = particles.instance()
-#	inst.global_position = global_position
-#	get_parent().call_deferred("add_child", inst)
+
+	#Vibrate controller
+	Input.start_joy_vibration(0, 1.0, 1.0, 0.35)
 	
 	# TODO: Add a list of bodies that were created this frame,
 	# and check all of those too

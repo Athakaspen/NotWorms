@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Menu/MapSelect.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/chevron.png" type="Texture" id=2]
 [ext_resource path="res://SubScenes/REGGAEONE-REGULAR.TTF" type="DynamicFontData" id=3]
-[ext_resource path="res://Sprites/plus.png" type="Texture" id=4]
-[ext_resource path="res://Sprites/minus.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/chevron-left.png" type="Texture" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 72
@@ -19,37 +18,41 @@ script = ExtResource( 1 )
 [node name="LeftArrow" type="TextureRect" parent="."]
 margin_right = 128.0
 margin_bottom = 509.0
-texture = ExtResource( 5 )
-stretch_mode = 6
+rect_min_size = Vector2( 128, 256 )
+texture = ExtResource( 4 )
+expand = true
 
 [node name="Preview" type="VBoxContainer" parent="."]
 margin_left = 132.0
-margin_right = 732.0
+margin_right = 832.0
 margin_bottom = 509.0
 
 [node name="Panel" type="Panel" parent="Preview"]
 self_modulate = Color( 1, 1, 1, 0 )
-margin_right = 600.0
+margin_right = 700.0
 margin_bottom = 400.0
-rect_min_size = Vector2( 600, 400 )
+rect_min_size = Vector2( 700, 400 )
 
 [node name="Image" type="TextureRect" parent="Preview/Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 2 )
+expand = true
 stretch_mode = 6
 
 [node name="Label" type="Label" parent="Preview"]
 margin_top = 404.0
-margin_right = 600.0
+margin_right = 700.0
 margin_bottom = 509.0
 custom_fonts/font = SubResource( 1 )
 text = "The Map"
 align = 1
 
 [node name="RightArrow" type="TextureRect" parent="."]
-margin_left = 736.0
-margin_right = 864.0
+margin_left = 836.0
+margin_right = 964.0
 margin_bottom = 509.0
+rect_min_size = Vector2( 128, 256 )
 texture = ExtResource( 4 )
-stretch_mode = 6
+expand = true
+flip_h = true

@@ -128,7 +128,7 @@ polygon = PoolVector2Array( 2559, 1753, 2867, 1748, 2880, 1781, 2593, 1785, 2574
 
 [node name="island" type="Polygon2D" parent="Terrain"]
 color = Color( 0.635294, 0.317647, 0.105882, 1 )
-polygon = PoolVector2Array( -14, 1968, 3022, 1975, 3021, 2207, -8, 2204 )
+polygon = PoolVector2Array( -5, 2032, 120, 1968, 2927.56, 1974.78, 3017, 2032, 3021, 2207, -8, 2204 )
 
 [node name="SpawnPoints" type="Node2D" parent="."]
 
@@ -369,7 +369,7 @@ default_color = Color( 1, 1, 1, 1 )
 
 [node name="ChestLine6" type="Line2D" parent="ChestSpawner"]
 modulate = Color( 1, 0.866667, 0.00784314, 0.552941 )
-points = PoolVector2Array( 74, 1595, 577, 1584 )
+points = PoolVector2Array( 136, 1591, 577, 1584 )
 default_color = Color( 1, 1, 1, 1 )
 
 [node name="ChestLine7" type="Line2D" parent="ChestSpawner"]

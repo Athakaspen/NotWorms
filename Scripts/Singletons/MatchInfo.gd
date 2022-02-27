@@ -163,7 +163,7 @@ func get_chest_contents() -> Dictionary:
 func get_turns_til_next_chest() -> int:
 	match chest_freq:
 		"rare":
-			return randi() % 4 + 3
+			return randi() % 4 + 4
 		"normal":
 			return randi() % 3 + 2
 		"max":
@@ -174,7 +174,7 @@ func get_turns_til_next_chest() -> int:
 func get_turns_til_next_barrel() -> int:
 	match chest_freq:
 		"rare":
-			return randi() % 5 + 3
+			return randi() % 5 + 4
 		"normal":
 			return randi() % 4 + 2
 		"max":
@@ -185,7 +185,7 @@ func get_turns_til_next_barrel() -> int:
 func get_turns_til_next_lettuce() -> int:
 	match chest_freq:
 		"rare":
-			return randi() % 5 + 3
+			return randi() % 5 + 4
 		"normal":
 			return randi() % 3 + 3
 		"max":

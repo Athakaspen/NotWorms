@@ -28,7 +28,7 @@ scale = Vector2( 0.428571, 0.428571 )
 texture = ExtResource( 10 )
 
 [node name="Fredbot" type="Sprite" parent="Decor"]
-position = Vector2( 972, 1485 )
+position = Vector2( 174, 1277 )
 scale = Vector2( 0.292, 0.292 )
 texture = ExtResource( 9 )
 
