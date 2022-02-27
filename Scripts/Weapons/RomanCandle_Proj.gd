@@ -4,7 +4,7 @@ var explosion_radius = 24
 var detection_margin = 30
 var explosion_poly
 
-var explosion_force = 160
+var explosion_force = 150
 var explosion_damage = 0 # This will be set by the gun
 var owning_player = "UNDEFINED"
 
@@ -85,11 +85,16 @@ func explode() -> void:
 #					body.apply_central_impulse( \
 #						(body.global_position - global_position).normalized() * explosion_force * -.2)
 			if body.is_in_group("Damageable"):
+				var affected_node
+				if body.has_method("do_damage"):
+					affected_node = body
+				else: 
+					affected_node = body.get_parent()
 				# Do less damage to owner
-				if body.get_parent().name != owning_player:
-					body.get_parent().do_damage(explosion_damage, owning_player)
+				if affected_node.name != owning_player:
+					affected_node.do_damage(explosion_damage, owning_player)
 				else:
-					body.get_parent().do_damage(explosion_damage*0.4, owning_player)
+					affected_node.do_damage(explosion_damage*0.4, owning_player)
 	
 	# Explosion Particle effect
 	var particles = explosion_particles_res.instance()

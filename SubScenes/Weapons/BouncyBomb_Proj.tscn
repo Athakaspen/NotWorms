@@ -4,14 +4,14 @@
 [ext_resource path="res://SubScenes/Weapons/BouncyBomb_PhysicsMaterial.tres" type="PhysicsMaterial" id=2]
 
 [sub_resource type="Gradient" id=2]
-offsets = PoolRealArray( 0, 0.60262, 1 )
-colors = PoolColorArray( 1, 1, 1, 0.521569, 0.690196, 0.690196, 0.690196, 0.52549, 0.384314, 0.384314, 0.384314, 0.168627 )
+offsets = PoolRealArray( 0, 0.126638, 0.60262, 0.921397, 1 )
+colors = PoolColorArray( 0.859375, 0.859375, 0.859375, 0.180392, 0.674316, 0.674316, 0.674316, 0.521825, 0.695313, 0.695313, 0.695313, 0.376471, 0.554688, 0.554688, 0.554688, 0.168627, 0, 0, 0, 0 )
 
 [sub_resource type="GradientTexture" id=3]
 gradient = SubResource( 2 )
 
 [sub_resource type="Curve" id=4]
-_data = [ Vector2( 0.00396825, 0.209091 ), 0.0, 0.551515, 0, 0, Vector2( 1, 1 ), 2.13291, 0.0, 0, 0 ]
+_data = [ Vector2( 0, 0.148864 ), 0.0, 1.09091, 0, 0, Vector2( 1, 1 ), 2.97569, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=5]
 curve = SubResource( 4 )
@@ -21,7 +21,7 @@ emission_shape = 1
 emission_sphere_radius = 1.0
 flag_disable_z = true
 direction = Vector3( 0, -1, 0 )
-gravity = Vector3( 0, -150, 0 )
+gravity = Vector3( 0, -300, 0 )
 initial_velocity = 10.0
 initial_velocity_random = 0.4
 angular_velocity = 100.0
@@ -30,7 +30,7 @@ orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 angle = 90.0
 angle_random = 1.0
-scale = 20.0
+scale = 40.0
 scale_random = 0.35
 scale_curve = SubResource( 5 )
 color_ramp = SubResource( 3 )
@@ -54,8 +54,9 @@ polygon = PoolVector2Array( -1, -12, -1, -15, -4, -19, -2, -21, 1, -16, 1, -12 )
 
 [node name="Particles2D" type="Particles2D" parent="."]
 position = Vector2( 0, -13 )
-amount = 50
+amount = 80
 lifetime = 0.5
+speed_scale = 0.4
 local_coords = false
 process_material = SubResource( 6 )
 

@@ -63,7 +63,9 @@ func explode() -> void:
 				body.apply_central_impulse( \
 					(body.global_position - global_position).normalized() * explosion_force)
 			if body.is_in_group("Damageable"):
-				body.get_parent().do_damage(explosion_damage, owning_player)
+				if body.has_method("do_damage"):
+					body.do_damage(explosion_damage, owning_player)
+				else: body.get_parent().do_damage(explosion_damage, owning_player)
 	
 	# Explosion Particle effect
 	var particles = explosion_particles_res.instance()

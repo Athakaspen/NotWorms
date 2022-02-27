@@ -35,6 +35,8 @@ var player_list
 var team_turn_queue
 
 var turns_til_next_chest = 1
+var turns_til_next_barrel = MatchInfo.get_turns_til_next_barrel()
+var turns_til_next_lettuce = MatchInfo.get_turns_til_next_lettuce()
 
 func initialize():
 	
@@ -69,6 +71,7 @@ func initialize():
 
 func main_loop():
 	while true:
+#		print ("Loop top")
 		active_player = get_next_player()
 		STATE = State.PRETURN
 		yield(init_preturn(), "completed")
@@ -102,15 +105,40 @@ func main_loop():
 		# Reset zoom after the player's turn is done
 		MatchInfo.game_camera.reset_zoom()
 		
+		#Items
 		turns_til_next_chest -= 1
 		if turns_til_next_chest <= 0:
 			STATE = State.CHEST
 			yield(init_chest_spawn(), "completed")
 		
+		turns_til_next_barrel -= 1
+		if turns_til_next_barrel <= 0:
+			STATE = State.CHEST
+			yield(init_barrel_spawn(), "completed")
+		
+		turns_til_next_lettuce -= 1
+		if turns_til_next_lettuce <= 0:
+			STATE = State.CHEST
+			yield(init_lettuce_spawn(), "completed")
+		
 		# Stop if we've detected that the game is over
 		if STATE == State.GAMEOVER: 
 #			do_endgame()
 			break
+
+# This doesn't work because yield is weird
+#func do_items_phase():
+#	turns_til_next_chest -= 1
+#	if turns_til_next_chest <= 0:
+#		STATE = State.CHEST
+#		yield(init_chest_spawn(), "completed")
+#		print("yield1 done")
+#
+#	turns_til_next_barrel -= 1
+#	if turns_til_next_barrel <= 0:
+#		STATE = State.CHEST
+#		yield(init_barrel_spawn(), "completed")
+#		print("yield2 done")
 
 func get_next_player():
 	if MatchInfo.TEAM_MODE == "off":
@@ -174,6 +202,18 @@ func init_postturn():
 func init_chest_spawn():
 	MatchInfo.chest_spawner.spawn_chest()
 	turns_til_next_chest = MatchInfo.get_turns_til_next_chest()
+	CAM_MODE = CamMode.CHEST
+	yield(get_tree().create_timer(2.5), "timeout")
+
+func init_barrel_spawn():
+	MatchInfo.chest_spawner.spawn_barrel()
+	turns_til_next_barrel = MatchInfo.get_turns_til_next_barrel()
+	CAM_MODE = CamMode.CHEST
+	yield(get_tree().create_timer(2.5), "timeout")
+
+func init_lettuce_spawn():
+	MatchInfo.chest_spawner.spawn_lettuce()
+	turns_til_next_lettuce = MatchInfo.get_turns_til_next_lettuce()
 	CAM_MODE = CamMode.CHEST
 	yield(get_tree().create_timer(2.5), "timeout")
 

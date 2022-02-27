@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-var explosion_radius = 90
+var explosion_radius = 100
 var detection_margin = 40
 var explosion_poly
 
@@ -28,7 +28,7 @@ func _ready() -> void:
 	$Timer.start(explosion_delay)
 	
 	# This code taken directly from the destructible terrain demo
-	var nb_points = 24
+	var nb_points = 28
 	var points = PoolVector2Array()
 	for i in range(nb_points+1):
 		var point = deg2rad(i * 360.0 / nb_points - 90)
@@ -84,7 +84,9 @@ func explode() -> void:
 					body.apply_central_impulse( \
 						(body.global_position - global_position).normalized() * explosion_force * 5)
 			if body.is_in_group("Damageable"):
-				body.get_parent().do_damage(explosion_damage, owning_player)
+				if body.has_method("do_damage"):
+					body.do_damage(explosion_damage, owning_player)
+				else: body.get_parent().do_damage(explosion_damage, owning_player)
 	
 	# Explosion Particle effect
 	var particles = explosion_particles_res.instance()

@@ -1,6 +1,8 @@
 extends Node2D
 
 var chest_res = preload("res://SubScenes/Chest.tscn")
+var barrel_res = preload("res://SubScenes/Barrel.tscn")
+var lettuce_res = preload("res://SubScenes/Lettuce.tscn")
 var last_chest = null
 
 # Called when the node enters the scene tree for the first time.
@@ -18,6 +20,18 @@ func get_random_point():
 
 func spawn_chest():
 	var new_chest = chest_res.instance()
+	new_chest.position = get_random_point()
+	MatchInfo.chest_holder.add_child(new_chest)
+	last_chest = new_chest
+
+func spawn_barrel():
+	var new_chest = barrel_res.instance()
+	new_chest.position = get_random_point()
+	MatchInfo.chest_holder.add_child(new_chest)
+	last_chest = new_chest
+
+func spawn_lettuce():
+	var new_chest = lettuce_res.instance()
 	new_chest.position = get_random_point()
 	MatchInfo.chest_holder.add_child(new_chest)
 	last_chest = new_chest

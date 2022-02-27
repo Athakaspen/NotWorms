@@ -180,6 +180,20 @@ func do_damage(value:int, source_player:String = "UNDEFINED") -> void:
 	if health == 0:
 		die(source_player)
 
+func heal(amount: int):
+	health = int(clamp(health+amount, 0, MAX_HEALTH))
+	
+	# create popup
+	var damage_popup = damage_popup_res.instance()
+	damage_popup.set_text("-" + str(amount))
+	damage_popup.set_color(Color.green)
+	damage_popup.set_lifespan(1.0)
+	damage_popup.position = player_body.position \
+		+ Vector2(rand_range(-20, 20), rand_range(-10, 10))
+	get_parent().level.add_child(damage_popup)
+	
+	update_healthbar()
+
 func set_team(new_team : String):
 	self.team = new_team
 	# Change color if this is a team match

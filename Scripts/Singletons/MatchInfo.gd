@@ -49,6 +49,7 @@ var coyote_time : float = 0.25
 var starting_health : int = 100
 # How often chests will drop
 # values are "rare", "normal", "max"
+# ACTUALLY, applies to all items
 var chest_freq = "normal"
 
 var starting_inventory = {
@@ -162,13 +163,35 @@ func get_chest_contents() -> Dictionary:
 func get_turns_til_next_chest() -> int:
 	match chest_freq:
 		"rare":
-			return randi() % 5 + 2
+			return randi() % 4 + 3
 		"normal":
-			return randi() % 3 + 1
+			return randi() % 3 + 2
 		"max":
 			return 1
 	print("Unexpected chest_freq, defaulting to normal")
 	return randi() % 3 + 1
+
+func get_turns_til_next_barrel() -> int:
+	match chest_freq:
+		"rare":
+			return randi() % 5 + 3
+		"normal":
+			return randi() % 4 + 2
+		"max":
+			return 1
+	print("Unexpected chest_freq, defaulting to normal")
+	return randi() % 4 + 2
+
+func get_turns_til_next_lettuce() -> int:
+	match chest_freq:
+		"rare":
+			return randi() % 5 + 3
+		"normal":
+			return randi() % 3 + 3
+		"max":
+			return 1
+	print("Unexpected chest_freq, defaulting to normal")
+	return randi() % 3 + 3
 
 # Set the name of the winner, for use on winscreen
 func add_winner_name(playername:String):
