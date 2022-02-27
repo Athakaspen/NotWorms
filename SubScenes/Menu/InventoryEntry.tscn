@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/rocket.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/rounded-box.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/InventoryEntry.gd" type="Script" id=3]
 [ext_resource path="res://SubScenes/REGGAEONE-REGULAR.TTF" type="DynamicFontData" id=4]

@@ -42,6 +42,12 @@ func _input(event):
 		next_weapon()
 	if event.is_action_pressed("menu_prev") and in_inventory:
 		prev_weapon()
+	if event.is_action_pressed("view_controls") and in_inventory:
+		$Inventory/Controls.visible = true
+		$Inventory/CenterContainer.visible = false
+	elif event.is_action_released("view_controls") and in_inventory:
+		$Inventory/Controls.visible = false
+		$Inventory/CenterContainer.visible = true
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
@@ -105,6 +111,9 @@ func show_inventory(inventory_data, cur_weapon):
 	update_inventory(inventory_data, cur_weapon)
 	$Inventory.visible = true
 	in_inventory = true
+	# Default to normal inventory
+	$Inventory/Controls.visible = false
+	$Inventory/CenterContainer.visible = true
 
 func hide_inventory() -> String:
 	$Inventory.visible = false
@@ -160,6 +169,7 @@ func init_postturn():
 	in_postturn = true
 	$Turn/TurnTimer.visible = false
 	$Turn/EndTurnLabel.visible = false
+	$Turn.visible = false
 
 #func _on_EndTurnButton_pressed():
 #	level.turn_queue.end_turn()

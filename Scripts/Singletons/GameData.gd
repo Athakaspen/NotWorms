@@ -14,7 +14,7 @@ var WeaponData = {
 		"pretty_name": "Rocket Launcher",
 		"description": "Long Range!\nExplodes on Impact!",
 		"damage": "XX",
-		"icon": "res://icon.png",
+		"icon": "res://Sprites/rocket.png",
 		"resource": "res://SubScenes/Weapons/RocketLauncher.tscn"
 	},
 	"candle":{

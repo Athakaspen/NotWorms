@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Theme/Fonts/GoudyStout48.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scripts/TurnTimer.gd" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://SubScenes/Menu/InventoryEntry.tscn" type="PackedScene" id=6]
 [ext_resource path="res://SubScenes/REGGAEONE-REGULAR.TTF" type="DynamicFontData" id=7]
 [ext_resource path="res://Theme/MainTheme.tres" type="Theme" id=8]
+[ext_resource path="res://Sprites/controllerLayout.png" type="Texture" id=9]
 
 [sub_resource type="DynamicFont" id=6]
 size = 42
@@ -25,6 +26,10 @@ font_data = ExtResource( 7 )
 size = 36
 font_data = ExtResource( 5 )
 
+[sub_resource type="DynamicFont" id=11]
+size = 46
+font_data = ExtResource( 7 )
+
 [sub_resource type="DynamicFont" id=9]
 size = 64
 font_data = ExtResource( 7 )
@@ -41,9 +46,6 @@ font_data = ExtResource( 5 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Preturn" type="Control" parent="."]
 anchor_right = 1.0
@@ -170,7 +172,6 @@ wait_time = 2.5
 one_shot = true
 
 [node name="Inventory" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -184,56 +185,70 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Inventory/CenterContainer"]
-margin_left = 748.0
-margin_top = 328.0
-margin_right = 1172.0
-margin_bottom = 751.0
+margin_left = 647.0
+margin_top = 290.0
+margin_right = 1272.0
+margin_bottom = 789.0
+
+[node name="Controls" type="Label" parent="Inventory/CenterContainer/VBoxContainer"]
+margin_right = 625.0
+margin_bottom = 68.0
+custom_fonts/font = SubResource( 11 )
+text = "(Press Y to view controls)"
+align = 1
+
+[node name="Spacer3" type="Control" parent="Inventory/CenterContainer/VBoxContainer"]
+margin_top = 72.0
+margin_right = 625.0
+margin_bottom = 112.0
+rect_min_size = Vector2( 0, 40 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Inventory/CenterContainer/VBoxContainer"]
-margin_right = 424.0
-margin_bottom = 191.0
+margin_top = 116.0
+margin_right = 625.0
+margin_bottom = 307.0
 custom_constants/separation = 20
 alignment = 1
 
 [node name="Entry1" parent="Inventory/CenterContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 6 )]
-margin_left = 0.0
-margin_right = 128.0
+margin_left = 100.0
+margin_right = 228.0
 margin_bottom = 191.0
 
 [node name="Entry2" parent="Inventory/CenterContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 6 )]
-margin_left = 148.0
-margin_right = 276.0
+margin_left = 248.0
+margin_right = 376.0
 margin_bottom = 191.0
 
 [node name="Entry3" parent="Inventory/CenterContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 6 )]
-margin_left = 296.0
-margin_right = 424.0
+margin_left = 396.0
+margin_right = 524.0
 margin_bottom = 191.0
 
 [node name="Spacer" type="Control" parent="Inventory/CenterContainer/VBoxContainer"]
-margin_top = 195.0
-margin_right = 424.0
-margin_bottom = 235.0
-rect_min_size = Vector2( 0, 40 )
+margin_top = 311.0
+margin_right = 625.0
+margin_bottom = 311.0
 
 [node name="Name" type="Label" parent="Inventory/CenterContainer/VBoxContainer"]
-margin_top = 239.0
-margin_right = 424.0
-margin_bottom = 333.0
+margin_top = 315.0
+margin_right = 625.0
+margin_bottom = 409.0
 custom_fonts/font = SubResource( 9 )
 text = "NAME"
 align = 1
 
 [node name="Spacer2" type="Control" parent="Inventory/CenterContainer/VBoxContainer"]
-margin_top = 337.0
-margin_right = 424.0
-margin_bottom = 357.0
+visible = false
+margin_top = 413.0
+margin_right = 625.0
+margin_bottom = 433.0
 rect_min_size = Vector2( 0, 20 )
 
 [node name="Description" type="Label" parent="Inventory/CenterContainer/VBoxContainer"]
-margin_top = 361.0
-margin_right = 424.0
-margin_bottom = 423.0
+margin_top = 413.0
+margin_right = 625.0
+margin_bottom = 475.0
 custom_fonts/font = SubResource( 8 )
 text = "Description"
 align = 1
@@ -252,6 +267,24 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Spacer4" type="Control" parent="Inventory/CenterContainer/VBoxContainer"]
+margin_top = 479.0
+margin_right = 625.0
+margin_bottom = 499.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="Controls" type="TextureRect" parent="Inventory"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -600.0
+margin_top = -400.0
+margin_right = 600.0
+margin_bottom = 400.0
+texture = ExtResource( 9 )
 
 [connection signal="pressed" from="Preturn/ReadyButton" to="." method="_on_ReadyButton_pressed"]
 [connection signal="timeout" from="DeathToast/DeathToastTimer" to="." method="_on_DeathToastTimer_timeout"]
