@@ -64,17 +64,20 @@ one_shot = true
 autostart = true
 
 [node name="DetectionArea" type="Area2D" parent="."]
+visible = false
 
 [node name="DetectionPolygon" type="CollisionPolygon2D" parent="DetectionArea"]
 polygon = PoolVector2Array( 21, -251, 147, -223, 234, -102, 244, 78, 122, 219, -46, 229, -183, 174, -253, 51, -236, -119, -99, -230 )
 
 [node name="ExplosionArea" type="Area2D" parent="."]
+visible = false
 
 [node name="ExplosionPoly" type="CollisionPolygon2D" parent="ExplosionArea"]
 scale = Vector2( 2.6, 2.6 )
 polygon = PoolVector2Array( -51, 61, -52, 40, -77, 43, -65, 20, -83, 4, -64, -10, -81, -26, -62, -38, -54, -54, -41, -49, -33, -72, -15, -65, 2, -80, 13, -75, 19, -66, 53, -70, 45, -44, 70, -43, 61, -24, 83, -15, 77, -2, 63, 7, 80, 26, 53, 30, 58, 60, 29, 51, 23, 67, 8, 80, -7, 62, -27, 75, -27, 51 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 1 )
 disabled = true
 

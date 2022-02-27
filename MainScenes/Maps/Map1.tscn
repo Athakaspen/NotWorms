@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/Terrain.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/ChestSpawner.gd" type="Script" id=2]
@@ -8,6 +8,9 @@
 [ext_resource path="res://MainScenes/LevelUI.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scripts/ProjectileHolder.gd" type="Script" id=7]
 [ext_resource path="res://SubScenes/Chest.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Sprites/Fredbot.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/miohairpin-trans.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/zoombini.png" type="Texture" id=11]
 
 [node name="Map1" type="Node2D"]
 script = ExtResource( 3 )
@@ -18,6 +21,21 @@ z_index = -100
 [node name="Polygon2D" type="Polygon2D" parent="Decor"]
 color = Color( 0.733333, 0.447059, 0.101961, 1 )
 polygon = PoolVector2Array( -45, 1003, 102, 1011, 261, 1033, 431, 1061, 574, 1098, 672, 1131, 740, 1185, 800, 1282, 868, 1358, 970, 1388, 1069, 1400, 1166, 1368, 1248, 1365, 1297, 1379, 1400, 1376, 1487, 1353, 1574, 1290, 1785, 1169, 1863, 1095, 1956, 1025, 2136, 1001, 2284, 1025, 2350, 1086, 2413, 1191, 2487, 1296, 2527, 1377, 2590, 1422, 2683, 1430, 2754, 1430, 2791, 1426, 2826, 1410, 2868, 1385, 2908, 1352, 2955, 1295, 2978, 1234, 2990, 1161, 2995, 988, 3049, 899, 3139, 841, 3294, 783, 3482, 730, 3655, 697, 3807, 678, 3927, 655, 4064, 617, 4200, 591, 4181, 2113, -32, 2114 )
+
+[node name="Miohairpin-trans" type="Sprite" parent="Decor"]
+position = Vector2( 4036, 1389 )
+scale = Vector2( 0.428571, 0.428571 )
+texture = ExtResource( 10 )
+
+[node name="Fredbot" type="Sprite" parent="Decor"]
+position = Vector2( 972, 1485 )
+scale = Vector2( 0.292, 0.292 )
+texture = ExtResource( 9 )
+
+[node name="Zoombini" type="Sprite" parent="Decor"]
+position = Vector2( 168, 947 )
+scale = Vector2( 0.378906, 0.378906 )
+texture = ExtResource( 11 )
 
 [node name="Terrain" type="Node2D" parent="."]
 script = ExtResource( 1 )
