@@ -109,7 +109,7 @@ func set_team_mode(mode : String):
 		"off":
 			MIN_TEAM_IDX = 0
 			MAX_TEAM_IDX = len(team_list)-1
-			$Team.visible = false
+			$Team.visible = true
 		"two":
 			MIN_TEAM_IDX = 1
 			MAX_TEAM_IDX = 2
@@ -150,7 +150,11 @@ func _set_sticky(value : bool):
 func _on_focus_entered():
 	_is_focused = true
 	$Label.modulate = color_focused
+	$Team.modulate = color_focused
+	$UpArrow.modulate = color_focused
+	$DownArrow.modulate = color_focused
 
 func _on_focus_exited():
 	_is_focused = false
 	$Label.modulate = color_normal
+	$Team.modulate = color_normal

@@ -1,6 +1,6 @@
 [gd_scene format=2]
 
-[node name="BOb" type="Node2D"]
+[node name="Bob" type="Node2D"]
 
 [node name="normal" type="Polygon2D" parent="."]
 position = Vector2( -6, 11 )

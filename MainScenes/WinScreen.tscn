@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Fonts/TestFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Theme/Fonts/GoudyStout48.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scripts/WinScreen.gd" type="Script" id=2]
 [ext_resource path="res://SubScenes/Menu/WinScreenCharacter.tscn" type="PackedScene" id=3]
 

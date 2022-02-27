@@ -1,23 +1,22 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Menu/PlusMinus.gd" type="Script" id=1]
-[ext_resource path="res://Sprites/downarrowf.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/plus-green.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/minus.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/plus.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/minus-red.png" type="Texture" id=5]
 
 [node name="PlusMinus" type="VBoxContainer"]
 margin_right = 128.0
 margin_bottom = 440.0
 rect_min_size = Vector2( 64, 0 )
+custom_constants/separation = 60
 alignment = 1
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Plus" type="TextureButton" parent="."]
 margin_right = 128.0
-margin_bottom = 218.0
+margin_bottom = 190.0
 focus_neighbour_bottom = NodePath("../Minus")
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -27,14 +26,14 @@ texture_focused = ExtResource( 2 )
 expand = true
 
 [node name="Minus" type="TextureButton" parent="."]
-margin_top = 222.0
+margin_top = 250.0
 margin_right = 128.0
 margin_bottom = 440.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 action_mode = 0
 texture_normal = ExtResource( 3 )
-texture_focused = ExtResource( 2 )
+texture_focused = ExtResource( 5 )
 expand = true
 
 [connection signal="pressed" from="Plus" to="." method="_on_Plus_pressed"]
