@@ -209,6 +209,14 @@ func die(source_player : String):
 	grave.position = player_body.position
 	MatchInfo.chest_holder.call_deferred("add_child", grave)
 	
+	# Check for team wipe
+	var is_team_wipe = true
+	for player in MatchInfo.player_info.values():
+		if player.team == self.team and not player.is_dead:
+			is_team_wipe = false
+	if is_team_wipe:
+		turn_queue.level.UI.do_wipetoast(team)
+	
 	if not is_my_turn:
 		
 		# Replace queue_free with remove_child. A reference to the player node

@@ -43,7 +43,10 @@ var turn_duration : float = 12.0
 # The visible timer runs out coyote_time seconds before turn ends
 var coyote_time : float = 0.25
 # Starting health of each player
-var starting_health : int = 1
+var starting_health : int = 100
+# How often chests will drop
+# values are "rare", "normal", "max"
+var chest_freq = "normal"
 
 var starting_inventory = {
 	"bomb": 69,
@@ -146,6 +149,14 @@ func get_chest_contents() -> Dictionary:
 	return Utilities.rand_choice([{"rocket": 1}, {"candle": 1}, {"bag": 1}])
 
 func get_turns_til_next_chest() -> int:
+	match chest_freq:
+		"rare":
+			return randi() % 5 + 2
+		"normal":
+			return randi() % 3 + 1
+		"max":
+			return 1
+	print("Unexpected chest_freq, defaulting to normal")
 	return randi() % 3 + 1
 
 # Set the name of the winner, for use on winscreen
@@ -180,5 +191,6 @@ func rec_death(dead_player:String, killing_player:String = "UNDEFINED"):
 	kill_count[killing_player] += 1
 	killed_by[dead_player] = killing_player
 
+# warning-ignore:unused_argument
 func rec_damage(victim:String, culprit:String, amount:int):
 	damage_dealt[culprit] += amount

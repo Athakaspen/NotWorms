@@ -19,7 +19,7 @@ var WeaponData = {
 	},
 	"candle":{
 		"pretty_name": "Roman Candle",
-		"description": "Barrage of rapid-fire,\nlow-damage projectiles.",
+		"description": "Barrage of low-damage,\nshort-range projectiles.",
 		"damage": "XX",
 		"icon": "res://icon.png",
 		"resource": "res://SubScenes/Weapons/RomanCandle.tscn"
@@ -44,6 +44,17 @@ var PlayerModels = {
 
 var TeamIDs = ["normal", "red", "blue", "green"]
 
+# Map info
+var Maps = {
+	"The Garden": {
+		"path": "res://MainScenes/Maps/Map1.tscn",
+		"image": "res://Sprites/plus-green.png"
+	},
+	"The Pit": {
+		"path": "res://MainScenes/Maps/Map2.tscn",
+		"image": "res://Sprites/crosshair.png"
+	}
+}
 
 
 # Called when the node enters the scene tree for the first time.

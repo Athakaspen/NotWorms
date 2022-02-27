@@ -45,4 +45,4 @@ func update_entry_teammodes(mode:String):
 
 func _on_StartButton_pressed():
 # warning-ignore:return_value_discarded
-	get_tree().change_scene("res://MainScenes/Maps/Map1.tscn")
+	get_tree().change_scene("res://MainScenes/MapMenu.tscn")

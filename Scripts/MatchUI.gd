@@ -29,12 +29,13 @@ func _ready():
 	self.visible = false
 	
 	$DeathToast.visible = false
+	$WipeToast.visible = false
 	$Inventory.visible = false
 
 func _input(event):
 	# This is really bad, should be updated
-	if event.is_action_pressed("ready") and $Preturn.visible and $Preturn/ReadyButton.visible:
-		emit_signal("start_turn")
+#	if event.is_action_pressed("ready") and $Preturn.visible and $Preturn/ReadyButton.visible:
+#		emit_signal("start_turn")
 #	if event.is_action_pressed("ready") and $Turn.visible and $Turn/EndTurnButton.visible:
 #		_on_EndTurnButton_pressed()
 	if event.is_action_pressed("menu_next") and in_inventory:
@@ -50,13 +51,24 @@ func set_timer_progress(value:float):
 
 func set_current_player_name(value:String):
 	cur_player = value
-	$Turn/TurnLabelCorner.text = cur_player + "'s Turn!"
-	$Preturn/TurnLabelCenter.text = cur_player + "'s Turn!"
+	$Turn/TurnLabelCorner.text = cur_player + "'s Turn"
+	$Preturn/TurnLabelCenter.text = cur_player + "'s Turn"
 
 func do_deathtoast(playername:String) -> void:
 	$DeathToast/Text.text = playername + " has Died!"
 	$DeathToast.visible = true
 	$DeathToast/DeathToastTimer.start()
+
+func do_wipetoast(team:String) -> void:
+	match team:
+		"red" : 
+			$WipeToast/Text.text = "The Red Team has been Eliminated!"
+		"blue" : 
+			$WipeToast/Text.text = "The Blue Team has been Eliminated!"
+		"green" : 
+			$WipeToast/Text.text = "The Green Team has been Eliminated!"
+	$WipeToast.visible = true
+	$WipeToast/WipeToastTimer.start()
 
 func init_preturn():
 	in_postturn = false
@@ -69,6 +81,7 @@ func init_preturn():
 	yield(get_tree().create_timer(1.0), "timeout")
 	if in_preturn:
 		$Preturn/ReadyButton.visible = true
+		$Preturn/ReadyButton.grab_focus()
 
 func init_turn():
 	in_preturn = false
@@ -78,11 +91,13 @@ func init_turn():
 	
 	$Turn/TurnTimer.visible = true
 	
+	$Turn/EndTurnLabel.visible = true
+	
 	# wait a sec before showing the end turn button
-	$Turn/EndTurnButton.visible = false
-	yield(get_tree().create_timer(1.0), "timeout")
-	if in_turn:
-		$Turn/EndTurnButton.visible = true
+#	$Turn/EndTurnLabel.visible = false
+#	yield(get_tree().create_timer(1.0), "timeout")
+#	if in_turn:
+#		$Turn/EndTurnLabel.visible = true
 
 func show_inventory(inventory_data, cur_weapon):
 	assert(in_turn or in_preturn, \
@@ -144,13 +159,16 @@ func init_postturn():
 	in_turn = false
 	in_postturn = true
 	$Turn/TurnTimer.visible = false
-	$Turn/EndTurnButton.visible = false
+	$Turn/EndTurnLabel.visible = false
 
 #func _on_EndTurnButton_pressed():
 #	level.turn_queue.end_turn()
-#
-#func _on_ReadyButton_pressed():
-#	emit_signal("start_turn")
+
+func _on_ReadyButton_pressed():
+	emit_signal("start_turn")
 
 func _on_DeathToastTimer_timeout():
 	$DeathToast.visible = false
+
+func _on_WipeToastTimer_timeout():
+	$WipeToast.visible = false

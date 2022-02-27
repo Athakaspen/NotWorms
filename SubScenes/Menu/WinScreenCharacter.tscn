@@ -19,7 +19,6 @@ font_data = ExtResource( 1 )
 margin_left = 132.0
 margin_right = 416.0
 margin_bottom = 440.0
-focus_mode = 2
 size_flags_horizontal = 7
 size_flags_vertical = 7
 custom_constants/separation = 16

@@ -287,5 +287,5 @@ func get_camera_point() -> Vector2:
 	return cam_point
 
 func end_turn() -> void:
-	print("Turn ended by external caller (this shouldn't happen anymore)")
+	print("Turn ended by external caller (probably the UI)")
 	active_player.end_turn()
