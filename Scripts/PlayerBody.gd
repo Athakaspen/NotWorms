@@ -245,7 +245,8 @@ func load_player_model(model_id : String, team : String = "normal"):
 	model.remove_child(collider)
 	add_child(collider)
 	
-	parent.set_gamertag(model.name)
+	# Get unique name
+	parent.set_gamertag(MatchInfo.get_unique_tag(model.name))
 	
 	# free model to prevent leaks
 	model.queue_free()

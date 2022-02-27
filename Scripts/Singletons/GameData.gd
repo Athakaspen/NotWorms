@@ -7,7 +7,7 @@ var WeaponData = {
 		"pretty_name": "Bouncy Bomb",
 		"description": "Not the best weapon, but you seem to have a lot of these.\nBlows up after 3 seconds.",
 		"damage": "XX",
-		"icon": "res://icon.png",
+		"icon": "res://Sprites/bomb.png",
 		"resource": "res://SubScenes/Weapons/BouncyBomb.tscn"
 	},
 	"rocket":{
@@ -21,14 +21,14 @@ var WeaponData = {
 		"pretty_name": "Roman Candle",
 		"description": "Barrage of low-damage,\nshort-range projectiles.",
 		"damage": "XX",
-		"icon": "res://icon.png",
+		"icon": "res://Sprites/candle.png",
 		"resource": "res://SubScenes/Weapons/RomanCandle.tscn"
 	},
 	"bag":{
 		"pretty_name": "Bomb Bag",
 		"description": "Found in a cave somewhere.\nReleases bombs on impact.",
 		"damage": "XX",
-		"icon": "res://icon.png",
+		"icon": "res://Sprites/bag.png",
 		"resource": "res://SubScenes/Weapons/BombBag.tscn"
 	}
 }

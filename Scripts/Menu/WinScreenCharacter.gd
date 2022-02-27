@@ -48,5 +48,6 @@ func update_portrait():
 	if player_model != null:
 		player_model.global_position = \
 			portrait.rect_global_position + (portrait.rect_size / 2.0) \
-			+ Vector2(-6, 11) * model_scale / 2.0
+			+ Vector2(-6, 11) * model_scale / 2.0 \
+			+ Vector2.DOWN * 20
 		player_model.scale = Vector2(1,1) * model_scale

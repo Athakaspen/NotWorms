@@ -17,6 +17,9 @@ var player_models = ["chicken1", "chicken1", "chicken1", "chicken1", "chicken1",
 var player_teams = ["normal", "normal", "normal", "normal", "normal", "normal"]
 var player_res = preload("res://SubScenes/Player/Player.tscn")
 
+#this is used to give everyone unique tags
+var used_tags = []
+
 var projectile_holder : Node2D
 var terrain_holder : Node2D
 var chest_holder : Node2D
@@ -74,6 +77,7 @@ func initialize_match(turn_queue:TurnQueue) -> void:
 	winning_team = "NULL"
 #	print(num_players)
 	var player_list = []
+	used_tags = []
 	for i in range(num_players):
 		var new_player = player_res.instance()
 		turn_queue.add_child(new_player)
@@ -139,8 +143,15 @@ func initialize_match(turn_queue:TurnQueue) -> void:
 	chest_holder = turn_queue.level.get_node("ChestHolder")
 	chest_spawner = turn_queue.level.get_node("ChestSpawner")
 	game_camera = turn_queue.level.get_node("GameCamera")
-	
 
+func get_unique_tag(tag:String):
+	if tag in used_tags:
+		var i=1
+		while tag + str(i) in used_tags:
+			i+=1
+		tag = tag + str(i)
+	used_tags.append(tag)
+	return tag
 
 func get_starting_inventory() -> Dictionary:
 	return starting_inventory.duplicate()

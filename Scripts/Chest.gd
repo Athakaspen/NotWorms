@@ -26,7 +26,7 @@ func _on_Chest_body_entered(body):
 			var popup = popup_res.instance()
 			get_parent().add_child(popup)
 			popup.set_text("+" + str(contents[item]) + " " + GameData.WeaponData[item]["pretty_name"])
-			popup.set_color(Color.black)
+			popup.set_color(Color.green)
 			popup.set_lifespan(2.0)
 			popup.position = self.position
 			yield(get_tree().create_timer(0.5), "timeout")

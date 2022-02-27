@@ -84,7 +84,7 @@ func _change_char(offset:int):
 	$Label.text = player_model.name
 	update_portrait()
 	_change_team(0) # update the new model to the current team
-	emit_signal("character_changed", get_index()-1, char_list[_cur_char_index])
+	emit_signal("character_changed", get_index(), char_list[_cur_char_index])
 
 func _change_team(offset:int):
 	_cur_team_index = \
@@ -96,7 +96,7 @@ func _change_team(offset:int):
 		child.visible = false
 	player_model.get_node(team_list[_cur_team_index]).visible = true
 	update_team_text()
-	emit_signal("team_changed", get_index()-1, team_list[_cur_team_index])
+	emit_signal("team_changed", get_index(), team_list[_cur_team_index])
 
 func update_team_text():
 	if _is_active:

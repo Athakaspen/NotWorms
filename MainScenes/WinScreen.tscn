@@ -26,53 +26,53 @@ custom_constants/separation = 60
 alignment = 1
 
 [node name="Title" type="Label" parent="UI"]
-margin_top = 13.0
+margin_top = 7.0
 margin_right = 1802.0
-margin_bottom = 79.0
+margin_bottom = 73.0
 custom_fonts/font = ExtResource( 1 )
 text = "PlayerX Wins!"
 align = 1
 
 [node name="PlayerHolder" type="HBoxContainer" parent="UI"]
-margin_top = 139.0
+margin_top = 133.0
 margin_right = 1802.0
-margin_bottom = 782.0
+margin_bottom = 789.0
 
 [node name="CharacterSelect" parent="UI/PlayerHolder" instance=ExtResource( 3 )]
 margin_left = 0.0
 margin_right = 297.0
-margin_bottom = 643.0
+margin_bottom = 656.0
 
 [node name="CharacterSelect2" parent="UI/PlayerHolder" instance=ExtResource( 3 )]
 margin_left = 301.0
 margin_right = 598.0
-margin_bottom = 643.0
+margin_bottom = 656.0
 
 [node name="CharacterSelect3" parent="UI/PlayerHolder" instance=ExtResource( 3 )]
 margin_left = 602.0
 margin_right = 899.0
-margin_bottom = 643.0
+margin_bottom = 656.0
 
 [node name="CharacterSelect4" parent="UI/PlayerHolder" instance=ExtResource( 3 )]
 margin_left = 903.0
 margin_right = 1200.0
-margin_bottom = 643.0
+margin_bottom = 656.0
 
 [node name="CharacterSelect5" parent="UI/PlayerHolder" instance=ExtResource( 3 )]
 margin_left = 1204.0
 margin_right = 1501.0
-margin_bottom = 643.0
+margin_bottom = 656.0
 
 [node name="CharacterSelect6" parent="UI/PlayerHolder" instance=ExtResource( 3 )]
 margin_left = 1505.0
 margin_right = 1802.0
-margin_bottom = 643.0
+margin_bottom = 656.0
 
 [node name="MainMenuButton" type="Button" parent="UI"]
 margin_left = 571.0
-margin_top = 842.0
+margin_top = 849.0
 margin_right = 1231.0
-margin_bottom = 1008.0
+margin_bottom = 1015.0
 rect_min_size = Vector2( 660, 160 )
 size_flags_horizontal = 4
 theme = ExtResource( 4 )

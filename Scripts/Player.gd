@@ -36,7 +36,7 @@ func _ready():
 	health = MAX_HEALTH
 	update_healthbar()
 	inventory_contents = MatchInfo.get_starting_inventory()
-	player_body.load_player_model(player_model)
+#	player_body.load_player_model(player_model)
 
 func _process(_delta):
 	# ah cahnt dyu aneethin if ahm ded
@@ -144,6 +144,9 @@ func get_body() -> Node:
 func get_gamertag() -> String:
 	return tag.get_node("VBoxContainer/Nametag").text
 
+func set_gamertag(gamertag: String) -> void:
+	tag.set_player_name(gamertag)
+
 func get_timer_progress() -> float:
 	# Return 1 if the timer is stopped (hasn't started yet)
 	if turn_timer.is_stopped(): return 1.0
@@ -177,9 +180,6 @@ func do_damage(value:int, source_player:String = "UNDEFINED") -> void:
 	if health == 0:
 		die(source_player)
 
-func set_gamertag(gamertag: String) -> void:
-	tag.set_player_name(gamertag)
-
 func set_team(new_team : String):
 	self.team = new_team
 	# Change color if this is a team match
@@ -210,12 +210,13 @@ func die(source_player : String):
 	MatchInfo.chest_holder.call_deferred("add_child", grave)
 	
 	# Check for team wipe
-	var is_team_wipe = true
-	for player in MatchInfo.player_info.values():
-		if player.team == self.team and not player.is_dead:
-			is_team_wipe = false
-	if is_team_wipe:
-		turn_queue.level.UI.do_wipetoast(team)
+	if MatchInfo.TEAM_MODE != "off":
+		var is_team_wipe = true
+		for player in MatchInfo.player_info.values():
+			if player.team == self.team and not player.is_dead:
+				is_team_wipe = false
+		if is_team_wipe:
+			turn_queue.level.UI.do_wipetoast(team)
 	
 	if not is_my_turn:
 		

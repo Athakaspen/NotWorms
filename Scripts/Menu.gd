@@ -21,6 +21,8 @@ func _on_StartButton_pressed():
 # warning-ignore:return_value_discarded
 	get_tree().change_scene(start_path)
 
-
 func _on_CreditsButton_pressed():
 	get_tree().change_scene("res://MainScenes/Credits.tscn")
+
+func _on_ControlsButton_pressed():
+	get_tree().change_scene("res://MainScenes/Controls.tscn")
