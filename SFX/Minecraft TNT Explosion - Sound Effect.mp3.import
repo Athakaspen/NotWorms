@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Minecraft TNT Explosion - Sound Effect.mp3-d402ec0a60f4ebcf0c4fa63cdce816fc.mp3str"
+
+[deps]
+
+source_file="res://SFX/Minecraft TNT Explosion - Sound Effect.mp3"
+dest_files=[ "res://.import/Minecraft TNT Explosion - Sound Effect.mp3-d402ec0a60f4ebcf0c4fa63cdce816fc.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

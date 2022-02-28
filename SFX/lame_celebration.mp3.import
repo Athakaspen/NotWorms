@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/lame_celebration.mp3-6a5b428f1daee652a06de05b32afc7ec.mp3str"
+
+[deps]
+
+source_file="res://SFX/lame_celebration.mp3"
+dest_files=[ "res://.import/lame_celebration.mp3-6a5b428f1daee652a06de05b32afc7ec.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

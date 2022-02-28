@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/FireworkWhistle.mp3-8bea364960820744baa18e0cb99ea68b.mp3str"
+
+[deps]
+
+source_file="res://SFX/FireworkWhistle.mp3"
+dest_files=[ "res://.import/FireworkWhistle.mp3-8bea364960820744baa18e0cb99ea68b.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

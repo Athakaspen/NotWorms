@@ -115,7 +115,7 @@ func chunkify_terrain() -> void:
 	var chunk_array = []
 	
 	for terrain_obj in get_children():
-		print(terrain_obj)
+#		print(terrain_obj)
 		# Skip items that have been hidden in the editor
 		if not terrain_obj.visible: continue
 		

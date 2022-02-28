@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Rollin at 5.mp3-316fe39d00b53c7f1c644b21dbdf56a5.mp3str"
+
+[deps]
+
+source_file="res://SFX/Music/Rollin at 5.mp3"
+dest_files=[ "res://.import/Rollin at 5.mp3-316fe39d00b53c7f1c644b21dbdf56a5.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

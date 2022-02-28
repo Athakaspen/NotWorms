@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/airhown.mp3-a9541c4f0cabc591ec020da7d9324648.mp3str"
+
+[deps]
+
+source_file="res://SFX/airhown.mp3"
+dest_files=[ "res://.import/airhown.mp3-a9541c4f0cabc591ec020da7d9324648.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

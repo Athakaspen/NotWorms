@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Ouroboros.mp3-b37489297b68d0246719004b70b7aa14.mp3str"
+
+[deps]
+
+source_file="res://SFX/Music/Ouroboros.mp3"
+dest_files=[ "res://.import/Ouroboros.mp3-b37489297b68d0246719004b70b7aa14.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -51,6 +51,8 @@ var starting_health : int = 100
 # values are "rare", "normal", "max"
 # ACTUALLY, applies to all items
 var chest_freq = "normal"
+#The music track to play
+var music_track : String = "Random"
 
 var starting_inventory = {
 	"bomb": 69,
@@ -96,6 +98,13 @@ func initialize_match(turn_queue:TurnQueue) -> void:
 		player_list.append(new_player)
 	kill_count["UNDEFINED"] = 0
 	damage_dealt["UNDEFINED"] = 0
+	
+	# Start Music
+	Music.stop_music()
+	if music_track == "Random":
+		Music.start_random_music()
+	else:
+		Music.start_music(music_track)
 	
 	# Place players at spawn points
 	# This is gonna get messy
