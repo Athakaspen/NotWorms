@@ -114,10 +114,12 @@ func show_inventory(inventory_data, cur_weapon):
 	# Default to normal inventory
 	$Inventory/Controls.visible = false
 	$Inventory/CenterContainer.visible = true
+#	Music.set_speed(0.9)
 
 func hide_inventory() -> String:
 	$Inventory.visible = false
 	in_inventory = false
+#	Music.set_speed(1.0)
 	if cur_entry == null:
 		return "UNDEFINED"
 	return cur_entry.id_string
@@ -126,6 +128,8 @@ func update_inventory(data, cur_weapon):
 	# Clear the existing list
 	Utilities.queue_free_children(inv_list)
 	
+	# whether we found the cur_weapon in the list
+	var weapon_found = false
 	for weapon in data:
 		if data[weapon] > 0:
 			# Create an inventory entry for each weapon with more than 1 ammo
@@ -138,11 +142,15 @@ func update_inventory(data, cur_weapon):
 			new_entry.set_icon(GameData.WeaponData[weapon]["icon"])
 			inv_list.add_child(new_entry)
 			if weapon == cur_weapon:
+				weapon_found = true
 				new_entry.set_active(true)
 				cur_entry = new_entry
 				inv_info_name.text = cur_entry.pretty_name
 				inv_info_desc.text = cur_entry.description
 				inv_info_count.text = str(cur_entry.count)
+	
+	if not weapon_found:
+		cur_entry = inv_list.get_child(0)
 #	$Inventory/CenterContainer/VBoxContainer/Name.text = str(data["bomb"]["pretty_name"])
 #	$Inventory/CenterContainer/VBoxContainer/Description.text = str(data["candle"]["description"])
 #	$Inventory/CenterContainer/VBoxContainer/Count.text = str(data["rocket"]["count"])

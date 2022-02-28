@@ -26,15 +26,15 @@ anchor_bottom = 1.0
 alignment = 1
 
 [node name="MapSelect" parent="VBoxContainer" instance=ExtResource( 6 )]
-margin_top = 41.0
-margin_bottom = 550.0
+margin_top = 34.0
+margin_bottom = 543.0
 focus_neighbour_top = NodePath("../StartButton")
 alignment = 1
 
 [node name="TurnLength" type="Label" parent="VBoxContainer"]
-margin_top = 554.0
+margin_top = 547.0
 margin_right = 1920.0
-margin_bottom = 624.0
+margin_bottom = 617.0
 focus_mode = 2
 custom_fonts/font = SubResource( 1 )
 text = "Turn Length"
@@ -46,9 +46,9 @@ choice_list = [ "4 sec", "6 sec", "8 sec", "10 sec", "12 sec", "15 sec", "20 sec
 can_loop = false
 
 [node name="Health" type="Label" parent="VBoxContainer"]
-margin_top = 628.0
+margin_top = 621.0
 margin_right = 1920.0
-margin_bottom = 698.0
+margin_bottom = 691.0
 custom_fonts/font = SubResource( 1 )
 text = "Starting Health"
 align = 1
@@ -59,9 +59,9 @@ choice_list = [ "1", "50", "80", "100", "150", "200", "500" ]
 can_loop = false
 
 [node name="ChestFreq" type="Label" parent="VBoxContainer"]
-margin_top = 702.0
+margin_top = 695.0
 margin_right = 1920.0
-margin_bottom = 772.0
+margin_bottom = 765.0
 custom_fonts/font = SubResource( 1 )
 text = "Item Frequency"
 align = 1
@@ -72,9 +72,9 @@ choice_list = [ "Rare", "Normal", "Max" ]
 can_loop = false
 
 [node name="Music" type="Label" parent="VBoxContainer"]
-margin_top = 776.0
+margin_top = 769.0
 margin_right = 1920.0
-margin_bottom = 846.0
+margin_bottom = 839.0
 custom_fonts/font = SubResource( 1 )
 text = "Music"
 align = 1
@@ -84,17 +84,16 @@ default_index = 1
 choice_list = [ "None", "Random", "Ouroboros", "Raving Energy", "Robobozo", "Rollin at 5" ]
 
 [node name="Spacer" type="Control" parent="VBoxContainer"]
-visible = false
-margin_top = 823.0
+margin_top = 843.0
 margin_right = 1920.0
-margin_bottom = 873.0
-rect_min_size = Vector2( 0, 50 )
+margin_bottom = 853.0
+rect_min_size = Vector2( 0, 10 )
 
 [node name="StartButton" type="Button" parent="VBoxContainer"]
 margin_left = 709.0
-margin_top = 850.0
+margin_top = 857.0
 margin_right = 1210.0
-margin_bottom = 1039.0
+margin_bottom = 1046.0
 focus_neighbour_bottom = NodePath("../MapSelect")
 size_flags_horizontal = 4
 theme = ExtResource( 5 )

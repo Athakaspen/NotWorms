@@ -15,6 +15,10 @@ func _ready():
 			child.connect("character_changed", self, "_on_character_changed")
 			child.connect("team_changed", self, "_on_team_changed")
 	
+	# Reset match info
+	MatchInfo.player_models = ["chicken1", "chicken1", "chicken1", "chicken1", "chicken1", "chicken1"] 
+	MatchInfo.player_teams = ["normal", "normal", "normal", "normal", "normal", "normal"]
+	
 	cur_players = MatchInfo.num_players
 	# update the option label as well
 	var option = $"VBoxContainer/MarginContainer2/HBoxContainer/VBoxContainer/NumPlayers"

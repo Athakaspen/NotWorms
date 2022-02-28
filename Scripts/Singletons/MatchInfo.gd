@@ -57,7 +57,7 @@ var chest_freq = "normal"
 var music_track : String = "Random"
 
 var starting_inventory = {
-	"bomb": 69,
+	"bomb": 690,
 	"rocket": 1,
 	"candle": 1,
 	"bag": 1

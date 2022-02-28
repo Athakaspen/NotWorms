@@ -5,14 +5,14 @@ extends Node
 var WeaponData = {
 	"bomb":{
 		"pretty_name": "Bouncy Bomb",
-		"description": "Not the best weapon, but you seem to have a lot of these.\nBlows up after 3 seconds.",
+		"description": "Not the best, but you seem to have a lot of these.\nBlows up after 3 seconds.",
 		"damage": "XX",
 		"icon": "res://Sprites/bomb.png",
 		"resource": "res://SubScenes/Weapons/BouncyBomb.tscn"
 	},
 	"rocket":{
 		"pretty_name": "Rocket Launcher",
-		"description": "Long Range!\nExplodes on Impact!",
+		"description": "Long Range! Explodes on Impact!\n(Rocket Jumping not covered under warranty)",
 		"damage": "XX",
 		"icon": "res://Sprites/rocket.png",
 		"resource": "res://SubScenes/Weapons/RocketLauncher.tscn"

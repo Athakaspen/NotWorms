@@ -76,7 +76,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="MenuInfo" type="Label" parent="Preturn"]
+margin_left = 22.0
+margin_top = 16.0
+margin_right = 709.0
+margin_bottom = 82.0
+custom_fonts/font = SubResource( 6 )
+text = "[tab] or [RB] to open Inventory"
+
 [node name="Turn" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -125,6 +134,7 @@ align = 2
 valign = 2
 
 [node name="DeathToast" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -150,6 +160,7 @@ wait_time = 2.5
 one_shot = true
 
 [node name="WipeToast" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 __meta__ = {
@@ -172,6 +183,7 @@ wait_time = 2.5
 one_shot = true
 
 [node name="Inventory" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 

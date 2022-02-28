@@ -83,6 +83,7 @@ func set_state_preturn():
 	STATE = State.PRETURN
 	aim_point.visible = true
 	cur_stamina = MAX_STAMINA
+#	print(parent.inventory_contents)
 	if parent.inventory_contents[cur_weapon.id_string] == 0:
 		switch_weapon(default_weapon)
 	$RotPoint.visible = true

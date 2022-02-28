@@ -1,10 +1,17 @@
 extends Node
 
+var cur_speed = 1.0
+var goal_speed = 1.0
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	start_music("Ouroboros")
+
+func _process(delta):
+	cur_speed = lerp(cur_speed, goal_speed, 0.08)
+	for node in get_children():
+		node.pitch_scale = cur_speed
 
 func start_music(track:String):
 	get_node(track).playing = true
@@ -17,8 +24,7 @@ func stop_music():
 		node.playing = false
 
 func set_speed(value : float):
-	for node in get_children():
-		node.pitch_scale = value
+	goal_speed = value
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
