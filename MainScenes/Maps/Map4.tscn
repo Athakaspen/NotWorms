@@ -20,11 +20,11 @@ z_index = -100
 
 [node name="Polygon2D" type="Polygon2D" parent="Decor"]
 color = Color( 0.298039, 0.784314, 0.0784314, 1 )
-polygon = PoolVector2Array( 401, 2009, 276, 688, 1541, 856, 1479, 2017, 1481, 2202, 407, 2205 )
+polygon = PoolVector2Array( 401, 2009, 276, 688, 1541, 856, 1479, 2017, 1470, 2244, 423, 2241 )
 
 [node name="Polygon2D2" type="Polygon2D" parent="Decor"]
 color = Color( 0.631373, 0.219608, 0.886275, 1 )
-polygon = PoolVector2Array( 1977, 1993, 1993, 1761, 2124, 963, 1983, 617, 2561, 456, 2768, 860, 2924, 1990, 2933, 2207, 1972, 2205 )
+polygon = PoolVector2Array( 1977, 1993, 1993, 1761, 2124, 963, 1983, 617, 2561, 456, 2768, 860, 2924, 1990, 2932, 2241, 1973, 2244 )
 
 [node name="Noise" type="Sprite" parent="Decor"]
 position = Vector2( 2832, 2159 )
@@ -128,7 +128,7 @@ polygon = PoolVector2Array( 2559, 1753, 2867, 1748, 2880, 1781, 2593, 1785, 2574
 
 [node name="island" type="Polygon2D" parent="Terrain"]
 color = Color( 0.635294, 0.317647, 0.105882, 1 )
-polygon = PoolVector2Array( -5, 2032, 120, 1968, 2927.56, 1974.78, 3017, 2032, 3021, 2207, -8, 2204 )
+polygon = PoolVector2Array( -5, 2032, 120, 1968, 2927.56, 1974.78, 3017, 2032, 3020, 2239, -4, 2239 )
 
 [node name="SpawnPoints" type="Node2D" parent="."]
 
@@ -413,7 +413,7 @@ script = ExtResource( 7 )
 polygon = PoolVector2Array( -180, 2376, 3224, 2388, 3209, -1182, 3541, -1174, 3466, 2556, -385, 2541, -475, -1037, -227, -1021 )
 
 [node name="CameraLimit" type="Position2D" parent="."]
-position = Vector2( 3013, 2199 )
+position = Vector2( 3016, 2236 )
 __meta__ = {
 "_gizmo_extents_": 10000.0
 }

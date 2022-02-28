@@ -187,9 +187,9 @@ func get_turns_til_next_chest() -> int:
 func get_turns_til_next_barrel() -> int:
 	match chest_freq:
 		"rare":
-			return randi() % 5 + 4
+			return randi() % 6 + 4
 		"normal":
-			return randi() % 4 + 2
+			return randi() % 4 + 3
 		"max":
 			return 1
 	print("Unexpected chest_freq, defaulting to normal")
@@ -198,7 +198,7 @@ func get_turns_til_next_barrel() -> int:
 func get_turns_til_next_lettuce() -> int:
 	match chest_freq:
 		"rare":
-			return randi() % 5 + 4
+			return randi() % 6 + 4
 		"normal":
 			return randi() % 3 + 3
 		"max":
