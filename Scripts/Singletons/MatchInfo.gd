@@ -17,6 +17,8 @@ var player_models = ["chicken1", "chicken1", "chicken1", "chicken1", "chicken1",
 var player_teams = ["normal", "normal", "normal", "normal", "normal", "normal"]
 var player_res = preload("res://SubScenes/Player/Player.tscn")
 
+var SFX_res = preload("res://SFX/ExplosionSFX1.tscn")
+
 #this is used to give everyone unique tags
 var used_tags = []
 
@@ -103,6 +105,8 @@ func initialize_match(turn_queue:TurnQueue) -> void:
 	Music.stop_music()
 	if music_track == "Random":
 		Music.start_random_music()
+	elif music_track == "None":
+		pass
 	else:
 		Music.start_music(music_track)
 	
@@ -237,3 +241,10 @@ func rec_death(dead_player:String, killing_player:String = "UNDEFINED"):
 # warning-ignore:unused_argument
 func rec_damage(victim:String, culprit:String, amount:int):
 	damage_dealt[culprit] += amount
+
+func do_sound_effect(stream:AudioStream, position:Vector2, volume:float=0.0):
+	var sfx = SFX_res.instance()
+	sfx.position = position
+	sfx.stream = stream
+	sfx.volume_db = volume
+	MatchInfo.chest_holder.call_deferred("add_child", sfx)

@@ -5,6 +5,8 @@ var detection_margin = 30
 var explosion_poly
 
 var explosion_particles_res = preload("res://SubScenes/Weapons/ExplosionParticles.tscn")
+var explode_SFX_res = preload("res://SFX/MinecraftExplosion.mp3")
+var fuse_SFX_res = preload("res://SFX/MinecraftFuse.mp3")
 
 var explosion_force = 500
 var explosion_damage = 6
@@ -36,6 +38,10 @@ func _ready() -> void:
 	# torque_impulses when an object is first created
 	yield(get_tree().create_timer(0.05), "timeout")
 	apply_torque_impulse(rand_range(-1000, 1000))
+	
+	# SFX
+	yield(get_tree().create_timer(randf()/3.0), "timeout")
+	MatchInfo.do_sound_effect(fuse_SFX_res, position, 2)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -71,6 +77,9 @@ func explode() -> void:
 	particles.position = position
 	if not hit_terrain: particles.set_dirt_visible(false)
 	MatchInfo.projectile_holder.call_deferred("add_child", particles)
+	
+	# SFX
+	MatchInfo.do_sound_effect(explode_SFX_res, position, 2)
 	
 	call_deferred("queue_free")
 

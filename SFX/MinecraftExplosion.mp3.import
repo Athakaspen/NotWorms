@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/MinecraftExplosion.mp3-5a2a0310b6c49056a2e3e591d5932720.mp3str"
+
+[deps]
+
+source_file="res://SFX/MinecraftExplosion.mp3"
+dest_files=[ "res://.import/MinecraftExplosion.mp3-5a2a0310b6c49056a2e3e591d5932720.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

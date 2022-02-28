@@ -41,6 +41,8 @@ func _on_Music_value_changed(new_value):
 	# Preview
 	if new_value == "Random":
 		pass
+	elif new_value == "None":
+		Music.stop_music()
 	else:
 		Music.stop_music()
 		Music.start_music(new_value)

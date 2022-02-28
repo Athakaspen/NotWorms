@@ -11,5 +11,5 @@ dest_files=[ "res://.import/FireworkWhistle2.mp3-13ae878ee668d6760fb91bef81dd5c8
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

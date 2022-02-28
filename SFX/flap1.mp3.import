@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/flap1.mp3-9e760c1b03cc71a1266eb3cce0c5e15c.mp3str"
+
+[deps]
+
+source_file="res://SFX/flap1.mp3"
+dest_files=[ "res://.import/flap1.mp3-9e760c1b03cc71a1266eb3cce0c5e15c.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -9,6 +9,7 @@ var explosion_damage = 0 # This will be set by the gun
 var owning_player = "UNDEFINED"
 
 var explosion_particles_res = preload("res://SubScenes/Weapons/ExplosionParticles.tscn")
+var SFX_res = preload("res://SFX/firework-pop.mp3")
 
 # If we hit nothing in this long, explode
 var explosion_delay = 0.6
@@ -105,6 +106,9 @@ func explode() -> void:
 	particles.position = position
 	if not hit_terrain: particles.set_dirt_visible(false)
 	MatchInfo.projectile_holder.call_deferred("add_child", particles)
+	
+	# SFX
+	MatchInfo.do_sound_effect(SFX_res, position, 5.0)
 	
 	call_deferred("queue_free")
 

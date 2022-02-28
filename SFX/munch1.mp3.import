@@ -11,5 +11,5 @@ dest_files=[ "res://.import/munch1.mp3-5740239d0dddc4ab59daed2310b8ef12.mp3str" 
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

@@ -6,15 +6,37 @@ var contents = {}
 
 var grav
 
+var open_SFX_res = preload("res://SFX/clothBelt.ogg")
+
+var collide_SFX_res = [
+	preload("res://SFX/footstep_grass_000.ogg"),
+	preload("res://SFX/footstep_grass_001.ogg"),
+	preload("res://SFX/footstep_grass_002.ogg"),
+	preload("res://SFX/footstep_grass_003.ogg")
+]
+var sfx_threshold = 10.0
+var sfx_cooldown = 0.0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	contents = MatchInfo.get_chest_contents()
 	grav = gravity_scale
 	gravity_scale = 0.0
 
+func _process(delta):
+	sfx_cooldown -= delta
+
 func _on_Chest_body_entered(body):
-	if body.is_in_group("Player"):
+	if body.is_in_group("Ground") \
+	and abs(linear_velocity.length()) > sfx_threshold \
+	and sfx_cooldown <= 0:
+		MatchInfo.do_sound_effect(Utilities.rand_choice(collide_SFX_res), global_position, 1.0)
+		sfx_cooldown = 0.5
+	elif body.is_in_group("Player"):
 		body.parent.give(contents)
+		
+		# SFX
+		MatchInfo.do_sound_effect(open_SFX_res, global_position, 6.0)
 		
 		# pre-delete
 		self.sleeping = true

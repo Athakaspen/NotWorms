@@ -20,6 +20,10 @@ var projectile_force := 250
 var traj_length := 1.0
 
 var projectile_res = preload("res://SubScenes/Weapons/RomanCandle_Proj.tscn")
+var whistle_sfx_res = [
+	preload("res://SFX/FireworkWhistle2.mp3"),
+	preload("res://SFX/FireworkWhistle.mp3")
+]
 
 onready var shoot_point = $ShootPoint
 onready var traj_line = $TrajectoryLine
@@ -67,6 +71,10 @@ func shoot_helper():
 			if body.is_in_group("Ground") or body.is_in_group("Player"):
 				p.explode()
 				break
+		
+		# SFX
+		if randf() > 0.6:
+			MatchInfo.do_sound_effect(whistle_sfx_res[randi()%2], global_position, 2.0)
 		
 		# Push owner back
 		$"../..".apply_central_impulse(-p.transform.x * shoot_velocity * 0.12)

@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Minecraft TNT Explosion - Sound Effect.mp3-d402ec0a6
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

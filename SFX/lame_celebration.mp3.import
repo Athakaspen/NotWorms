@@ -11,5 +11,5 @@ dest_files=[ "res://.import/lame_celebration.mp3-6a5b428f1daee652a06de05b32afc7e
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

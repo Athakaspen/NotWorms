@@ -3,6 +3,7 @@ extends RigidBody2D
 var owning_player = "UNDEFINED"
 
 var explosion_particles_res = preload("res://SubScenes/Weapons/ExplosionParticles.tscn")
+var SFX_res = preload("res://SFX/MinecraftExplosion.mp3")
 
 # This var used for particles only
 var explosion_radius = 220
@@ -10,6 +11,15 @@ var explosion_damage = 25
 var explosion_force = 3500
 
 var fakebullet_res = preload("res://SubScenes/FakeBullet.tscn")
+
+var collide_SFX_res = [
+	preload("res://SFX/footstep_grass_000.ogg"),
+	preload("res://SFX/footstep_grass_001.ogg"),
+	preload("res://SFX/footstep_grass_002.ogg"),
+	preload("res://SFX/footstep_grass_003.ogg")
+]
+var sfx_threshold = 10.0
+var sfx_cooldown = 0.0
 
 var explosion_delay = 1.0 # sec
 
@@ -22,6 +32,16 @@ func _ready():
 	grav = gravity_scale
 	gravity_scale = 0.0
 	$ExplosionArea/ExplosionPoly.rotate(randf()*6.2)
+
+func _process(delta):
+	sfx_cooldown -= delta
+
+func _on_Chest_body_entered(body):
+	if body.is_in_group("Ground") \
+	and abs(linear_velocity.length()) > sfx_threshold \
+	and sfx_cooldown <= 0:
+		MatchInfo.do_sound_effect(Utilities.rand_choice(collide_SFX_res), global_position, 1.0)
+		sfx_cooldown = 0.5
 
 func do_damage(_value:int, source_player:String = "UNDEFINED"):
 	if not has_exploded:
@@ -67,7 +87,8 @@ func _explode() -> void:
 	if not hit_terrain: particles.set_dirt_visible(false)
 	MatchInfo.projectile_holder.call_deferred("add_child", particles)
 	
-	
+	# SFX
+	MatchInfo.do_sound_effect(SFX_res, global_position, 6.0)
 	
 	call_deferred("queue_free")
 
