@@ -52,23 +52,23 @@ valign = 1
 [node name="Terrain" type="Label" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -928.0
-margin_top = 400.0
-margin_right = 203.0
-margin_bottom = 601.0
+margin_left = -746.0
+margin_top = 378.0
+margin_right = 385.0
+margin_bottom = 579.0
 custom_fonts/font = SubResource( 2 )
-text = "Terrain System based on demos by
-MatMerda (Matterda) and MrEliptik"
+text = "Terrain System based on demos
+by MatMerda (Matterda) and MrEliptik"
 align = 1
 valign = 1
 
 [node name="Terrain3" type="Label" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = 166.0
-margin_top = 529.0
-margin_right = 947.0
-margin_bottom = 768.0
+margin_left = -972.0
+margin_top = 574.0
+margin_right = -191.0
+margin_bottom = 813.0
 custom_fonts/font = SubResource( 2 )
 text = "Turn System based on
 a tutorial by GDQuest"
@@ -78,12 +78,25 @@ valign = 1
 [node name="Terrain2" type="Label" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -926.0
+margin_left = -261.0
 margin_top = 586.0
-margin_right = 205.0
+margin_right = 870.0
 margin_bottom = 787.0
 custom_fonts/font = SubResource( 2 )
 text = "Fonts: Goudy Stout and Reggae One"
+align = 1
+valign = 1
+
+[node name="Terrain4" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -890.0
+margin_top = 815.0
+margin_right = 241.0
+margin_bottom = 1016.0
+custom_fonts/font = SubResource( 2 )
+text = "Music by Kevin MacLeod, SFX from
+ FreeSound and OpenGameArt.org"
 align = 1
 valign = 1
 
@@ -97,28 +110,28 @@ custom_fonts/font = SubResource( 3 )
 text = "Main Menu"
 
 [node name="Fredbot" type="TextureRect" parent="."]
-margin_left = 204.0
-margin_top = 188.0
-margin_right = 329.0
-margin_bottom = 368.0
+margin_left = 144.0
+margin_top = 240.0
+margin_right = 269.0
+margin_bottom = 420.0
 texture = ExtResource( 6 )
 expand = true
 
 [node name="GodotIcon" type="TextureRect" parent="."]
-margin_left = 1532.0
-margin_top = 234.0
-margin_right = 1734.0
-margin_bottom = 436.0
+margin_left = 1534.0
+margin_top = 247.0
+margin_right = 1736.0
+margin_bottom = 449.0
 texture = ExtResource( 5 )
 expand = true
 
 [node name="Godot" type="Label" parent="GodotIcon"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -243.0
-margin_top = 192.0
-margin_right = 244.0
-margin_bottom = 313.0
+margin_left = -238.0
+margin_top = 210.0
+margin_right = 249.0
+margin_bottom = 331.0
 custom_fonts/font = SubResource( 2 )
 text = "Made in Godot"
 align = 1

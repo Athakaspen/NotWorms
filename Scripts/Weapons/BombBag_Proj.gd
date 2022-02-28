@@ -101,7 +101,7 @@ func release_bombs():
 #	call_deferred("queue_free")
 
 func _on_Timer_timeout():
-	self.queue_free()
+	release_bombs()
 
 func _on_BombBag_Proj_body_entered(body):
 	if body.is_in_group("Destructible") or body.is_in_group("Damageable"):
