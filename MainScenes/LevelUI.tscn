@@ -1,23 +1,42 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://Fonts/TestFont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Theme/Fonts/GoudyStout48.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scripts/TurnTimer.gd" type="Script" id=2]
 [ext_resource path="res://Scripts/MatchUI.gd" type="Script" id=3]
 [ext_resource path="res://Sprites/whitecircle.png" type="Texture" id=4]
-[ext_resource path="res://Fonts/GOUDYSTO.TTF" type="DynamicFontData" id=5]
+[ext_resource path="res://Theme/GOUDYSTO.TTF" type="DynamicFontData" id=5]
 [ext_resource path="res://SubScenes/Menu/InventoryEntry.tscn" type="PackedScene" id=6]
+[ext_resource path="res://SubScenes/REGGAEONE-REGULAR.TTF" type="DynamicFontData" id=7]
+[ext_resource path="res://Theme/MainTheme.tres" type="Theme" id=8]
+[ext_resource path="res://Sprites/controllerLayout.png" type="Texture" id=9]
+
+[sub_resource type="DynamicFont" id=6]
+size = 42
+font_data = ExtResource( 7 )
 
 [sub_resource type="Gradient" id=2]
 offsets = PoolRealArray( 0.0731707, 0.334495, 0.519164, 0.832753 )
 colors = PoolColorArray( 1, 0.09375, 0.09375, 1, 0.992188, 1, 0, 1, 0.890944, 1, 0.00637755, 1, 0, 1, 0.0625, 1 )
 
-[sub_resource type="DynamicFont" id=3]
-size = 50
+[sub_resource type="DynamicFont" id=7]
+size = 42
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=10]
+size = 36
 font_data = ExtResource( 5 )
 
-[sub_resource type="DynamicFont" id=4]
-size = 28
-font_data = ExtResource( 5 )
+[sub_resource type="DynamicFont" id=11]
+size = 46
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=9]
+size = 64
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 42
+font_data = ExtResource( 7 )
 
 [sub_resource type="DynamicFont" id=5]
 size = 32
@@ -27,43 +46,48 @@ font_data = ExtResource( 5 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Preturn" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+anchor_right = 1.0
+anchor_bottom = 1.0
 
 [node name="TurnLabelCenter" type="Label" parent="Preturn"]
-margin_left = 716.0
-margin_top = 934.0
-margin_right = 1225.0
-margin_bottom = 979.0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -924.0
+margin_top = -94.0
+margin_right = 925.0
+margin_bottom = -28.0
 custom_fonts/font = ExtResource( 1 )
 text = "Player1's Turn!"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ReadyButton" type="Button" parent="Preturn"]
-margin_left = 805.0
-margin_top = 827.0
-margin_right = 1138.0
-margin_bottom = 920.0
+margin_left = 744.0
+margin_top = 802.0
+margin_right = 1179.0
+margin_bottom = 968.0
+theme = ExtResource( 8 )
 custom_fonts/font = ExtResource( 1 )
-text = "Ready (A)"
+text = "Ready"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="MenuInfo" type="Label" parent="Preturn"]
+margin_left = 22.0
+margin_top = 16.0
+margin_right = 709.0
+margin_bottom = 82.0
+custom_fonts/font = SubResource( 6 )
+text = "[tab] or [RB] to open Inventory"
+
 [node name="Turn" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -75,50 +99,56 @@ margin_right = 392.0
 margin_bottom = 67.0
 custom_fonts/font = ExtResource( 1 )
 text = "XXXX's Turn!"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="MenuInfo" type="Label" parent="Turn"]
+margin_left = 26.0
+margin_top = 88.0
+margin_right = 637.0
+margin_bottom = 154.0
+custom_fonts/font = SubResource( 6 )
+text = "[tab] or [RB] to open Inventory"
 
 [node name="TurnTimer" type="TextureProgress" parent="Turn"]
-margin_left = 1769.0
-margin_top = 21.0
-margin_right = 1897.0
-margin_bottom = 149.0
+margin_left = 1694.0
+margin_top = 37.0
+margin_right = 1822.0
+margin_bottom = 165.0
+rect_scale = Vector2( 1.5, 1.5 )
 max_value = 1.0
 step = 0.0
 value = 1.0
 texture_progress = ExtResource( 4 )
 fill_mode = 5
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 TimeGradient = SubResource( 2 )
 
-[node name="EndTurnButton" type="Button" parent="Turn"]
-margin_left = 1488.0
-margin_top = 1000.0
-margin_right = 1900.0
-margin_bottom = 1065.0
-custom_fonts/font = ExtResource( 1 )
-text = "End Turn (A)"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="EndTurnLabel" type="Label" parent="Turn"]
+margin_left = 1439.0
+margin_top = 990.0
+margin_right = 1887.0
+margin_bottom = 1052.0
+theme = ExtResource( 8 )
+custom_fonts/font = SubResource( 7 )
+text = "End Turn [X] [BKSP]"
+align = 2
+valign = 2
 
 [node name="DeathToast" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Text" type="Label" parent="DeathToast"]
-margin_left = 653.0
-margin_top = 202.0
-margin_right = 1248.0
-margin_bottom = 247.0
-custom_fonts/font = ExtResource( 1 )
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -721.0
+margin_top = 221.0
+margin_right = 728.0
+margin_bottom = 287.0
+custom_fonts/font = SubResource( 10 )
 text = "PlayerX has Died!"
 align = 1
 __meta__ = {
@@ -129,7 +159,7 @@ __meta__ = {
 wait_time = 2.5
 one_shot = true
 
-[node name="Inventory" type="Control" parent="."]
+[node name="WipeToast" type="Control" parent="."]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -137,55 +167,101 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Text" type="Label" parent="WipeToast"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -1172.0
+margin_top = 289.0
+margin_right = 1182.0
+margin_bottom = 355.0
+custom_fonts/font = SubResource( 10 )
+text = "The Green Team has been defeated!"
+align = 1
+
+[node name="WipeToastTimer" type="Timer" parent="WipeToast"]
+wait_time = 2.5
+one_shot = true
+
+[node name="Inventory" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
 [node name="ColorRect" type="ColorRect" parent="Inventory"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0.270588 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+color = Color( 0, 0, 0, 0.545098 )
 
 [node name="CenterContainer" type="CenterContainer" parent="Inventory"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Inventory/CenterContainer"]
-margin_left = 784.0
-margin_top = 450.0
-margin_right = 1135.0
-margin_bottom = 629.0
+margin_left = 647.0
+margin_top = 290.0
+margin_right = 1272.0
+margin_bottom = 789.0
+
+[node name="Controls" type="Label" parent="Inventory/CenterContainer/VBoxContainer"]
+margin_right = 625.0
+margin_bottom = 68.0
+custom_fonts/font = SubResource( 11 )
+text = "(Press Y to view controls)"
+align = 1
+
+[node name="Spacer3" type="Control" parent="Inventory/CenterContainer/VBoxContainer"]
+margin_top = 72.0
+margin_right = 625.0
+margin_bottom = 112.0
+rect_min_size = Vector2( 0, 40 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Inventory/CenterContainer/VBoxContainer"]
-margin_right = 351.0
-margin_bottom = 78.0
+margin_top = 116.0
+margin_right = 625.0
+margin_bottom = 307.0
+custom_constants/separation = 20
 alignment = 1
 
 [node name="Entry1" parent="Inventory/CenterContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 6 )]
-margin_left = 54.0
-margin_right = 132.0
+margin_left = 100.0
+margin_right = 228.0
+margin_bottom = 191.0
 
 [node name="Entry2" parent="Inventory/CenterContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 6 )]
+margin_left = 248.0
+margin_right = 376.0
+margin_bottom = 191.0
 
 [node name="Entry3" parent="Inventory/CenterContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 6 )]
-margin_left = 218.0
-margin_right = 296.0
+margin_left = 396.0
+margin_right = 524.0
+margin_bottom = 191.0
+
+[node name="Spacer" type="Control" parent="Inventory/CenterContainer/VBoxContainer"]
+margin_top = 311.0
+margin_right = 625.0
+margin_bottom = 311.0
 
 [node name="Name" type="Label" parent="Inventory/CenterContainer/VBoxContainer"]
-margin_top = 82.0
-margin_right = 351.0
-margin_bottom = 151.0
-custom_fonts/font = SubResource( 3 )
+margin_top = 315.0
+margin_right = 625.0
+margin_bottom = 409.0
+custom_fonts/font = SubResource( 9 )
 text = "NAME"
 align = 1
 
+[node name="Spacer2" type="Control" parent="Inventory/CenterContainer/VBoxContainer"]
+visible = false
+margin_top = 413.0
+margin_right = 625.0
+margin_bottom = 433.0
+rect_min_size = Vector2( 0, 20 )
+
 [node name="Description" type="Label" parent="Inventory/CenterContainer/VBoxContainer"]
-margin_top = 155.0
-margin_right = 351.0
-margin_bottom = 194.0
-custom_fonts/font = SubResource( 4 )
+margin_top = 413.0
+margin_right = 625.0
+margin_bottom = 475.0
+custom_fonts/font = SubResource( 8 )
 text = "Description"
 align = 1
 __meta__ = {
@@ -193,16 +269,35 @@ __meta__ = {
 }
 
 [node name="Count" type="Label" parent="Inventory/CenterContainer/VBoxContainer"]
-margin_top = 198.0
-margin_right = 351.0
-margin_bottom = 243.0
+visible = false
+margin_top = 314.0
+margin_right = 328.0
+margin_bottom = 359.0
 custom_fonts/font = SubResource( 5 )
-text = "Count: X"
+text = "Count: "
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Spacer4" type="Control" parent="Inventory/CenterContainer/VBoxContainer"]
+margin_top = 479.0
+margin_right = 625.0
+margin_bottom = 499.0
+rect_min_size = Vector2( 0, 20 )
+
+[node name="Controls" type="TextureRect" parent="Inventory"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -600.0
+margin_top = -400.0
+margin_right = 600.0
+margin_bottom = 400.0
+texture = ExtResource( 9 )
+
 [connection signal="pressed" from="Preturn/ReadyButton" to="." method="_on_ReadyButton_pressed"]
-[connection signal="pressed" from="Turn/EndTurnButton" to="." method="_on_EndTurnButton_pressed"]
 [connection signal="timeout" from="DeathToast/DeathToastTimer" to="." method="_on_DeathToastTimer_timeout"]
+[connection signal="timeout" from="WipeToast/WipeToastTimer" to="." method="_on_WipeToastTimer_timeout"]

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/firework-pop.mp3-e1838fa8e6921f13174899849d1a7c0a.mp3str"
+
+[deps]
+
+source_file="res://SFX/firework-pop.mp3"
+dest_files=[ "res://.import/firework-pop.mp3-e1838fa8e6921f13174899849d1a7c0a.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

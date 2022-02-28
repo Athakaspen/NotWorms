@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/munch1.mp3-5740239d0dddc4ab59daed2310b8ef12.mp3str"
+
+[deps]
+
+source_file="res://SFX/munch1.mp3"
+dest_files=[ "res://.import/munch1.mp3-5740239d0dddc4ab59daed2310b8ef12.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

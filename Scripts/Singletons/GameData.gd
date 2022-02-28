@@ -5,33 +5,46 @@ extends Node
 var WeaponData = {
 	"bomb":{
 		"pretty_name": "Bouncy Bomb",
-		"description": "Not the best weapon, but you seem to have a lot of these.\nBlows up after 3 seconds.",
+		"description": "Not the best, but you seem to have a lot of these.\nBlows up after 3 seconds.",
 		"damage": "XX",
-		"icon": "res://icon.png",
+		"icon": "res://Sprites/bomb.png",
 		"resource": "res://SubScenes/Weapons/BouncyBomb.tscn"
 	},
 	"rocket":{
 		"pretty_name": "Rocket Launcher",
-		"description": "Long Range!\nExplodes on Impact!",
+		"description": "Long Range! Explodes on Impact!\n(Rocket Jumping not covered under warranty)",
 		"damage": "XX",
-		"icon": "res://icon.png",
+		"icon": "res://Sprites/rocket.png",
 		"resource": "res://SubScenes/Weapons/RocketLauncher.tscn"
 	},
 	"candle":{
 		"pretty_name": "Roman Candle",
-		"description": "Barrage of rapid-fire,\nlow-damage projectiles.",
+		"description": "Barrage of low-damage,\nshort-range projectiles.",
 		"damage": "XX",
-		"icon": "res://icon.png",
+		"icon": "res://Sprites/candle.png",
 		"resource": "res://SubScenes/Weapons/RomanCandle.tscn"
 	},
 	"bag":{
 		"pretty_name": "Bomb Bag",
 		"description": "Found in a cave somewhere.\nReleases bombs on impact.",
 		"damage": "XX",
-		"icon": "res://icon.png",
+		"icon": "res://Sprites/bag.png",
 		"resource": "res://SubScenes/Weapons/BombBag.tscn"
 	}
 }
+
+var PossibleChests = [
+	{"rocket": 1},
+	{"candle": 1},
+	{"bag": 1},
+	{"rocket": 2},
+	{"candle": 2},
+	{"bag": 2},
+	{"rocket": 1, "candle": 1},
+	{"candle": 1, "bag": 1},
+	{"rocket": 1, "bag": 1},
+	{"rocket": 1, "candle": 1, "bag": 1}
+]
 
 var PlayerModels = {
 	"chicken1": "res://SubScenes/PlayerModels/Chicken1.tscn",
@@ -44,6 +57,25 @@ var PlayerModels = {
 
 var TeamIDs = ["normal", "red", "blue", "green"]
 
+# Map info
+var Maps = {
+	"The Garden": {
+		"path": "res://MainScenes/Maps/Map1.tscn",
+		"image": "res://Sprites/Map1.png"
+	},
+	"Tilted Towers": {
+		"path": "res://MainScenes/Maps/Map4.tscn",
+		"image": "res://Sprites/Map4.png"
+	},
+	"Final Destination": {
+		"path": "res://MainScenes/Maps/Map2.tscn",
+		"image": "res://Sprites/Map2.png"
+	},
+	"Hell in a Cell": {
+		"path": "res://MainScenes/Maps/Map3.tscn",
+		"image": "res://Sprites/Map3.png"
+	}
+}
 
 
 # Called when the node enters the scene tree for the first time.

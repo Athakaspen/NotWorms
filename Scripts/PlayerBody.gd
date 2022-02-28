@@ -22,6 +22,12 @@ export var JUMP_COST := 15.0
 export var STAMINA_REGEN := 32.0 # per second
 var cur_stamina = MAX_STAMINA
 
+#var jump_SFX_res = [
+#	preload("res://SFX/flap1.mp3"),
+#	preload("res://SFX/flap2.mp3"),
+#	preload("res://SFX/flap3.mp3")
+#]
+
 onready var parent = $".."
 onready var jump_timer = $JumpTimer
 onready var aim_point = $AimPointHolder/AimPoint
@@ -77,6 +83,7 @@ func set_state_preturn():
 	STATE = State.PRETURN
 	aim_point.visible = true
 	cur_stamina = MAX_STAMINA
+#	print(parent.inventory_contents)
 	if parent.inventory_contents[cur_weapon.id_string] == 0:
 		switch_weapon(default_weapon)
 	$RotPoint.visible = true
@@ -206,6 +213,9 @@ func do_jump():
 	for body in get_colliding_bodies():
 		if body.is_in_group("Ground"): grounded = true
 	
+	# SFX
+#	MatchInfo.do_sound_effect(Utilities.rand_choice(jump_SFX_res), global_position, 4.0)
+	
 	if grounded:
 		# Full jump
 		apply_central_impulse(Vector2.UP * jump_force * mass)
@@ -245,7 +255,8 @@ func load_player_model(model_id : String, team : String = "normal"):
 	model.remove_child(collider)
 	add_child(collider)
 	
-	parent.set_gamertag(model.name)
+	# Get unique name
+	parent.set_gamertag(MatchInfo.get_unique_tag(model.name))
 	
 	# free model to prevent leaks
 	model.queue_free()

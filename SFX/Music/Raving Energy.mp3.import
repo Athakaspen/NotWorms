@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Raving Energy.mp3-8425794cfd57ed6bcd9e85504dc82121.mp3str"
+
+[deps]
+
+source_file="res://SFX/Music/Raving Energy.mp3"
+dest_files=[ "res://.import/Raving Energy.mp3-8425794cfd57ed6bcd9e85504dc82121.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

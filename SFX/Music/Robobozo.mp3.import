@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Robobozo.mp3-8270ac1c375ee4b427274f801baf5b27.mp3str"
+
+[deps]
+
+source_file="res://SFX/Music/Robobozo.mp3"
+dest_files=[ "res://.import/Robobozo.mp3-8270ac1c375ee4b427274f801baf5b27.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

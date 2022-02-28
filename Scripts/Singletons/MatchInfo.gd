@@ -8,9 +8,19 @@ var death_order = []
 
 var player_info = {}
 
+# stats
+var damage_dealt = {}
+var killed_by = {}
+var kill_count = {}
+
 var player_models = ["chicken1", "chicken1", "chicken1", "chicken1", "chicken1", "chicken1"]
 var player_teams = ["normal", "normal", "normal", "normal", "normal", "normal"]
 var player_res = preload("res://SubScenes/Player/Player.tscn")
+
+var SFX_res = preload("res://SFX/ExplosionSFX1.tscn")
+
+#this is used to give everyone unique tags
+var used_tags = []
 
 var projectile_holder : Node2D
 var terrain_holder : Node2D
@@ -39,9 +49,15 @@ var turn_duration : float = 12.0
 var coyote_time : float = 0.25
 # Starting health of each player
 var starting_health : int = 100
+# How often chests will drop
+# values are "rare", "normal", "max"
+# ACTUALLY, applies to all items
+var chest_freq = "normal"
+#The music track to play
+var music_track : String = "Random"
 
 var starting_inventory = {
-	"bomb": 69,
+	"bomb": 690,
 	"rocket": 1,
 	"candle": 1,
 	"bag": 1
@@ -60,11 +76,13 @@ func _ready():
 # Get information at the start of a match
 func initialize_match(turn_queue:TurnQueue) -> void:
 	# Reset values
+	player_info = {}
 	winners_list = []
 	winner_tags_list = []
 	winning_team = "NULL"
 #	print(num_players)
 	var player_list = []
+	used_tags = []
 	for i in range(num_players):
 		var new_player = player_res.instance()
 		turn_queue.add_child(new_player)
@@ -74,8 +92,23 @@ func initialize_match(turn_queue:TurnQueue) -> void:
 		new_player.health = starting_health
 		# Create a dict of the players to reference later
 		player_info[new_player.name] = new_player
+		# init stats
+		damage_dealt[new_player.name] = 0
+		kill_count[new_player.name] = 0
+		killed_by[new_player.name] = "UNDEFINED"
 		# This is redundant and bad, but it's for spawnpoints below
 		player_list.append(new_player)
+	kill_count["UNDEFINED"] = 0
+	damage_dealt["UNDEFINED"] = 0
+	
+	# Start Music
+	Music.stop_music()
+	if music_track == "Random":
+		Music.start_random_music()
+	elif music_track == "None":
+		pass
+	else:
+		Music.start_music(music_track)
 	
 	# Place players at spawn points
 	# This is gonna get messy
@@ -124,17 +157,54 @@ func initialize_match(turn_queue:TurnQueue) -> void:
 	chest_holder = turn_queue.level.get_node("ChestHolder")
 	chest_spawner = turn_queue.level.get_node("ChestSpawner")
 	game_camera = turn_queue.level.get_node("GameCamera")
-	
 
+func get_unique_tag(tag:String):
+	if tag in used_tags:
+		var i=1
+		while tag + str(i) in used_tags:
+			i+=1
+		tag = tag + str(i)
+	used_tags.append(tag)
+	return tag
 
 func get_starting_inventory() -> Dictionary:
 	return starting_inventory.duplicate()
 
 func get_chest_contents() -> Dictionary:
-	return Utilities.rand_choice([{"rocket": 1}, {"candle": 1}, {"bag": 1}])
+	return Utilities.rand_choice(GameData.PossibleChests).duplicate()
 
 func get_turns_til_next_chest() -> int:
+	match chest_freq:
+		"rare":
+			return randi() % 4 + 4
+		"normal":
+			return randi() % 3 + 2
+		"max":
+			return 1
+	print("Unexpected chest_freq, defaulting to normal")
 	return randi() % 3 + 1
+
+func get_turns_til_next_barrel() -> int:
+	match chest_freq:
+		"rare":
+			return randi() % 6 + 4
+		"normal":
+			return randi() % 4 + 3
+		"max":
+			return 1
+	print("Unexpected chest_freq, defaulting to normal")
+	return randi() % 4 + 2
+
+func get_turns_til_next_lettuce() -> int:
+	match chest_freq:
+		"rare":
+			return randi() % 6 + 4
+		"normal":
+			return randi() % 3 + 3
+		"max":
+			return 1
+	print("Unexpected chest_freq, defaulting to normal")
+	return randi() % 3 + 3
 
 # Set the name of the winner, for use on winscreen
 func add_winner_name(playername:String):
@@ -148,7 +218,10 @@ func set_winning_team(team:String):
 
 func get_win_text() -> String:
 	if TEAM_MODE == "off":
-		return winner_tags_list[0] + " Wins!"
+		if winner_tags_list == []:
+			return "ENTROPY ALWAYS WINS"
+		else:
+			return winner_tags_list[0] + " Wins!"
 	else:
 		match winning_team:
 			"red":
@@ -157,8 +230,21 @@ func get_win_text() -> String:
 				return "The BLUE Team Wins!"
 			"green":
 				return "The GREEN Team Wins!"
-	return "A WINNER IS YOU"
+	return "ENTROPY ALWAYS WINS"
 
 # Record a death, for potential use later
-func rec_death(playername:String):
-	death_order.append(playername)
+func rec_death(dead_player:String, killing_player:String = "UNDEFINED"):
+	death_order.append(dead_player)
+	kill_count[killing_player] += 1
+	killed_by[dead_player] = killing_player
+
+# warning-ignore:unused_argument
+func rec_damage(victim:String, culprit:String, amount:int):
+	damage_dealt[culprit] += amount
+
+func do_sound_effect(stream:AudioStream, position:Vector2, volume:float=0.0):
+	var sfx = SFX_res.instance()
+	sfx.position = position
+	sfx.stream = stream
+	sfx.volume_db = volume
+	MatchInfo.chest_holder.call_deferred("add_child", sfx)

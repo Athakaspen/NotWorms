@@ -17,6 +17,7 @@ color = Color( 0.0705882, 0.105882, 0.384314, 1 )
 polygon = PoolVector2Array( -3, 11, -8, 7, -10, 2, -9, -3, -7, -6, -2, -9, -2, -12, 2, -12, 2, -9, 7, -7, 9, -3, 10, 3, 8, 6, 6, 9, 3, 11 )
 
 [node name="Fuse" type="Polygon2D" parent="BombGraphic"]
+color = Color( 0.564706, 0.564706, 0.564706, 1 )
 polygon = PoolVector2Array( -1, -12, -1, -15, -4, -19, -2, -21, 1, -16, 1, -12 )
 
 [node name="ShootPoint" type="Position2D" parent="."]

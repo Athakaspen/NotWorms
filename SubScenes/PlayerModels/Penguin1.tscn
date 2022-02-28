@@ -3,7 +3,6 @@
 [node name="Pengu" type="Node2D"]
 
 [node name="normal" type="Polygon2D" parent="."]
-visible = false
 position = Vector2( -6, 11 )
 scale = Vector2( 2.53846, 2.53846 )
 z_index = -5
@@ -78,6 +77,7 @@ color = Color( 0, 0.392157, 1, 1 )
 polygon = PoolVector2Array( -5.51515, -9.06061, -7, -7, -11.4242, -5.12122, -6.30303, -5.90909, -4.72728, -8.27273 )
 
 [node name="green" type="Polygon2D" parent="."]
+visible = false
 position = Vector2( -6, 11 )
 scale = Vector2( 2.53846, 2.53846 )
 z_index = -5

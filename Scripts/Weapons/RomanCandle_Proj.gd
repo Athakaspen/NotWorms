@@ -1,12 +1,15 @@
 extends RigidBody2D
 
-var explosion_radius = 24
+var explosion_radius = 30
 var detection_margin = 30
 var explosion_poly
 
-var explosion_force = 160
+var explosion_force = 150
 var explosion_damage = 0 # This will be set by the gun
 var owning_player = "UNDEFINED"
+
+var explosion_particles_res = preload("res://SubScenes/Weapons/ExplosionParticles.tscn")
+var SFX_res = preload("res://SFX/firework-pop.mp3")
 
 # If we hit nothing in this long, explode
 var explosion_delay = 0.6
@@ -25,9 +28,12 @@ func _ready() -> void:
 	# Backup kill fuse
 	$Timer.start(explosion_delay)
 	
+	#Vibrate controller
+	Input.start_joy_vibration(0, 1.0, 1.0, 0.2)
+	
 	# This code taken directly from the destructible terrain demo
 	# Actual explotion poly
-	var nb_points = 16
+	var nb_points = 20
 	var points = PoolVector2Array()
 	for i in range(nb_points+1):
 		var point = deg2rad(i * 360.0 / nb_points - 90)
@@ -67,9 +73,11 @@ func explode() -> void:
 	# TODO: Add a list of bodies that were created this frame,
 	# and check all of those too
 	
+	var hit_terrain := false
 	for body in $DetectionArea.get_overlapping_bodies():
 		if body.is_in_group("Destructible"):
 			body.get_parent().clip(body, $ExplosionArea/ExplosionPoly)
+			hit_terrain = true
 		
 		elif body in $ExplosionArea.get_overlapping_bodies():
 			if body.is_in_group("Knockback"):
@@ -81,11 +89,26 @@ func explode() -> void:
 #					body.apply_central_impulse( \
 #						(body.global_position - global_position).normalized() * explosion_force * -.2)
 			if body.is_in_group("Damageable"):
+				var affected_node
+				if body.has_method("do_damage"):
+					affected_node = body
+				else: 
+					affected_node = body.get_parent()
 				# Do less damage to owner
-				if body.get_parent().name != owning_player:
-					body.get_parent().do_damage(explosion_damage)
+				if affected_node.name != owning_player:
+					affected_node.do_damage(explosion_damage, owning_player)
 				else:
-					body.get_parent().do_damage(explosion_damage*0.4)
+					affected_node.do_damage(explosion_damage*0.4, owning_player)
+	
+	# Explosion Particle effect
+	var particles = explosion_particles_res.instance()
+	particles.set_radius(explosion_radius)
+	particles.position = position
+	if not hit_terrain: particles.set_dirt_visible(false)
+	MatchInfo.projectile_holder.call_deferred("add_child", particles)
+	
+	# SFX
+	MatchInfo.do_sound_effect(SFX_res, position, 5.0)
 	
 	call_deferred("queue_free")
 

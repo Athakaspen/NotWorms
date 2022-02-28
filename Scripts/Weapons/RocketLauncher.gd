@@ -14,6 +14,8 @@ var projectile_gravity := 6.0
 var traj_length := 0.8
 
 var projectile_res = preload("res://SubScenes/Weapons/RocketLauncher_Proj.tscn")
+#var SFX_res = preload("res://SFX/RocketLaunch.mp3")
+var SFX_res = preload("res://SFX/rocket-takeoff.mp3")
 
 onready var shoot_point = $ShootPoint
 onready var traj_line = $TrajectoryLine
@@ -42,6 +44,9 @@ func do_shoot(dist : float) -> bool:
 		if body.is_in_group("Ground") or body.is_in_group("Player"):
 			p.explode()
 			break
+	
+	# SFX
+	MatchInfo.do_sound_effect(SFX_res, global_position, 4.0)
 	
 	# Push owner backwards
 	$"../..".apply_central_impulse(-p.transform.x * shoot_velocity * 0.5)

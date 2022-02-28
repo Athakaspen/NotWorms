@@ -36,7 +36,7 @@ func _ready():
 	health = MAX_HEALTH
 	update_healthbar()
 	inventory_contents = MatchInfo.get_starting_inventory()
-	player_body.load_player_model(player_model)
+#	player_body.load_player_model(player_model)
 
 func _process(_delta):
 	# ah cahnt dyu aneethin if ahm ded
@@ -144,6 +144,9 @@ func get_body() -> Node:
 func get_gamertag() -> String:
 	return tag.get_node("VBoxContainer/Nametag").text
 
+func set_gamertag(gamertag: String) -> void:
+	tag.set_player_name(gamertag)
+
 func get_timer_progress() -> float:
 	# Return 1 if the timer is stopped (hasn't started yet)
 	if turn_timer.is_stopped(): return 1.0
@@ -152,13 +155,16 @@ func get_timer_progress() -> float:
 	return clamp((turn_timer.time_left - MatchInfo.coyote_time) \
 		/ (turn_timer.wait_time - MatchInfo.coyote_time), 0, 1)
 
-func do_damage(value:int) -> void:
+func do_damage(value:int, source_player:String = "UNDEFINED") -> void:
 	
 	if is_invincible: return
 	if is_dead: return
 	
 	# decrease health
 	health = int(clamp(health-value, 0, MAX_HEALTH))
+	
+	# update stats
+	MatchInfo.rec_damage(self.name, source_player, value)
 	
 	# create popup
 	var damage_popup = damage_popup_res.instance()
@@ -172,10 +178,21 @@ func do_damage(value:int) -> void:
 	update_healthbar()
 	
 	if health == 0:
-		die()
+		die(source_player)
 
-func set_gamertag(gamertag: String) -> void:
-	tag.set_player_name(gamertag)
+func heal(amount: int):
+	health = int(clamp(health+amount, 0, MAX_HEALTH))
+	
+	# create popup
+	var damage_popup = damage_popup_res.instance()
+	damage_popup.set_text("-" + str(amount))
+	damage_popup.set_color(Color.green)
+	damage_popup.set_lifespan(1.0)
+	damage_popup.position = player_body.position \
+		+ Vector2(rand_range(-20, 20), rand_range(-10, 10))
+	get_parent().level.add_child(damage_popup)
+	
+	update_healthbar()
 
 func set_team(new_team : String):
 	self.team = new_team
@@ -195,16 +212,25 @@ func update_staminabar():
 	tag.set_stamina_bar_value(player_body.get_stamina_percent())
 
 # TODO: Death... State? Turn? Basically need to delete self more carefully
-func die():
+func die(source_player : String):
 	if is_dead: return
 	is_dead = true
 	turn_queue.level.UI.do_deathtoast(get_gamertag())
-	MatchInfo.rec_death(name)
+	MatchInfo.rec_death(name, source_player)
 	
 	# add the grave
 	var grave = grave_res.instance()
 	grave.position = player_body.position
 	MatchInfo.chest_holder.call_deferred("add_child", grave)
+	
+	# Check for team wipe
+	if MatchInfo.TEAM_MODE != "off":
+		var is_team_wipe = true
+		for player in MatchInfo.player_info.values():
+			if player.team == self.team and not player.is_dead:
+				is_team_wipe = false
+		if is_team_wipe:
+			turn_queue.level.UI.do_wipetoast(team)
 	
 	if not is_my_turn:
 		

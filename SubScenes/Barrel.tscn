@@ -1,0 +1,87 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Barrel.gd" type="Script" id=1]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 217.0
+
+[node name="Barrel" type="RigidBody2D" groups=["Barrel", "Damageable"]]
+mass = 3.0
+gravity_scale = 6.0
+can_sleep = false
+script = ExtResource( 1 )
+
+[node name="Barrel" type="Polygon2D" parent="."]
+scale = Vector2( 1.6, 1.6 )
+color = Color( 1, 0, 0, 1 )
+polygon = PoolVector2Array( -15, 19, 15, 19, 16, 16, 17, 8, 17, -10, 16, -18, 15, -21, -15, -21, -16, -18, -17, -10, -17, 8, -16, 16 )
+
+[node name="Bands" type="Polygon2D" parent="Barrel"]
+position = Vector2( 0, -1 )
+color = Color( 0.568627, 0, 0, 1 )
+polygon = PoolVector2Array( -16, -20, -16, -17, 16, -17, 16, -20 )
+
+[node name="Bands2" type="Polygon2D" parent="Barrel"]
+position = Vector2( -1, 35 )
+color = Color( 0.568627, 0, 0, 1 )
+polygon = PoolVector2Array( -15, -19, -15, -16, 17, -16, 17, -19 )
+
+[node name="Bands3" type="Polygon2D" parent="Barrel"]
+position = Vector2( -1, 24 )
+color = Color( 0.568627, 0, 0, 1 )
+polygon = PoolVector2Array( -16, -19, -16, -16, -5, -16, 7, -16, 18, -16, 18, -19, 7, -19, -5, -19 )
+
+[node name="Bands4" type="Polygon2D" parent="Barrel"]
+position = Vector2( -1, 10 )
+color = Color( 0.568627, 0, 0, 1 )
+polygon = PoolVector2Array( -16, -20, -16, -17, -5, -17, 7, -17, 18, -17, 18, -20, 7, -20, -5, -20 )
+
+[node name="Polygon2D" type="Polygon2D" parent="Barrel"]
+color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( -6, 4, 6, 4, 0, -6 )
+
+[node name="Polygon2D2" type="Polygon2D" parent="Barrel"]
+color = Color( 1, 0.843137, 0, 1 )
+polygon = PoolVector2Array( -4, 3, 4, 3, 0, -4 )
+
+[node name="Polygon2D3" type="Polygon2D" parent="Barrel"]
+color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( 0, 1, 0, 1, 1, -2, 0, -2, -1, -2 )
+
+[node name="Polygon2D4" type="Polygon2D" parent="Barrel"]
+position = Vector2( 0, 2 )
+color = Color( 0, 0, 0, 1 )
+polygon = PoolVector2Array( -1, 0, 0, 1, 1, 0, 0, -1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+visible = false
+scale = Vector2( 1.6, 1.6 )
+polygon = PoolVector2Array( -16, 19, -17, 8, -17, -10, -16, -21, 16, -21, 17, -10, 17, 8, 16, 19 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+autostart = true
+
+[node name="DetectionArea" type="Area2D" parent="."]
+visible = false
+
+[node name="DetectionPolygon" type="CollisionPolygon2D" parent="DetectionArea"]
+polygon = PoolVector2Array( 21, -251, 147, -223, 234, -102, 244, 78, 122, 219, -46, 229, -183, 174, -253, 51, -236, -119, -99, -230 )
+
+[node name="ExplosionArea" type="Area2D" parent="."]
+visible = false
+
+[node name="ExplosionPoly" type="CollisionPolygon2D" parent="ExplosionArea"]
+scale = Vector2( 2.6, 2.6 )
+polygon = PoolVector2Array( -51, 61, -52, 40, -77, 43, -65, 20, -83, 4, -64, -10, -81, -26, -62, -38, -54, -54, -41, -49, -33, -72, -15, -65, 2, -80, 13, -75, 19, -66, 53, -70, 45, -44, 70, -43, 61, -24, 83, -15, 77, -2, 63, 7, 80, 26, 53, 30, 58, 60, 29, 51, 23, 67, 8, 80, -7, 62, -27, 75, -27, 51 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 1 )
+disabled = true
+
+[node name="DelayTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

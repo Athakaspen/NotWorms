@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/RocketLaunch.mp3-9e39fe9e2cd50eeb82079f76565deb4b.mp3str"
+
+[deps]
+
+source_file="res://SFX/RocketLaunch.mp3"
+dest_files=[ "res://.import/RocketLaunch.mp3-9e39fe9e2cd50eeb82079f76565deb4b.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

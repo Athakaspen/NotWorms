@@ -84,7 +84,7 @@ func _change_char(offset:int):
 	$Label.text = player_model.name
 	update_portrait()
 	_change_team(0) # update the new model to the current team
-	emit_signal("character_changed", get_index()-1, char_list[_cur_char_index])
+	emit_signal("character_changed", get_index(), char_list[_cur_char_index])
 
 func _change_team(offset:int):
 	_cur_team_index = \
@@ -96,7 +96,7 @@ func _change_team(offset:int):
 		child.visible = false
 	player_model.get_node(team_list[_cur_team_index]).visible = true
 	update_team_text()
-	emit_signal("team_changed", get_index()-1, team_list[_cur_team_index])
+	emit_signal("team_changed", get_index(), team_list[_cur_team_index])
 
 func update_team_text():
 	if _is_active:
@@ -109,7 +109,7 @@ func set_team_mode(mode : String):
 		"off":
 			MIN_TEAM_IDX = 0
 			MAX_TEAM_IDX = len(team_list)-1
-			$Team.visible = false
+			$Team.visible = true
 		"two":
 			MIN_TEAM_IDX = 1
 			MAX_TEAM_IDX = 2
@@ -118,6 +118,7 @@ func set_team_mode(mode : String):
 			MIN_TEAM_IDX = 1
 			MAX_TEAM_IDX = 3
 			$Team.visible = true
+# warning-ignore:narrowing_conversion
 	_cur_team_index = clamp(_cur_team_index, MIN_TEAM_IDX, MAX_TEAM_IDX)
 	_change_team(0)
 
@@ -149,7 +150,11 @@ func _set_sticky(value : bool):
 func _on_focus_entered():
 	_is_focused = true
 	$Label.modulate = color_focused
+	$Team.modulate = color_focused
+	$UpArrow.modulate = color_focused
+	$DownArrow.modulate = color_focused
 
 func _on_focus_exited():
 	_is_focused = false
 	$Label.modulate = color_normal
+	$Team.modulate = color_normal

@@ -29,18 +29,25 @@ func _ready():
 	self.visible = false
 	
 	$DeathToast.visible = false
+	$WipeToast.visible = false
 	$Inventory.visible = false
 
 func _input(event):
 	# This is really bad, should be updated
-	if event.is_action_pressed("ready") and $Preturn.visible and $Preturn/ReadyButton.visible:
-		emit_signal("start_turn")
+#	if event.is_action_pressed("ready") and $Preturn.visible and $Preturn/ReadyButton.visible:
+#		emit_signal("start_turn")
 #	if event.is_action_pressed("ready") and $Turn.visible and $Turn/EndTurnButton.visible:
 #		_on_EndTurnButton_pressed()
 	if event.is_action_pressed("menu_next") and in_inventory:
 		next_weapon()
 	if event.is_action_pressed("menu_prev") and in_inventory:
 		prev_weapon()
+	if event.is_action_pressed("view_controls") and in_inventory:
+		$Inventory/Controls.visible = true
+		$Inventory/CenterContainer.visible = false
+	elif event.is_action_released("view_controls") and in_inventory:
+		$Inventory/Controls.visible = false
+		$Inventory/CenterContainer.visible = true
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
@@ -50,13 +57,24 @@ func set_timer_progress(value:float):
 
 func set_current_player_name(value:String):
 	cur_player = value
-	$Turn/TurnLabelCorner.text = cur_player + "'s Turn!"
-	$Preturn/TurnLabelCenter.text = cur_player + "'s Turn!"
+	$Turn/TurnLabelCorner.text = cur_player + "'s Turn"
+	$Preturn/TurnLabelCenter.text = cur_player + "'s Turn"
 
 func do_deathtoast(playername:String) -> void:
 	$DeathToast/Text.text = playername + " has Died!"
 	$DeathToast.visible = true
 	$DeathToast/DeathToastTimer.start()
+
+func do_wipetoast(team:String) -> void:
+	match team:
+		"red" : 
+			$WipeToast/Text.text = "The Red Team has been Eliminated!"
+		"blue" : 
+			$WipeToast/Text.text = "The Blue Team has been Eliminated!"
+		"green" : 
+			$WipeToast/Text.text = "The Green Team has been Eliminated!"
+	$WipeToast.visible = true
+	$WipeToast/WipeToastTimer.start()
 
 func init_preturn():
 	in_postturn = false
@@ -69,6 +87,7 @@ func init_preturn():
 	yield(get_tree().create_timer(1.0), "timeout")
 	if in_preturn:
 		$Preturn/ReadyButton.visible = true
+		$Preturn/ReadyButton.grab_focus()
 
 func init_turn():
 	in_preturn = false
@@ -78,11 +97,13 @@ func init_turn():
 	
 	$Turn/TurnTimer.visible = true
 	
+	$Turn/EndTurnLabel.visible = true
+	
 	# wait a sec before showing the end turn button
-	$Turn/EndTurnButton.visible = false
-	yield(get_tree().create_timer(1.0), "timeout")
-	if in_turn:
-		$Turn/EndTurnButton.visible = true
+#	$Turn/EndTurnLabel.visible = false
+#	yield(get_tree().create_timer(1.0), "timeout")
+#	if in_turn:
+#		$Turn/EndTurnLabel.visible = true
 
 func show_inventory(inventory_data, cur_weapon):
 	assert(in_turn or in_preturn, \
@@ -90,10 +111,15 @@ func show_inventory(inventory_data, cur_weapon):
 	update_inventory(inventory_data, cur_weapon)
 	$Inventory.visible = true
 	in_inventory = true
+	# Default to normal inventory
+	$Inventory/Controls.visible = false
+	$Inventory/CenterContainer.visible = true
+#	Music.set_speed(0.9)
 
 func hide_inventory() -> String:
 	$Inventory.visible = false
 	in_inventory = false
+#	Music.set_speed(1.0)
 	if cur_entry == null:
 		return "UNDEFINED"
 	return cur_entry.id_string
@@ -102,6 +128,8 @@ func update_inventory(data, cur_weapon):
 	# Clear the existing list
 	Utilities.queue_free_children(inv_list)
 	
+	# whether we found the cur_weapon in the list
+	var weapon_found = false
 	for weapon in data:
 		if data[weapon] > 0:
 			# Create an inventory entry for each weapon with more than 1 ammo
@@ -114,11 +142,15 @@ func update_inventory(data, cur_weapon):
 			new_entry.set_icon(GameData.WeaponData[weapon]["icon"])
 			inv_list.add_child(new_entry)
 			if weapon == cur_weapon:
+				weapon_found = true
 				new_entry.set_active(true)
 				cur_entry = new_entry
 				inv_info_name.text = cur_entry.pretty_name
 				inv_info_desc.text = cur_entry.description
 				inv_info_count.text = str(cur_entry.count)
+	
+	if not weapon_found:
+		cur_entry = inv_list.get_child(0)
 #	$Inventory/CenterContainer/VBoxContainer/Name.text = str(data["bomb"]["pretty_name"])
 #	$Inventory/CenterContainer/VBoxContainer/Description.text = str(data["candle"]["description"])
 #	$Inventory/CenterContainer/VBoxContainer/Count.text = str(data["rocket"]["count"])
@@ -144,13 +176,17 @@ func init_postturn():
 	in_turn = false
 	in_postturn = true
 	$Turn/TurnTimer.visible = false
-	$Turn/EndTurnButton.visible = false
+	$Turn/EndTurnLabel.visible = false
+	$Turn.visible = false
 
 #func _on_EndTurnButton_pressed():
 #	level.turn_queue.end_turn()
-#
-#func _on_ReadyButton_pressed():
-#	emit_signal("start_turn")
+
+func _on_ReadyButton_pressed():
+	emit_signal("start_turn")
 
 func _on_DeathToastTimer_timeout():
 	$DeathToast.visible = false
+
+func _on_WipeToastTimer_timeout():
+	$WipeToast.visible = false
